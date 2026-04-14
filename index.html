@@ -1,4 +1,6 @@
-<html lang="en"><head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -9,8 +11,8 @@
 :root{--bg:#F0ECFF;--card:#FFF;--bdr:#DDD6FF;--shd:#C4BAFF;--pur:#5E35B1;--purl:#7C4DFF;--purm:#9575CD;--purll:#EDE7F6;--purd:#3E1F8A;--yel:#FFB300;--yeld:#E65100;--grn:#00897B;--grnl:#E0F2F1;--grnb:#80CBC4;--grnd:#004D40;--ind:#3949AB;--indl:#E8EAF6;--indb:#9FA8DA;--indd:#1A237E;--red:#E53935;--redl:#FFEBEE;--redb:#FFCDD2;--redd:#B71C1C;--tx:#1A0533;--tx2:#5D4777;--tx3:#B39DDB}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;background:#E0D9F7;display:flex;align-items:center;justify-content:center;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;overscroll-behavior:none}
-#app{width:100%;max-width:430px;height:100dvh;height:100vh;display:flex;flex-direction:column;overflow:hidden;background:var(--bg)}
-@media(min-width:431px){#app{max-width:390px;height:min(844px,100dvh);border-radius:28px;border:2px solid var(--bdr);box-shadow:0 20px 60px rgba(94,53,177,.25),0 8px 0 var(--shd)}body{background:#D0C9EF}}
+#app{width:100%;max-width:430px;height:100dvh;height:100%;min-height:100vh;display:flex;flex-direction:column;overflow:hidden;background:var(--bg)}
+@media(min-width:431px){#app{max-width:430px;height:100dvh;border-radius:0;border:none;box-shadow:none}body{background:#E0D9F7}}
 .scr{flex:1;overflow:hidden;display:none;flex-direction:column;background:var(--bg)}.scr.on{display:flex}
 .scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}.scroll::-webkit-scrollbar{display:none}
 .hdr{padding:14px 20px 12px;padding-top:calc(14px + env(safe-area-inset-top,0px));background:var(--card);border-bottom:2px solid var(--bdr);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
@@ -104,7 +106,7 @@ html,body{height:100%;background:#E0D9F7;display:flex;align-items:center;justify
 <body>
 <div id="app">
 
-<div id="api-setup" class="done">
+<div id="api-setup">
   <div style="max-width:380px;width:100%;display:flex;flex-direction:column;gap:20px">
     <div>
       <div style="font-size:38px;font-weight:700;color:var(--pur);margin-bottom:6px">LangAI</div>
@@ -112,7 +114,7 @@ html,body{height:100%;background:#E0D9F7;display:flex;align-items:center;justify
     </div>
     <div style="padding:14px;background:var(--card);border:2px solid var(--bdr);border-radius:16px;font-size:13px;color:var(--tx2);line-height:1.7">
       <strong style="color:var(--tx)">Get your API key:</strong><br>
-      Go to <strong style="color:var(--pur)">console.anthropic.com</strong> → API Keys → Create Key<br>
+      Go to <strong style="color:var(--pur)">console.anthropic.com</strong> &rarr; API Keys &rarr; Create Key<br>
       <span style="font-size:11px;color:var(--tx3)">~$0.01 per lesson. Cached forever after first load.</span>
     </div>
     <input class="inp" id="key-inp" type="password" placeholder="sk-ant-api03-...">
@@ -121,21 +123,21 @@ html,body{height:100%;background:#E0D9F7;display:flex;align-items:center;justify
   </div>
 </div>
 
-<div class="scr" id="s-home">
+<div class="scr on" id="s-home">
   <div class="hdr">
-    <div><div class="ht" id="h-gr">Good evening</div><div class="hs" id="h-ll">Learning Spanish</div></div>
+    <div><div class="ht" id="h-gr">Good morning</div><div class="hs" id="h-ll">Learning Spanish</div></div>
     <div class="lvlb b1" id="h-lb" style="font-size:12px;padding:4px 12px">Level 1</div>
   </div>
   <div class="body">
     <div style="background:var(--yel);border:2.5px solid var(--yeld);border-radius:22px;box-shadow:0 6px 0 var(--yeld);padding:18px 20px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0">
       <div>
         <div style="font-size:10px;font-weight:600;color:var(--yeld);text-transform:uppercase;letter-spacing:.1em;margin-bottom:2px">Day streak</div>
-        <div style="font-size:52px;font-weight:700;color:var(--tx);line-height:1" id="h-str">1</div>
-        <div style="font-size:18px;color:var(--yeld);letter-spacing:4px;margin-top:4px" id="h-stars">★</div>
+        <div style="font-size:52px;font-weight:700;color:var(--tx);line-height:1" id="h-str">0</div>
+        <div style="font-size:18px;color:var(--yeld);letter-spacing:4px;margin-top:4px" id="h-stars"></div>
       </div>
       <div style="text-align:right">
-        <div style="font-size:12px;color:var(--yeld);margin-bottom:8px;font-weight:500" id="h-date">Tue, Apr 14</div>
-        <div style="background:var(--yeld);color:#fff;padding:7px 16px;border-radius:12px;font-size:13px;font-weight:600" id="h-enc">Keep going!</div>
+        <div style="font-size:12px;color:var(--yeld);margin-bottom:8px;font-weight:500" id="h-date">Today</div>
+        <div style="background:var(--yeld);color:#fff;padding:7px 16px;border-radius:12px;font-size:13px;font-weight:600" id="h-enc">Start today!</div>
       </div>
     </div>
     <div style="background:var(--pur);border:2.5px solid var(--purd);border-radius:22px;box-shadow:0 6px 0 var(--purd);padding:18px 20px;flex-shrink:0">
@@ -157,16 +159,16 @@ html,body{height:100%;background:#E0D9F7;display:flex;align-items:center;justify
       </div>
     </div>
     <button class="bp" id="h-btn-talk">
-      <svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"></path><path d="M19 10v2a7 7 0 01-14 0v-2M12 19v4M8 23h8"></path></svg>
+      <svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2M12 19v4M8 23h8"/></svg>
       Talk with AI Tutor
     </button>
     <div class="agrid">
       <button class="ac acg" id="h-btn-lessons">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="margin-bottom:8px"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"></path><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"></path></svg>
-        <div>Lessons</div><div style="font-size:11px;margin-top:3px;opacity:.75" id="h-ll2">Lesson 1 of 100</div>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="margin-bottom:8px"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+        <div>Lessons</div><div style="font-size:11px;margin-top:3px;opacity:.75" id="h-ll2">100 lessons</div>
       </button>
       <button class="ac aci" id="h-btn-cards">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="margin-bottom:8px"><rect x="2" y="7" width="20" height="14" rx="2"></rect><path d="M7 7V5a2 2 0 012-2h6a2 2 0 012 2v2"></path></svg>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="margin-bottom:8px"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M7 7V5a2 2 0 012-2h6a2 2 0 012 2v2"/></svg>
         <div>Flashcards</div><div style="font-size:11px;margin-top:3px;opacity:.75" id="h-kn-lbl">0 known</div>
       </button>
     </div>
@@ -179,27 +181,27 @@ html,body{height:100%;background:#E0D9F7;display:flex;align-items:center;justify
 
 <div class="scr" id="s-talk">
   <div class="hdr">
-    <div><div class="ht">AI Tutor</div><div class="hs" id="p-ll">Spanish · Voice ready</div></div>
+    <div><div class="ht">AI Tutor</div><div class="hs" id="p-ll">Spanish &middot; Voice ready</div></div>
     <button id="btn-clr-chat" style="font-size:12px;color:var(--tx2);border:none;background:none;cursor:pointer;font-family:inherit;padding:4px 8px;font-weight:500">Clear</button>
   </div>
   <div class="cbody" id="cbody"></div>
   <div style="text-align:center;padding:0 16px 4px;flex-shrink:0"><div class="mic-hint" id="mic-hint">Listening... speak now</div></div>
   <div class="cfoot">
     <button class="icbtn" id="cmic">
-      <svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"></path><path d="M19 10v2a7 7 0 01-14 0v-2M12 19v4M8 23h8"></path></svg>
+      <svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2M12 19v4M8 23h8"/></svg>
     </button>
     <textarea id="cin" placeholder="Type or tap mic to speak..." rows="1"></textarea>
     <button class="icbtn" id="csnd">
-      <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+      <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
     </button>
   </div>
 </div>
 
 <div class="scr" id="s-lessons">
   <div class="hdr">
-    <div><div class="ht">Lessons</div><div class="hs" id="ls-sub">Spanish · 100 lessons · AI generates vocabulary as you learn</div></div>
+    <div><div class="ht">Lessons</div><div class="hs" id="ls-sub">100 lessons &middot; AI vocabulary</div></div>
   </div>
-  <div class="body" id="lesson-list"><div class="lcard current"><div class="lnum ln-idle">1</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Saludos <span class="lvlb a1">A1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Greetings &amp; Essentials</div></div><span class="ltag ltag-new">Start</span></div><div class="lcard locked"><div class="lnum ln-lock">2</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Presentaciones <span class="lvlb a1">A1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Introducing Yourself</div></div><span class="ltag ltag-lock">40 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">3</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Números 1-20 <span class="lvlb a1">A1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Numbers 1-20</div></div><span class="ltag ltag-lock">90 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">4</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Números 21-1000 <span class="lvlb a1">A1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Numbers 21-1000</div></div><span class="ltag ltag-lock">150 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">5</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Los Días <span class="lvlb a1">A1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Days of the Week</div></div><span class="ltag ltag-lock">220 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">6</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Los Meses <span class="lvlb a1">A1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Months &amp; Seasons</div></div><span class="ltag ltag-lock">300 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">7</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">La Hora <span class="lvlb a1">A1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Telling the Time</div></div><span class="ltag ltag-lock">390 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">8</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Los Colores <span class="lvlb a1">A1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Colors &amp; Shapes</div></div><span class="ltag ltag-lock">490 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">9</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">La Familia <span class="lvlb a1">A1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Family Members</div></div><span class="ltag ltag-lock">600 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">10</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">El Cuerpo <span class="lvlb a1">A1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">The Human Body</div></div><span class="ltag ltag-lock">720 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">11</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">La Ropa <span class="lvlb a1">A1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Clothing &amp; Fashion</div></div><span class="ltag ltag-lock">850 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">12</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">La Comida <span class="lvlb a1">A1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Food &amp; Drink</div></div><span class="ltag ltag-lock">990 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">13</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">En el Restaurante <span class="lvlb a1">A1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">At the Restaurant</div></div><span class="ltag ltag-lock">1140 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">14</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Las Frutas y Verduras <span class="lvlb a1">A1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Fruits &amp; Vegetables</div></div><span class="ltag ltag-lock">1300 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">15</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Los Animales <span class="lvlb a1">A1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Animals &amp; Pets</div></div><span class="ltag ltag-lock">1470 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">16</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">La Casa <span class="lvlb a1">A1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Home &amp; Furniture</div></div><span class="ltag ltag-lock">1650 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">17</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Los Cuartos <span class="lvlb a1">A1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Rooms in a House</div></div><span class="ltag ltag-lock">1840 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">18</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">El Barrio <span class="lvlb a1">A1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">The Neighborhood</div></div><span class="ltag ltag-lock">2040 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">19</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">El Transporte <span class="lvlb a1">A1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Transport &amp; Travel</div></div><span class="ltag ltag-lock">2250 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">20</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Los Números Ordinales <span class="lvlb a1">A1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Ordinal Numbers</div></div><span class="ltag ltag-lock">2470 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">21</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Las Profesiones <span class="lvlb a2">A2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Jobs &amp; Professions</div></div><span class="ltag ltag-lock">2700 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">22</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">El Trabajo <span class="lvlb a2">A2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">The Workplace</div></div><span class="ltag ltag-lock">2940 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">23</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">La Escuela <span class="lvlb a2">A2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">School &amp; Education</div></div><span class="ltag ltag-lock">3190 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">24</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Las Asignaturas <span class="lvlb a2">A2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">School Subjects</div></div><span class="ltag ltag-lock">3450 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">25</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">El Clima <span class="lvlb a2">A2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Weather &amp; Climate</div></div><span class="ltag ltag-lock">3720 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">26</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">La Naturaleza <span class="lvlb a2">A2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Nature &amp; Environment</div></div><span class="ltag ltag-lock">4000 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">27</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Los Deportes <span class="lvlb a2">A2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Sports &amp; Exercise</div></div><span class="ltag ltag-lock">4290 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">28</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Los Pasatiempos <span class="lvlb a2">A2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Hobbies &amp; Interests</div></div><span class="ltag ltag-lock">4590 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">29</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">La Música <span class="lvlb a2">A2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Music &amp; Entertainment</div></div><span class="ltag ltag-lock">4900 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">30</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Las Compras <span class="lvlb a2">A2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Shopping &amp; Money</div></div><span class="ltag ltag-lock">5220 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">31</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">El Supermercado <span class="lvlb a2">A2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">At the Supermarket</div></div><span class="ltag ltag-lock">5550 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">32</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">El Banco <span class="lvlb a2">A2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Banking &amp; Finance</div></div><span class="ltag ltag-lock">5890 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">33</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">La Salud <span class="lvlb a2">A2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Health &amp; the Body</div></div><span class="ltag ltag-lock">6240 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">34</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">En el Médico <span class="lvlb a2">A2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">At the Doctor</div></div><span class="ltag ltag-lock">6600 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">35</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Las Emociones <span class="lvlb a2">A2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Emotions &amp; Feelings</div></div><span class="ltag ltag-lock">6970 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">36</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">La Personalidad <span class="lvlb a2">A2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Personality Traits</div></div><span class="ltag ltag-lock">7350 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">37</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Las Relaciones <span class="lvlb a2">A2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Relationships &amp; Social Life</div></div><span class="ltag ltag-lock">7740 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">38</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Las Tecnologías <span class="lvlb a2">A2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Technology &amp; Internet</div></div><span class="ltag ltag-lock">8140 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">39</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">El Teléfono <span class="lvlb a2">A2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Phone Calls &amp; Messages</div></div><span class="ltag ltag-lock">8550 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">40</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Los Viajes <span class="lvlb a2">A2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Travel &amp; Tourism</div></div><span class="ltag ltag-lock">8970 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">41</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">El Aeropuerto <span class="lvlb a2">A2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">At the Airport</div></div><span class="ltag ltag-lock">9400 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">42</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">El Hotel <span class="lvlb a2">A2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">At the Hotel</div></div><span class="ltag ltag-lock">9840 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">43</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Las Instrucciones <span class="lvlb a2">A2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Giving Directions</div></div><span class="ltag ltag-lock">10290 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">44</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">La Ciudad <span class="lvlb a2">A2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">The City &amp; Landmarks</div></div><span class="ltag ltag-lock">10750 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">45</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">El Campo <span class="lvlb a2">A2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">The Countryside</div></div><span class="ltag ltag-lock">11220 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">46</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Verbos Esenciales <span class="lvlb b1">B1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Essential Verbs</div></div><span class="ltag ltag-lock">11700 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">47</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Ser vs Estar <span class="lvlb b1">B1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">To Be: Ser vs Estar</div></div><span class="ltag ltag-lock">12190 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">48</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">El Presente <span class="lvlb b1">B1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Present Tense Verbs</div></div><span class="ltag ltag-lock">12690 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">49</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">El Pretérito <span class="lvlb b1">B1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Simple Past Tense</div></div><span class="ltag ltag-lock">13200 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">50</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">El Imperfecto <span class="lvlb b1">B1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Imperfect Past Tense</div></div><span class="ltag ltag-lock">13720 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">51</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">El Futuro <span class="lvlb b1">B1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Future Tense</div></div><span class="ltag ltag-lock">14250 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">52</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">El Condicional <span class="lvlb b1">B1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Conditional Tense</div></div><span class="ltag ltag-lock">14790 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">53</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Los Reflexivos <span class="lvlb b1">B1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Reflexive Verbs</div></div><span class="ltag ltag-lock">15340 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">54</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Ser Humano <span class="lvlb b1">B1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Human Conditions &amp; States</div></div><span class="ltag ltag-lock">15900 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">55</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">La Política <span class="lvlb b1">B1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Politics &amp; Government</div></div><span class="ltag ltag-lock">16470 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">56</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">La Economía <span class="lvlb b1">B1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Economy &amp; Business</div></div><span class="ltag ltag-lock">17050 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">57</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">El Medio Ambiente <span class="lvlb b1">B1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">The Environment</div></div><span class="ltag ltag-lock">17640 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">58</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">La Ciencia <span class="lvlb b1">B1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Science &amp; Technology</div></div><span class="ltag ltag-lock">18240 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">59</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">La Historia <span class="lvlb b1">B1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">History &amp; Culture</div></div><span class="ltag ltag-lock">18850 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">60</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">El Arte <span class="lvlb b1">B1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Art &amp; Literature</div></div><span class="ltag ltag-lock">19470 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">61</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">La Religión <span class="lvlb b1">B1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Religion &amp; Beliefs</div></div><span class="ltag ltag-lock">20100 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">62</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">La Filosofía <span class="lvlb b1">B1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Philosophy &amp; Ideas</div></div><span class="ltag ltag-lock">20740 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">63</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">La Psicología <span class="lvlb b1">B1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Psychology &amp; Mind</div></div><span class="ltag ltag-lock">21390 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">64</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Las Opiniones <span class="lvlb b1">B1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Giving Opinions</div></div><span class="ltag ltag-lock">22050 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">65</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">El Debate <span class="lvlb b1">B1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Debating &amp; Arguing</div></div><span class="ltag ltag-lock">22720 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">66</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Las Noticias <span class="lvlb b1">B1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">News &amp; Current Events</div></div><span class="ltag ltag-lock">23400 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">67</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Los Medios <span class="lvlb b1">B1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Media &amp; Journalism</div></div><span class="ltag ltag-lock">24090 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">68</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">La Cocina <span class="lvlb b1">B1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Cooking &amp; Recipes</div></div><span class="ltag ltag-lock">24790 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">69</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">La Moda <span class="lvlb b1">B1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Fashion &amp; Style</div></div><span class="ltag ltag-lock">25500 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">70</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">La Arquitectura <span class="lvlb b1">B1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Architecture &amp; Design</div></div><span class="ltag ltag-lock">26220 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">71</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Los Negocios <span class="lvlb b2">B2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Business Spanish</div></div><span class="ltag ltag-lock">26950 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">72</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Las Negociaciones <span class="lvlb b2">B2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Negotiation Language</div></div><span class="ltag ltag-lock">27690 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">73</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">El Derecho <span class="lvlb b2">B2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Law &amp; Legal Terms</div></div><span class="ltag ltag-lock">28440 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">74</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">La Medicina <span class="lvlb b2">B2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Medical Spanish</div></div><span class="ltag ltag-lock">29200 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">75</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">La Ingeniería <span class="lvlb b2">B2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Engineering &amp; Tech</div></div><span class="ltag ltag-lock">29970 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">76</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Las Finanzas <span class="lvlb b2">B2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Finance &amp; Investment</div></div><span class="ltag ltag-lock">30750 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">77</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">El Marketing <span class="lvlb b2">B2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Marketing Language</div></div><span class="ltag ltag-lock">31540 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">78</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Los Recursos Humanos <span class="lvlb b2">B2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">HR &amp; Workplace</div></div><span class="ltag ltag-lock">32340 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">79</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">El Subjuntivo <span class="lvlb b2">B2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Subjunctive Mood</div></div><span class="ltag ltag-lock">33150 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">80</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">El Imperativo <span class="lvlb b2">B2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Commands &amp; Imperatives</div></div><span class="ltag ltag-lock">33970 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">81</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Las Preposiciones <span class="lvlb b2">B2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Prepositions Mastery</div></div><span class="ltag ltag-lock">34800 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">82</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Los Conectores <span class="lvlb b2">B2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Connectors &amp; Transitions</div></div><span class="ltag ltag-lock">35640 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">83</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Las Metáforas <span class="lvlb b2">B2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Idioms &amp; Metaphors</div></div><span class="ltag ltag-lock">36490 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">84</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Los Refranes <span class="lvlb b2">B2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Proverbs &amp; Sayings</div></div><span class="ltag ltag-lock">37350 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">85</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">El Humor <span class="lvlb b2">B2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Humor &amp; Wordplay</div></div><span class="ltag ltag-lock">38220 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">86</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">La Poesía <span class="lvlb b2">B2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Poetry &amp; Poetic Language</div></div><span class="ltag ltag-lock">39100 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">87</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Los Dialectos <span class="lvlb b2">B2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Regional Dialects</div></div><span class="ltag ltag-lock">39990 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">88</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">El Argot <span class="lvlb b2">B2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Slang &amp; Colloquial Spanish</div></div><span class="ltag ltag-lock">40890 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">89</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Lenguaje Formal <span class="lvlb c1">C1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Formal Language</div></div><span class="ltag ltag-lock">41800 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">90</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Lenguaje Académico <span class="lvlb c1">C1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Academic Writing</div></div><span class="ltag ltag-lock">42720 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">91</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Los Discursos <span class="lvlb c1">C1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Speeches &amp; Presentations</div></div><span class="ltag ltag-lock">43650 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">92</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">La Diplomacia <span class="lvlb c1">C1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Diplomatic Language</div></div><span class="ltag ltag-lock">44590 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">93</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">El Periodismo <span class="lvlb c1">C1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Journalism Spanish</div></div><span class="ltag ltag-lock">45540 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">94</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">La Literatura <span class="lvlb c1">C1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Literary Spanish</div></div><span class="ltag ltag-lock">46500 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">95</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">La Filosofía Avanzada <span class="lvlb c1">C1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Advanced Philosophy</div></div><span class="ltag ltag-lock">47470 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">96</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">La Política Avanzada <span class="lvlb c1">C1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Advanced Politics</div></div><span class="ltag ltag-lock">48450 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">97</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Expresiones Avanzadas <span class="lvlb c1">C1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Advanced Expressions</div></div><span class="ltag ltag-lock">49440 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">98</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Vocabulario Culto <span class="lvlb c1">C1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Sophisticated Vocabulary</div></div><span class="ltag ltag-lock">50440 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">99</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Matices del Idioma <span class="lvlb c1">C1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Language Nuances</div></div><span class="ltag ltag-lock">51450 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">100</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Maestría del Español <span class="lvlb c1">C1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Spanish Mastery</div></div><span class="ltag ltag-lock">52470 XP</span></div></div>
+  <div class="body" id="lesson-list"></div>
 </div>
 
 <div class="scr" id="s-cards">
@@ -207,7 +209,9 @@ html,body{height:100%;background:#E0D9F7;display:flex;align-items:center;justify
     <div><div class="ht">Flashcards</div><div class="hs" id="c-pl">No words yet</div></div>
     <button id="btn-shuffle" style="font-size:12px;color:var(--pur);border:none;background:none;cursor:pointer;font-family:inherit;font-weight:600;padding:4px 8px">Shuffle</button>
   </div>
-  <div class="body" id="card-body"><div style="text-align:center;padding:40px 20px;color:var(--tx2);font-size:14px">Complete a lesson first to unlock flashcards.</div><button class="bp" style="margin: 0px 16px 16px;">Go to Lessons</button></div>
+  <div class="body" id="card-body">
+    <div style="text-align:center;padding:40px 20px;color:var(--tx2);font-size:14px">Complete a lesson first to unlock flashcards.</div>
+  </div>
 </div>
 
 <div class="scr" id="s-quiz">
@@ -218,10 +222,12 @@ html,body{height:100%;background:#E0D9F7;display:flex;align-items:center;justify
       <button id="btn-new-quiz" style="font-size:12px;color:var(--pur);border:none;background:none;cursor:pointer;font-family:inherit;font-weight:600;padding:4px 8px">New</button>
     </div>
   </div>
-  <div class="body" id="quiz-body"><div style="text-align:center;padding:40px 20px;color:var(--tx2);font-size:14px">Complete a lesson first to unlock quizzes.</div><button class="bp" style="margin: 0px 16px 16px;">Go to Lessons</button></div>
+  <div class="body" id="quiz-body">
+    <div style="text-align:center;padding:40px 20px;color:var(--tx2);font-size:14px">Complete a lesson first to unlock quizzes.</div>
+  </div>
 </div>
 
-<div class="scr on" id="s-me">
+<div class="scr" id="s-me">
   <div class="hdr"><div class="ht">My Profile</div></div>
   <div class="body">
     <div class="card" style="text-align:center;padding:24px">
@@ -231,13 +237,13 @@ html,body{height:100%;background:#E0D9F7;display:flex;align-items:center;justify
     </div>
     <div class="sg">
       <div class="sbox"><div class="sn" style="color:var(--yel)" id="me-xp">0</div><div class="sl">Total XP</div></div>
-      <div class="sbox"><div class="sn" style="color:var(--yel)" id="me-st">1</div><div class="sl">Day streak</div></div>
+      <div class="sbox"><div class="sn" style="color:var(--yel)" id="me-st">0</div><div class="sl">Day streak</div></div>
       <div class="sbox"><div class="sn" style="color:var(--grn)" id="me-kn">0</div><div class="sl">Words known</div></div>
       <div class="sbox"><div class="sn" style="color:var(--pur)" id="me-ms">0</div><div class="sl">AI sessions</div></div>
     </div>
     <div class="card">
       <div style="font-size:13px;font-weight:600;color:var(--tx)">Target language</div>
-      <div class="lgrid" id="lgrid"><button class="lb sel"><div class="ln">Spanish</div><div class="lv">Español</div></button><button class="lb"><div class="ln">German</div><div class="lv">Deutsch</div></button><button class="lb"><div class="ln">French</div><div class="lv">Français</div></button><button class="lb"><div class="ln">Italian</div><div class="lv">Italiano</div></button><button class="lb"><div class="ln">Portuguese</div><div class="lv">Português</div></button><button class="lb"><div class="ln">Japanese</div><div class="lv">日本語</div></button><button class="lb"><div class="ln">Mandarin</div><div class="lv">普通话</div></button></div>
+      <div class="lgrid" id="lgrid"></div>
     </div>
     <div class="card">
       <div style="font-size:13px;font-weight:600;color:var(--tx);margin-bottom:12px">API Key</div>
@@ -245,21 +251,21 @@ html,body{height:100%;background:#E0D9F7;display:flex;align-items:center;justify
       <button class="bs" id="btn-save-key-me" style="font-size:13px;padding:10px">Save Key</button>
     </div>
     <button class="bs" id="btn-download" style="color:var(--ind);border-color:var(--ind);box-shadow:0 5px 0 var(--indb)">
-  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
   Download App (Save to Files)
 </button>
 <button class="bs" id="btn-reset" style="color:var(--redd);border-color:var(--red);box-shadow:0 5px 0 var(--redb)">Reset all progress</button>
-    <div style="font-size:11px;color:var(--tx3);text-align:center;padding-bottom:8px">LangAI · 100 lessons per language · Powered by Claude AI</div>
+    <div style="font-size:11px;color:var(--tx3);text-align:center;padding-bottom:8px">LangAI &middot; 100 lessons per language &middot; Powered by Claude AI</div>
   </div>
 </div>
 
 <div id="tabs">
-  <button class="tab" id="tab-home"><div class="tiw"><svg viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H5a1 1 0 01-1-1V9.5z"></path><polyline points="9 21 9 12 15 12 15 21"></polyline></svg></div><span style="font-size:10px;font-weight:500">Home</span></button>
-  <button class="tab" id="tab-talk"><div class="tiw"><svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"></path><path d="M19 10v2a7 7 0 01-14 0v-2"></path></svg></div><span style="font-size:10px;font-weight:500">Talk</span></button>
-  <button class="tab" id="tab-lessons"><div class="tiw"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"></path><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"></path></svg></div><span style="font-size:10px;font-weight:500">Lessons</span></button>
-  <button class="tab" id="tab-cards"><div class="tiw"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"></rect><path d="M7 7V5a2 2 0 012-2h6a2 2 0 012 2v2"></path></svg></div><span style="font-size:10px;font-weight:500">Cards</span></button>
-  <button class="tab" id="tab-quiz"><div class="tiw"><svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"></path></svg></div><span style="font-size:10px;font-weight:500">Quiz</span></button>
-  <button class="tab on" id="tab-me"><div class="tiw"><svg viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"></circle><path d="M4 21v-2a8 8 0 0116 0v2"></path></svg></div><span style="font-size:10px;font-weight:500">Me</span></button>
+  <button class="tab on" id="tab-home"><div class="tiw"><svg viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H5a1 1 0 01-1-1V9.5z"/><polyline points="9 21 9 12 15 12 15 21"/></svg></div><span style="font-size:10px;font-weight:500">Home</span></button>
+  <button class="tab" id="tab-talk"><div class="tiw"><svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2"/></svg></div><span style="font-size:10px;font-weight:500">Talk</span></button>
+  <button class="tab" id="tab-lessons"><div class="tiw"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg></div><span style="font-size:10px;font-weight:500">Lessons</span></button>
+  <button class="tab" id="tab-cards"><div class="tiw"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M7 7V5a2 2 0 012-2h6a2 2 0 012 2v2"/></svg></div><span style="font-size:10px;font-weight:500">Cards</span></button>
+  <button class="tab" id="tab-quiz"><div class="tiw"><svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></div><span style="font-size:10px;font-weight:500">Quiz</span></button>
+  <button class="tab" id="tab-me"><div class="tiw"><svg viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"/><path d="M4 21v-2a8 8 0 0116 0v2"/></svg></div><span style="font-size:10px;font-weight:500">Me</span></button>
 </div>
 </div>
 <script>
@@ -328,12 +334,26 @@ function speak(text){
   if(!('speechSynthesis' in window)||!text)return;
   window.speechSynthesis.cancel();
   var u=new SpeechSynthesisUtterance(text);
-  u.lang=LC[S.lang]||'en-US';u.rate=.82;
+  u.lang=LC[S.lang]||'en-US';
+  u.rate=1.1;  // slightly faster than natural - feels snappier
+  u.pitch=1.0;
+  u.volume=1.0;
   var vs=window.speechSynthesis.getVoices();
   var lp=(LC[S.lang]||'en').split('-')[0];
-  var m=vs.find(function(v){return v.lang.startsWith(lp)&&!v.name.includes('(');})||vs.find(function(v){return v.lang.startsWith(lp);})||vs[0];
-  if(m)u.voice=m;
-  setTimeout(function(){try{window.speechSynthesis.speak(u);}catch(e){}},50);
+  // Prefer enhanced/premium voices (no parentheses = built-in higher quality on iOS)
+  var m=vs.find(function(v){return v.lang.startsWith(lp)&&v.localService&&!v.name.toLowerCase().includes('compact');})
+    ||vs.find(function(v){return v.lang.startsWith(lp)&&v.localService;})
+    ||vs.find(function(v){return v.lang.startsWith(lp);})
+    ||vs[0];
+  if(m){u.voice=m;}
+  // iOS quirk: cancel and re-speak prevents the long pause before speaking
+  try{
+    window.speechSynthesis.speak(u);
+    // iOS sometimes stalls - kick it
+    setTimeout(function(){
+      if(window.speechSynthesis.paused)window.speechSynthesis.resume();
+    },100);
+  }catch(e){}
 }
 if('speechSynthesis' in window){window.speechSynthesis.onvoiceschanged=function(){window.speechSynthesis.getVoices();};window.speechSynthesis.getVoices();}
 
@@ -356,7 +376,7 @@ function el(id){return document.getElementById(id);}
 function getLvl(x){for(var i=XPL.length-1;i>=0;i--)if(x>=XPL[i])return i+1;return 1;}
 function getBase(l){return XPL[Math.min(l-1,XPL.length-1)]||0;}
 function getTop(l){return XPL[Math.min(l,XPL.length-1)]||XPL[XPL.length-1];}
-function addXP(n){S.xp+=n;sfxXP();updateLesson();save();}
+function addXP(n,advLesson){S.xp+=n;if(advLesson)updateLesson();sfxXP();save();}
 function getCur(){return S.lang==='de'?CURRICULUM_DE:CURRICULUM_ES;}
 function updateLesson(){var c=getCur();for(var i=c.length-1;i>=0;i--){if(S.xp>=c[i].xpRequired){if(c[i].id>S.currentLesson)S.currentLesson=c[i].id;break;}}}
 function checkStreak(){var t=new Date().toDateString();if(!S.lastDate){S.streak=1;S.lastDate=t;return;}if(S.lastDate===t)return;var d=Math.round((new Date()-new Date(S.lastDate))/864e5);S.streak=d===1?S.streak+1:1;S.lastDate=t;S.todayPrac=false;S.todayCards=0;S.todayQuiz=0;}
@@ -449,7 +469,7 @@ async function openLesson(lesson){
   try{
     var words=await generateLessonVocab(S.lang,lesson);
     showLessonDetail(lesson,words);
-    addXP(5);
+    addXP(5,true);
   }catch(e){
     container.innerHTML='<div style="padding:20px;text-align:center;color:var(--redd);font-size:13px">Error: '+e.message+'</div>';
     var btn=document.createElement('button');btn.className='bp';btn.style.margin='0 16px 16px';btn.textContent='Back to Lessons';
@@ -540,7 +560,7 @@ async function sendMsg(){
     addBubble('ai',reply);
     var rm=reply.match(/Response:\s*(.+?)(?:\n|$)/);
     if(rm)speak(rm[1].trim());
-    addXP(5);S.todayPrac=true;S.totalMsgs++;save();
+    addXP(5,true);S.todayPrac=true;S.totalMsgs++;save();
   }catch(e){
     var t2=el('typing');if(t2)t2.remove();
     addBubble('ai','Error: '+e.message);
@@ -548,17 +568,24 @@ async function sendMsg(){
   chatBusy=false;
 }
 
-function getAllVocab(){
+function getAllVocab(completedOnly){
   var all=[];
   Object.keys(VOCAB_CACHE).forEach(function(key){
-    if(key.startsWith(S.lang+'_'))VOCAB_CACHE[key].forEach(function(w){all.push(w);});
+    if(key.startsWith(S.lang+'_')){
+      if(completedOnly){
+        // Only include vocab from lessons the user has actually started (lesson id <= currentLesson)
+        var lessonId=parseInt(key.split('_')[1]);
+        if(lessonId>S.currentLesson)return;
+      }
+      VOCAB_CACHE[key].forEach(function(w){all.push(w);});
+    }
   });
   return all;
 }
 
 var deck=[],cardIdx=0,flipped=false,curCard=null;
 function renderCards(){
-  var all=getAllVocab();
+  var all=getAllVocab(true);
   var body=el('card-body');
   if(!all.length){
     body.innerHTML='<div style="text-align:center;padding:40px 20px;color:var(--tx2);font-size:14px">Complete a lesson first to unlock flashcards.</div>';
@@ -621,7 +648,7 @@ function rateCard(r){
 
 var qList=[],qIdx=0,qScore=0,qHearts=HM,qAnswered=false;
 function renderQuiz(){
-  var all=getAllVocab();var body=el('quiz-body');
+  var all=getAllVocab(true);var body=el('quiz-body');
   if(all.length<4){
     body.innerHTML='<div style="text-align:center;padding:40px 20px;color:var(--tx2);font-size:14px">Complete a lesson first to unlock quizzes.</div>';
     var btn=mk('button','bp');btn.style.margin='0 16px 16px';btn.textContent='Go to Lessons';
@@ -846,5 +873,5 @@ window.addEventListener('DOMContentLoaded',function(){
 });
 
 </script>
-
-</body></html>
+</body>
+</html>
