@@ -1,6 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -8,25 +6,29 @@
 <meta name="apple-mobile-web-app-title" content="LangAI">
 <title>LangAI</title>
 <style>
-:root{--bg:#F0ECFF;--card:#FFF;--bdr:#DDD6FF;--shd:#C4BAFF;--pur:#5E35B1;--purl:#7C4DFF;--purm:#9575CD;--purll:#EDE7F6;--purd:#3E1F8A;--yel:#FFB300;--yeld:#E65100;--yelb:#FFE082;--grn:#00897B;--grnl:#E0F2F1;--grnb:#80CBC4;--grnd:#004D40;--ind:#3949AB;--indl:#E8EAF6;--indb:#9FA8DA;--indd:#1A237E;--red:#E53935;--redl:#FFEBEE;--redb:#FFCDD2;--redd:#B71C1C;--tx:#1A0533;--tx2:#5D4777;--tx3:#B39DDB}
+:root{--bg:#F0ECFF;--card:#FFF;--bdr:#DDD6FF;--shd:#C4BAFF;--pur:#5E35B1;--purl:#7C4DFF;--purm:#9575CD;--purll:#EDE7F6;--purd:#3E1F8A;--yel:#FFB300;--yeld:#E65100;--grn:#00897B;--grnl:#E0F2F1;--grnb:#80CBC4;--grnd:#004D40;--ind:#3949AB;--indl:#E8EAF6;--indb:#9FA8DA;--indd:#1A237E;--red:#E53935;--redl:#FFEBEE;--redb:#FFCDD2;--redd:#B71C1C;--tx:#1A0533;--tx2:#5D4777;--tx3:#B39DDB}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;background:#E0D9F7;display:flex;align-items:center;justify-content:center;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;overscroll-behavior:none}
 #app{width:100%;max-width:430px;height:100dvh;height:100vh;display:flex;flex-direction:column;overflow:hidden;background:var(--bg)}
 @media(min-width:431px){#app{max-width:390px;height:min(844px,100dvh);border-radius:28px;border:2px solid var(--bdr);box-shadow:0 20px 60px rgba(94,53,177,.25),0 8px 0 var(--shd)}body{background:#D0C9EF}}
 .scr{flex:1;overflow:hidden;display:none;flex-direction:column;background:var(--bg)}.scr.on{display:flex}
+.scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}.scroll::-webkit-scrollbar{display:none}
 .hdr{padding:14px 20px 12px;padding-top:calc(14px + env(safe-area-inset-top,0px));background:var(--card);border-bottom:2px solid var(--bdr);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
 .ht{font-size:18px;font-weight:600;color:var(--tx)}.hs{font-size:12px;color:var(--tx2);margin-top:2px}
 .body{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:13px;-webkit-overflow-scrolling:touch}.body::-webkit-scrollbar{display:none}
 .card{background:var(--card);border-radius:20px;border:2px solid var(--bdr);box-shadow:0 5px 0 var(--shd);padding:16px;flex-shrink:0}
-#tabs{display:flex;background:var(--card);border-top:2px solid var(--bdr);flex-shrink:0;padding:8px 12px;padding-bottom:calc(10px + env(safe-area-inset-bottom,0px));gap:4px}
-.tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;border:none;background:none;cursor:pointer;color:var(--tx3);font-size:10px;font-family:inherit;transition:all .2s;border-radius:16px;padding:4px 2px}
+.card-sm{padding:13px;border-radius:14px;box-shadow:0 4px 0 var(--shd)}
+#tabs{display:flex;background:var(--card);border-top:2px solid var(--bdr);flex-shrink:0;padding:6px 8px;padding-bottom:calc(6px + env(safe-area-inset-bottom,0px));gap:2px}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;border:none;background:none;cursor:pointer;color:var(--tx3);font-size:9px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:6px 2px;border-radius:12px;transition:all .2s;font-family:inherit}
+.tab svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .tab.on{color:var(--pur)}.tab.on .tiw{background:var(--purll);border-color:var(--bdr)}
 .tiw{width:44px;height:28px;border-radius:14px;display:flex;align-items:center;justify-content:center;transition:all .2s;border:1.5px solid transparent}
-.tab svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .bp{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;background:var(--pur);color:#fff;border:2.5px solid var(--purd);border-radius:18px;padding:14px;font-size:16px;font-weight:600;font-family:inherit;cursor:pointer;box-shadow:0 6px 0 var(--purd);transition:all .1s;flex-shrink:0}
 .bp:active{box-shadow:0 2px 0 var(--purd);transform:translateY(4px)}.bp:disabled{opacity:.4;cursor:not-allowed}
 .bs{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;background:var(--card);color:var(--tx);border:2px solid var(--bdr);border-radius:18px;padding:13px;font-size:15px;font-weight:600;font-family:inherit;cursor:pointer;box-shadow:0 5px 0 var(--shd);transition:all .1s;flex-shrink:0}
 .bs:active{box-shadow:0 1px 0 var(--shd);transform:translateY(4px)}
+.inp{background:var(--bg);border:2px solid var(--bdr);border-radius:12px;padding:11px 14px;font-size:15px;font-family:inherit;color:var(--tx);outline:none;width:100%;transition:border-color .2s}
+.inp::placeholder{color:var(--tx3)}.inp:focus{border-color:var(--pur)}
 .xbt{height:14px;background:var(--purll);border-radius:7px;overflow:hidden;border:2px solid var(--bdr);flex-shrink:0}
 .xbf{height:100%;background:var(--pur);border-radius:5px;transition:width .7s cubic-bezier(.4,0,.2,1)}
 .cbody{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;background:var(--bg);-webkit-overflow-scrolling:touch}.cbody::-webkit-scrollbar{display:none}
@@ -34,19 +36,15 @@ html,body{height:100%;background:#E0D9F7;display:flex;align-items:center;justify
 .mu{align-self:flex-end;background:var(--pur);color:#fff;border:2px solid var(--purd);border-bottom-right-radius:5px;box-shadow:0 3px 0 var(--purd)}
 .ma{align-self:flex-start;background:var(--card);border:2px solid var(--bdr);color:var(--tx);border-bottom-left-radius:5px;box-shadow:0 3px 0 var(--shd)}
 .cfoot{display:flex;gap:8px;padding:10px 16px;padding-bottom:calc(10px + env(safe-area-inset-bottom,0px));align-items:flex-end;background:var(--card);border-top:2px solid var(--bdr);flex-shrink:0}
-#cin{flex:1;border:2px solid var(--bdr);border-radius:16px;padding:10px 14px;font-size:15px;font-family:inherit;background:var(--bg);color:var(--tx);outline:none;transition:border-color .2s;resize:none;min-height:42px;max-height:100px;-webkit-overflow-scrolling:touch;line-height:1.5}
-#cin::placeholder{color:var(--tx3)}#cin:focus{border-color:var(--pur)}
-#cin.listening{border-color:var(--red);background:var(--redl)}
+#cin{flex:1;border:2px solid var(--bdr);border-radius:16px;padding:10px 14px;font-size:15px;font-family:inherit;background:var(--bg);color:var(--tx);outline:none;resize:none;min-height:42px;max-height:100px;line-height:1.5;transition:border-color .2s}
+#cin::placeholder{color:var(--tx3)}#cin:focus{border-color:var(--pur)}#cin.listening{border-color:var(--red);background:var(--redl)}
 .icbtn{width:44px;height:44px;min-width:44px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 0 var(--shd);border:2px solid var(--bdr);transition:all .1s;background:var(--card);flex-shrink:0}
 .icbtn:active{box-shadow:0 1px 0 var(--shd);transform:translateY(3px)}
 #csnd{background:var(--pur);border-color:var(--purd);box-shadow:0 4px 0 var(--purd)}
 #csnd svg{width:15px;height:15px;stroke:#fff;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
 #cmic svg{width:17px;height:17px;stroke:var(--tx2);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-#cmic.on{background:var(--red);border-color:var(--redd);box-shadow:0 4px 0 var(--redd);animation:micpulse 1s infinite}
-#cmic.on svg{stroke:#fff}
-@keyframes micpulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
-.mic-hint{font-size:11px;color:var(--red);text-align:center;padding:2px 0;display:none}
-.mic-hint.on{display:block}
+#cmic.on{background:var(--red);border-color:var(--redd);box-shadow:0 4px 0 var(--redd)}#cmic.on svg{stroke:#fff}
+.mic-hint{font-size:11px;color:var(--red);text-align:center;padding:2px 0;display:none}.mic-hint.on{display:block}
 .dots{display:flex;gap:5px;padding:3px 0}.dots span{width:8px;height:8px;border-radius:50%;background:var(--tx3);animation:dot 1.2s infinite ease-in-out}
 .dots span:nth-child(2){animation-delay:.2s}.dots span:nth-child(3){animation-delay:.4s}
 @keyframes dot{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-8px)}}
@@ -54,8 +52,8 @@ html,body{height:100%;background:#E0D9F7;display:flex;align-items:center;justify
 .fcard{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .5s cubic-bezier(.4,0,.2,1)}.fcard.flipped{transform:rotateY(180deg)}
 .fface{position:absolute;width:100%;height:100%;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:22px;border:2.5px solid var(--bdr);box-shadow:0 6px 0 var(--shd);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center;background:var(--card)}
 .fback{transform:rotateY(180deg);background:var(--purll);border-color:var(--purm);box-shadow:0 6px 0 var(--purm)}
-.spkbtn{background:var(--purll);border:2px solid var(--bdr);border-radius:12px;padding:7px 13px;color:var(--pur);font-size:12px;font-family:inherit;cursor:pointer;display:inline-flex;align-items:center;gap:5px;transition:all .1s;font-weight:600}
-.spkbtn:active{transform:scale(.95)}.spkbtn svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round}
+.spkbtn{background:var(--purll);border:2px solid var(--bdr);border-radius:12px;padding:7px 13px;color:var(--pur);font-size:12px;font-family:inherit;cursor:pointer;display:inline-flex;align-items:center;gap:5px;font-weight:600}
+.spkbtn svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round}
 .qopt{width:100%;text-align:left;padding:13px 16px;background:var(--card);border:2px solid var(--bdr);box-shadow:0 4px 0 var(--shd);border-radius:16px;font-size:15px;font-family:inherit;color:var(--tx);cursor:pointer;transition:all .1s;flex-shrink:0;display:flex;align-items:center;gap:12px}
 .qopt:active{box-shadow:0 1px 0 var(--shd);transform:translateY(3px)}
 .qopt.ok{border-color:var(--grn);background:var(--grnl);color:var(--grnd);box-shadow:0 4px 0 var(--grnb)}
@@ -73,7 +71,6 @@ html,body{height:100%;background:#E0D9F7;display:flex;align-items:center;justify
 .lb:active{box-shadow:0 1px 0 var(--shd);transform:translateY(2px)}.lb.sel{border-color:var(--pur);background:var(--purll);box-shadow:0 4px 0 var(--purm)}
 .ln{font-size:14px;font-weight:600;color:var(--tx)}.lv{font-size:12px;color:var(--tx2);margin-top:2px}
 .hearts{display:flex;gap:3px;align-items:center}
-.pill{display:inline-flex;align-items:center;padding:5px 14px;border-radius:999px;font-size:12px;font-weight:600}
 .agrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .ac{border-radius:20px;border:2.5px solid;padding:16px 14px;cursor:pointer;font-family:inherit;text-align:left;transition:all .12s;font-size:14px;font-weight:600}
 .ac:active{transform:translateY(5px)}
@@ -81,74 +78,64 @@ html,body{height:100%;background:#E0D9F7;display:flex;align-items:center;justify
 .aci{background:var(--indl);border-color:var(--ind);color:var(--indd);box-shadow:0 6px 0 var(--indb)}.aci:active{box-shadow:0 1px 0 var(--indb)}
 .lcard{background:var(--card);border-radius:18px;border:2px solid var(--bdr);box-shadow:0 5px 0 var(--shd);padding:14px 16px;flex-shrink:0;display:flex;align-items:center;gap:14px;cursor:pointer;transition:all .12s}
 .lcard:active{box-shadow:0 2px 0 var(--shd);transform:translateY(3px)}
-.lcard.locked{opacity:.5;cursor:not-allowed}
-.lcard.locked:active{transform:none;box-shadow:0 5px 0 var(--shd)}
+.lcard.locked{opacity:.45;cursor:not-allowed}.lcard.locked:active{transform:none;box-shadow:0 5px 0 var(--shd)}
 .lcard.current{border-color:var(--pur);box-shadow:0 5px 0 var(--purd)}
 .lcard.done{border-color:var(--grn);box-shadow:0 5px 0 var(--grnb)}
-.lnum{width:44px;height:44px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;flex-shrink:0}
-.ln-idle{background:var(--purll);color:var(--pur)}
-.ln-done{background:var(--grnl);color:var(--grnd)}
-.ln-lock{background:var(--bg);color:var(--tx3);border:2px solid var(--bdr)}
-.linfo{flex:1}
-.ltitle{font-size:14px;font-weight:600;color:var(--tx)}.lsub{font-size:12px;color:var(--tx2);margin-top:2px}
+.lnum{width:44px;height:44px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;flex-shrink:0}
+.ln-idle{background:var(--purll);color:var(--pur)}.ln-done{background:var(--grnl);color:var(--grnd)}.ln-lock{background:var(--bg);color:var(--tx3);border:2px solid var(--bdr)}
 .ltag{font-size:11px;font-weight:600;padding:3px 8px;border-radius:999px}
-.ltag-new{background:var(--purll);color:var(--pur)}.ltag-done{background:var(--grnl);color:var(--grnd)}.ltag-lock{background:var(--bg);color:var(--tx3)}
+.ltag-new{background:var(--purll);color:var(--pur)}.ltag-done{background:var(--grnl);color:var(--grnd)}.ltag-lock{background:var(--bg);color:var(--tx3)}.ltag-gen{background:var(--indl);color:var(--ind)}
+.wcard{background:var(--card);border-radius:14px;border:1.5px solid var(--bdr);padding:12px 14px;display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-shrink:0;cursor:pointer}
+.wcard:active{opacity:.8}
+.spinner-wrap{display:flex;flex-direction:column;align-items:center;gap:12px;padding:40px 0}
+.spinner{width:32px;height:32px;border:3px solid var(--bdr);border-top-color:var(--pur);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
 @keyframes pop{0%{transform:scale(1)}35%{transform:scale(1.18)}70%{transform:scale(.96)}100%{transform:scale(1)}}
 @keyframes shk{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
 .pop{animation:pop .4s cubic-bezier(.4,0,.2,1)}.shk{animation:shk .4s ease}
+#api-setup{position:fixed;inset:0;background:var(--bg);z-index:999;display:flex;align-items:center;justify-content:center;padding:24px}
+#api-setup.done{display:none}
+.lvlb{display:inline-flex;align-items:center;padding:2px 8px;border-radius:999px;font-size:10px;font-weight:700;letter-spacing:.06em}
+.lvlb.a1{background:#E8F5E9;color:#2E7D32}.lvlb.a2{background:#E3F2FD;color:#1565C0}
+.lvlb.b1{background:#FFF3E0;color:#E65100}.lvlb.b2{background:#FCE4EC;color:#880E4F}
+.lvlb.c1{background:var(--purll);color:var(--pur)}
 </style>
 </head>
 <body>
+<div id="app">
 
-<!-- API KEY SETUP -->
-<div id="api-setup" style="display:none;position:fixed;inset:0;background:#F0ECFF;z-index:999;display:flex;align-items:center;justify-content:center;padding:24px">
-  <div style="background:#fff;border:2px solid #DDD6FF;border-radius:24px;box-shadow:0 8px 0 #C4BAFF;padding:32px 28px;max-width:400px;width:100%">
-    <div style="width:52px;height:52px;background:#5E35B1;border-radius:16px;display:flex;align-items:center;justify-content:center;margin:0 auto 18px">
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2M12 19v4M8 23h8"/></svg>
+<div id="api-setup" class="done">
+  <div style="max-width:380px;width:100%;display:flex;flex-direction:column;gap:20px">
+    <div>
+      <div style="font-size:38px;font-weight:700;color:var(--pur);margin-bottom:6px">LangAI</div>
+      <div style="font-size:14px;color:var(--tx2);line-height:1.6">100 Spanish + 100 German lessons. AI generates vocabulary as you learn. The more you study, the harder it gets.</div>
     </div>
-    <div style="font-size:22px;font-weight:700;color:#1A0533;text-align:center;margin-bottom:6px">Welcome to LangAI</div>
-    <div style="font-size:13px;color:#5D4777;text-align:center;line-height:1.6;margin-bottom:22px">One-time setup — your key stays on your device</div>
-    <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:20px">
-      <div style="display:flex;gap:10px;padding:11px 13px;background:#EDE7F6;border-radius:12px;border:1.5px solid #DDD6FF;align-items:flex-start">
-        <div style="width:22px;height:22px;background:#5E35B1;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0;margin-top:1px">1</div>
-        <div style="font-size:13px;color:#5D4777;line-height:1.5">Go to <strong style="color:#1A0533">console.anthropic.com</strong> → sign up free → click <strong style="color:#1A0533">API Keys</strong> → Create Key</div>
-      </div>
-      <div style="display:flex;gap:10px;padding:11px 13px;background:#EDE7F6;border-radius:12px;border:1.5px solid #DDD6FF;align-items:flex-start">
-        <div style="width:22px;height:22px;background:#5E35B1;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0;margin-top:1px">2</div>
-        <div style="font-size:13px;color:#5D4777;line-height:1.5">Copy your key and paste it below. Cost is about <strong style="color:#1A0533">$0.01 per conversation</strong></div>
-      </div>
+    <div style="padding:14px;background:var(--card);border:2px solid var(--bdr);border-radius:16px;font-size:13px;color:var(--tx2);line-height:1.7">
+      <strong style="color:var(--tx)">Get your API key:</strong><br>
+      Go to <strong style="color:var(--pur)">console.anthropic.com</strong> → API Keys → Create Key<br>
+      <span style="font-size:11px;color:var(--tx3)">~$0.01 per lesson. Cached forever after first load.</span>
     </div>
-    <input id="api-key-input" type="password" placeholder="sk-ant-api03-..." autocomplete="off"
-      style="width:100%;border:2px solid #DDD6FF;border-radius:14px;padding:13px 16px;font-size:14px;font-family:inherit;background:#F0ECFF;color:#1A0533;outline:none;margin-bottom:14px;transition:border-color .2s"
-      onkeydown="if(event.key==='Enter')saveApiKey()"
-      onfocus="this.style.borderColor='#5E35B1'" onblur="this.style.borderColor='#DDD6FF'">
-    <button onclick="saveApiKey()"
-      style="width:100%;background:#5E35B1;color:#fff;border:2.5px solid #3E1F8A;border-radius:18px;padding:14px;font-size:16px;font-weight:600;font-family:inherit;cursor:pointer;box-shadow:0 6px 0 #3E1F8A;transition:all .1s"
-      onmousedown="this.style.boxShadow='0 2px 0 #3E1F8A';this.style.transform='translateY(4px)'"
-      onmouseup="this.style.boxShadow='0 6px 0 #3E1F8A';this.style.transform=''">
-      Start Learning
-    </button>
-    <div style="font-size:11px;color:#B39DDB;text-align:center;margin-top:12px">Your key is saved on this device only and never shared</div>
+    <input class="inp" id="key-inp" type="password" placeholder="sk-ant-api03-...">
+    <button class="bp" id="btn-key-save">Start Learning</button>
+    <div style="font-size:11px;color:var(--tx3);text-align:center">Key stored on your device only</div>
   </div>
 </div>
 
-<div id="app">
-
-<div class="scr on" id="s-home">
+<div class="scr" id="s-home">
   <div class="hdr">
-    <div><div class="ht" id="h-gr">Good morning</div><div class="hs" id="h-ll">Learning Spanish</div></div>
-    <div class="pill" style="background:var(--purll);color:var(--pur);border:1.5px solid var(--bdr)" id="h-lb">Level 1</div>
+    <div><div class="ht" id="h-gr">Good evening</div><div class="hs" id="h-ll">Learning Spanish</div></div>
+    <div class="lvlb b1" id="h-lb" style="font-size:12px;padding:4px 12px">Level 1</div>
   </div>
   <div class="body">
     <div style="background:var(--yel);border:2.5px solid var(--yeld);border-radius:22px;box-shadow:0 6px 0 var(--yeld);padding:18px 20px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0">
       <div>
         <div style="font-size:10px;font-weight:600;color:var(--yeld);text-transform:uppercase;letter-spacing:.1em;margin-bottom:2px">Day streak</div>
-        <div style="font-size:52px;font-weight:700;color:var(--tx);line-height:1" id="h-str">0</div>
-        <div style="font-size:18px;color:var(--yeld);letter-spacing:4px;margin-top:4px" id="h-stars"></div>
+        <div style="font-size:52px;font-weight:700;color:var(--tx);line-height:1" id="h-str">1</div>
+        <div style="font-size:18px;color:var(--yeld);letter-spacing:4px;margin-top:4px" id="h-stars">★</div>
       </div>
       <div style="text-align:right">
-        <div style="font-size:12px;color:var(--yeld);margin-bottom:8px;font-weight:500" id="h-date">Today</div>
-        <div style="background:var(--yeld);color:#fff;padding:7px 16px;border-radius:12px;font-size:13px;font-weight:600" id="h-enc">Start today!</div>
+        <div style="font-size:12px;color:var(--yeld);margin-bottom:8px;font-weight:500" id="h-date">Tue, Apr 14</div>
+        <div style="background:var(--yeld);color:#fff;padding:7px 16px;border-radius:12px;font-size:13px;font-weight:600" id="h-enc">Keep going!</div>
       </div>
     </div>
     <div style="background:var(--pur);border:2.5px solid var(--purd);border-radius:22px;box-shadow:0 6px 0 var(--purd);padding:18px 20px;flex-shrink:0">
@@ -164,96 +151,63 @@ html,body{height:100%;background:#E0D9F7;display:flex;align-items:center;justify
     <div class="card">
       <div style="font-size:13px;font-weight:600;color:var(--tx);margin-bottom:11px">Today's goal</div>
       <div style="display:flex;flex-direction:column;gap:9px">
-        <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:13px;color:var(--tx2)">Practice session</span><span style="font-size:12px;color:var(--pur);font-weight:600;background:var(--purll);padding:3px 10px;border-radius:999px" id="g-p">0 / 1</span></div>
-        <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:13px;color:var(--tx2)">Flashcards reviewed</span><span style="font-size:12px;color:var(--pur);font-weight:600;background:var(--purll);padding:3px 10px;border-radius:999px" id="g-c">0 / 5</span></div>
-        <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:13px;color:var(--tx2)">Quiz questions</span><span style="font-size:12px;color:var(--pur);font-weight:600;background:var(--purll);padding:3px 10px;border-radius:999px" id="g-q">0 / 3</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:13px;color:var(--tx2)">Talk session</span><span style="font-size:12px;color:var(--pur);font-weight:600;background:var(--purll);padding:3px 10px;border-radius:999px" id="g-p">0 / 1</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:13px;color:var(--tx2)">Flashcards reviewed</span><span style="font-size:12px;color:var(--pur);font-weight:600;background:var(--purll);padding:3px 10px;border-radius:999px" id="g-c">0 / 10</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:13px;color:var(--tx2)">Quiz questions</span><span style="font-size:12px;color:var(--pur);font-weight:600;background:var(--purll);padding:3px 10px;border-radius:999px" id="g-q">0 / 5</span></div>
       </div>
     </div>
-    <button class="bp" onclick="go('practice')">
-      <svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2M12 19v4M8 23h8"/></svg>
+    <button class="bp" id="h-btn-talk">
+      <svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"></path><path d="M19 10v2a7 7 0 01-14 0v-2M12 19v4M8 23h8"></path></svg>
       Talk with AI Tutor
     </button>
     <div class="agrid">
-      <button class="ac acg" onclick="go('lessons')">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:8px"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
-        <div>Lessons</div><div style="font-size:11px;margin-top:3px;opacity:.75" id="h-lesson-lbl">Lesson 1</div>
+      <button class="ac acg" id="h-btn-lessons">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="margin-bottom:8px"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"></path><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"></path></svg>
+        <div>Lessons</div><div style="font-size:11px;margin-top:3px;opacity:.75" id="h-ll2">Lesson 1 of 100</div>
       </button>
-      <button class="ac aci" onclick="go('quiz')">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:8px"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
-        <div>Quiz</div><div style="font-size:11px;margin-top:3px;opacity:.75">Test yourself</div>
+      <button class="ac aci" id="h-btn-cards">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="margin-bottom:8px"><rect x="2" y="7" width="20" height="14" rx="2"></rect><path d="M7 7V5a2 2 0 012-2h6a2 2 0 012 2v2"></path></svg>
+        <div>Flashcards</div><div style="font-size:11px;margin-top:3px;opacity:.75" id="h-kn-lbl">0 known</div>
       </button>
     </div>
     <div class="sg">
       <div class="sbox"><div class="sn" style="color:var(--grn)" id="h-kn">0</div><div class="sl">Words known</div></div>
-      <div class="sbox"><div class="sn" style="color:var(--pur)" id="h-tv">0</div><div class="sl">Total vocab</div></div>
+      <div class="sbox"><div class="sn" style="color:var(--pur)" id="h-ld">0</div><div class="sl">Lessons done</div></div>
     </div>
   </div>
 </div>
 
-<div class="scr" id="s-practice">
+<div class="scr" id="s-talk">
   <div class="hdr">
     <div><div class="ht">AI Tutor</div><div class="hs" id="p-ll">Spanish · Voice ready</div></div>
-    <div style="display:flex;gap:4px"><button onclick="document.getElementById('api-setup').style.display='flex'" style="font-size:11px;color:var(--tx3);border:1px solid var(--bdr);background:none;cursor:pointer;font-family:inherit;padding:4px 8px;border-radius:8px">Key</button><button onclick="clearChat()" style="font-size:12px;color:var(--tx2);border:none;background:none;cursor:pointer;font-family:inherit;padding:4px 8px;font-weight:500">Clear</button></div>
+    <button id="btn-clr-chat" style="font-size:12px;color:var(--tx2);border:none;background:none;cursor:pointer;font-family:inherit;padding:4px 8px;font-weight:500">Clear</button>
   </div>
   <div class="cbody" id="cbody"></div>
   <div style="text-align:center;padding:0 16px 4px;flex-shrink:0"><div class="mic-hint" id="mic-hint">Listening... speak now</div></div>
   <div class="cfoot">
-    <button class="icbtn" id="cmic" onclick="toggleMic()">
-      <svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2M12 19v4M8 23h8"/></svg>
+    <button class="icbtn" id="cmic">
+      <svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"></path><path d="M19 10v2a7 7 0 01-14 0v-2M12 19v4M8 23h8"></path></svg>
     </button>
-    <textarea id="cin" placeholder="Type or tap mic to speak..." rows="1" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMsg()}" oninput="autoResize(this)"></textarea>
-    <button class="icbtn" id="csnd" onclick="sendMsg()">
-      <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    <textarea id="cin" placeholder="Type or tap mic to speak..." rows="1"></textarea>
+    <button class="icbtn" id="csnd">
+      <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
     </button>
   </div>
 </div>
 
 <div class="scr" id="s-lessons">
   <div class="hdr">
-    <div><div class="ht">Lessons</div><div class="hs" id="ls-sub">Your learning path</div></div>
+    <div><div class="ht">Lessons</div><div class="hs" id="ls-sub">Spanish · 100 lessons · AI generates vocabulary as you learn</div></div>
   </div>
-  <div class="body" id="lesson-list"></div>
+  <div class="body" id="lesson-list"><div class="lcard current"><div class="lnum ln-idle">1</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Saludos <span class="lvlb a1">A1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Greetings &amp; Essentials</div></div><span class="ltag ltag-new">Start</span></div><div class="lcard locked"><div class="lnum ln-lock">2</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Presentaciones <span class="lvlb a1">A1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Introducing Yourself</div></div><span class="ltag ltag-lock">40 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">3</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Números 1-20 <span class="lvlb a1">A1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Numbers 1-20</div></div><span class="ltag ltag-lock">90 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">4</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Números 21-1000 <span class="lvlb a1">A1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Numbers 21-1000</div></div><span class="ltag ltag-lock">150 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">5</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Los Días <span class="lvlb a1">A1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Days of the Week</div></div><span class="ltag ltag-lock">220 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">6</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Los Meses <span class="lvlb a1">A1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Months &amp; Seasons</div></div><span class="ltag ltag-lock">300 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">7</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">La Hora <span class="lvlb a1">A1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Telling the Time</div></div><span class="ltag ltag-lock">390 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">8</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Los Colores <span class="lvlb a1">A1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Colors &amp; Shapes</div></div><span class="ltag ltag-lock">490 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">9</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">La Familia <span class="lvlb a1">A1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Family Members</div></div><span class="ltag ltag-lock">600 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">10</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">El Cuerpo <span class="lvlb a1">A1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">The Human Body</div></div><span class="ltag ltag-lock">720 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">11</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">La Ropa <span class="lvlb a1">A1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Clothing &amp; Fashion</div></div><span class="ltag ltag-lock">850 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">12</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">La Comida <span class="lvlb a1">A1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Food &amp; Drink</div></div><span class="ltag ltag-lock">990 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">13</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">En el Restaurante <span class="lvlb a1">A1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">At the Restaurant</div></div><span class="ltag ltag-lock">1140 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">14</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Las Frutas y Verduras <span class="lvlb a1">A1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Fruits &amp; Vegetables</div></div><span class="ltag ltag-lock">1300 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">15</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Los Animales <span class="lvlb a1">A1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Animals &amp; Pets</div></div><span class="ltag ltag-lock">1470 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">16</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">La Casa <span class="lvlb a1">A1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Home &amp; Furniture</div></div><span class="ltag ltag-lock">1650 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">17</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Los Cuartos <span class="lvlb a1">A1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Rooms in a House</div></div><span class="ltag ltag-lock">1840 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">18</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">El Barrio <span class="lvlb a1">A1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">The Neighborhood</div></div><span class="ltag ltag-lock">2040 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">19</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">El Transporte <span class="lvlb a1">A1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Transport &amp; Travel</div></div><span class="ltag ltag-lock">2250 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">20</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Los Números Ordinales <span class="lvlb a1">A1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Ordinal Numbers</div></div><span class="ltag ltag-lock">2470 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">21</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Las Profesiones <span class="lvlb a2">A2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Jobs &amp; Professions</div></div><span class="ltag ltag-lock">2700 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">22</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">El Trabajo <span class="lvlb a2">A2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">The Workplace</div></div><span class="ltag ltag-lock">2940 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">23</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">La Escuela <span class="lvlb a2">A2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">School &amp; Education</div></div><span class="ltag ltag-lock">3190 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">24</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Las Asignaturas <span class="lvlb a2">A2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">School Subjects</div></div><span class="ltag ltag-lock">3450 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">25</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">El Clima <span class="lvlb a2">A2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Weather &amp; Climate</div></div><span class="ltag ltag-lock">3720 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">26</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">La Naturaleza <span class="lvlb a2">A2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Nature &amp; Environment</div></div><span class="ltag ltag-lock">4000 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">27</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Los Deportes <span class="lvlb a2">A2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Sports &amp; Exercise</div></div><span class="ltag ltag-lock">4290 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">28</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Los Pasatiempos <span class="lvlb a2">A2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Hobbies &amp; Interests</div></div><span class="ltag ltag-lock">4590 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">29</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">La Música <span class="lvlb a2">A2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Music &amp; Entertainment</div></div><span class="ltag ltag-lock">4900 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">30</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Las Compras <span class="lvlb a2">A2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Shopping &amp; Money</div></div><span class="ltag ltag-lock">5220 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">31</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">El Supermercado <span class="lvlb a2">A2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">At the Supermarket</div></div><span class="ltag ltag-lock">5550 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">32</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">El Banco <span class="lvlb a2">A2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Banking &amp; Finance</div></div><span class="ltag ltag-lock">5890 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">33</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">La Salud <span class="lvlb a2">A2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Health &amp; the Body</div></div><span class="ltag ltag-lock">6240 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">34</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">En el Médico <span class="lvlb a2">A2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">At the Doctor</div></div><span class="ltag ltag-lock">6600 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">35</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Las Emociones <span class="lvlb a2">A2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Emotions &amp; Feelings</div></div><span class="ltag ltag-lock">6970 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">36</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">La Personalidad <span class="lvlb a2">A2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Personality Traits</div></div><span class="ltag ltag-lock">7350 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">37</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Las Relaciones <span class="lvlb a2">A2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Relationships &amp; Social Life</div></div><span class="ltag ltag-lock">7740 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">38</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Las Tecnologías <span class="lvlb a2">A2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Technology &amp; Internet</div></div><span class="ltag ltag-lock">8140 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">39</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">El Teléfono <span class="lvlb a2">A2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Phone Calls &amp; Messages</div></div><span class="ltag ltag-lock">8550 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">40</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Los Viajes <span class="lvlb a2">A2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Travel &amp; Tourism</div></div><span class="ltag ltag-lock">8970 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">41</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">El Aeropuerto <span class="lvlb a2">A2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">At the Airport</div></div><span class="ltag ltag-lock">9400 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">42</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">El Hotel <span class="lvlb a2">A2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">At the Hotel</div></div><span class="ltag ltag-lock">9840 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">43</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Las Instrucciones <span class="lvlb a2">A2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Giving Directions</div></div><span class="ltag ltag-lock">10290 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">44</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">La Ciudad <span class="lvlb a2">A2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">The City &amp; Landmarks</div></div><span class="ltag ltag-lock">10750 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">45</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">El Campo <span class="lvlb a2">A2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">The Countryside</div></div><span class="ltag ltag-lock">11220 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">46</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Verbos Esenciales <span class="lvlb b1">B1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Essential Verbs</div></div><span class="ltag ltag-lock">11700 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">47</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Ser vs Estar <span class="lvlb b1">B1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">To Be: Ser vs Estar</div></div><span class="ltag ltag-lock">12190 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">48</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">El Presente <span class="lvlb b1">B1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Present Tense Verbs</div></div><span class="ltag ltag-lock">12690 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">49</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">El Pretérito <span class="lvlb b1">B1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Simple Past Tense</div></div><span class="ltag ltag-lock">13200 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">50</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">El Imperfecto <span class="lvlb b1">B1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Imperfect Past Tense</div></div><span class="ltag ltag-lock">13720 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">51</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">El Futuro <span class="lvlb b1">B1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Future Tense</div></div><span class="ltag ltag-lock">14250 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">52</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">El Condicional <span class="lvlb b1">B1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Conditional Tense</div></div><span class="ltag ltag-lock">14790 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">53</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Los Reflexivos <span class="lvlb b1">B1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Reflexive Verbs</div></div><span class="ltag ltag-lock">15340 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">54</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Ser Humano <span class="lvlb b1">B1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Human Conditions &amp; States</div></div><span class="ltag ltag-lock">15900 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">55</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">La Política <span class="lvlb b1">B1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Politics &amp; Government</div></div><span class="ltag ltag-lock">16470 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">56</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">La Economía <span class="lvlb b1">B1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Economy &amp; Business</div></div><span class="ltag ltag-lock">17050 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">57</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">El Medio Ambiente <span class="lvlb b1">B1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">The Environment</div></div><span class="ltag ltag-lock">17640 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">58</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">La Ciencia <span class="lvlb b1">B1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Science &amp; Technology</div></div><span class="ltag ltag-lock">18240 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">59</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">La Historia <span class="lvlb b1">B1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">History &amp; Culture</div></div><span class="ltag ltag-lock">18850 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">60</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">El Arte <span class="lvlb b1">B1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Art &amp; Literature</div></div><span class="ltag ltag-lock">19470 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">61</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">La Religión <span class="lvlb b1">B1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Religion &amp; Beliefs</div></div><span class="ltag ltag-lock">20100 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">62</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">La Filosofía <span class="lvlb b1">B1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Philosophy &amp; Ideas</div></div><span class="ltag ltag-lock">20740 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">63</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">La Psicología <span class="lvlb b1">B1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Psychology &amp; Mind</div></div><span class="ltag ltag-lock">21390 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">64</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Las Opiniones <span class="lvlb b1">B1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Giving Opinions</div></div><span class="ltag ltag-lock">22050 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">65</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">El Debate <span class="lvlb b1">B1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Debating &amp; Arguing</div></div><span class="ltag ltag-lock">22720 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">66</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Las Noticias <span class="lvlb b1">B1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">News &amp; Current Events</div></div><span class="ltag ltag-lock">23400 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">67</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Los Medios <span class="lvlb b1">B1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Media &amp; Journalism</div></div><span class="ltag ltag-lock">24090 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">68</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">La Cocina <span class="lvlb b1">B1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Cooking &amp; Recipes</div></div><span class="ltag ltag-lock">24790 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">69</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">La Moda <span class="lvlb b1">B1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Fashion &amp; Style</div></div><span class="ltag ltag-lock">25500 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">70</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">La Arquitectura <span class="lvlb b1">B1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Architecture &amp; Design</div></div><span class="ltag ltag-lock">26220 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">71</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Los Negocios <span class="lvlb b2">B2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Business Spanish</div></div><span class="ltag ltag-lock">26950 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">72</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Las Negociaciones <span class="lvlb b2">B2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Negotiation Language</div></div><span class="ltag ltag-lock">27690 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">73</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">El Derecho <span class="lvlb b2">B2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Law &amp; Legal Terms</div></div><span class="ltag ltag-lock">28440 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">74</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">La Medicina <span class="lvlb b2">B2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Medical Spanish</div></div><span class="ltag ltag-lock">29200 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">75</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">La Ingeniería <span class="lvlb b2">B2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Engineering &amp; Tech</div></div><span class="ltag ltag-lock">29970 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">76</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Las Finanzas <span class="lvlb b2">B2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Finance &amp; Investment</div></div><span class="ltag ltag-lock">30750 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">77</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">El Marketing <span class="lvlb b2">B2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Marketing Language</div></div><span class="ltag ltag-lock">31540 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">78</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Los Recursos Humanos <span class="lvlb b2">B2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">HR &amp; Workplace</div></div><span class="ltag ltag-lock">32340 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">79</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">El Subjuntivo <span class="lvlb b2">B2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Subjunctive Mood</div></div><span class="ltag ltag-lock">33150 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">80</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">El Imperativo <span class="lvlb b2">B2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Commands &amp; Imperatives</div></div><span class="ltag ltag-lock">33970 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">81</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Las Preposiciones <span class="lvlb b2">B2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Prepositions Mastery</div></div><span class="ltag ltag-lock">34800 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">82</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Los Conectores <span class="lvlb b2">B2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Connectors &amp; Transitions</div></div><span class="ltag ltag-lock">35640 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">83</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Las Metáforas <span class="lvlb b2">B2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Idioms &amp; Metaphors</div></div><span class="ltag ltag-lock">36490 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">84</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Los Refranes <span class="lvlb b2">B2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Proverbs &amp; Sayings</div></div><span class="ltag ltag-lock">37350 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">85</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">El Humor <span class="lvlb b2">B2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Humor &amp; Wordplay</div></div><span class="ltag ltag-lock">38220 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">86</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">La Poesía <span class="lvlb b2">B2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Poetry &amp; Poetic Language</div></div><span class="ltag ltag-lock">39100 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">87</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Los Dialectos <span class="lvlb b2">B2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Regional Dialects</div></div><span class="ltag ltag-lock">39990 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">88</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">El Argot <span class="lvlb b2">B2</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Slang &amp; Colloquial Spanish</div></div><span class="ltag ltag-lock">40890 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">89</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Lenguaje Formal <span class="lvlb c1">C1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Formal Language</div></div><span class="ltag ltag-lock">41800 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">90</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Lenguaje Académico <span class="lvlb c1">C1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Academic Writing</div></div><span class="ltag ltag-lock">42720 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">91</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Los Discursos <span class="lvlb c1">C1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Speeches &amp; Presentations</div></div><span class="ltag ltag-lock">43650 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">92</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">La Diplomacia <span class="lvlb c1">C1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Diplomatic Language</div></div><span class="ltag ltag-lock">44590 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">93</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">El Periodismo <span class="lvlb c1">C1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Journalism Spanish</div></div><span class="ltag ltag-lock">45540 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">94</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">La Literatura <span class="lvlb c1">C1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Literary Spanish</div></div><span class="ltag ltag-lock">46500 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">95</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">La Filosofía Avanzada <span class="lvlb c1">C1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Advanced Philosophy</div></div><span class="ltag ltag-lock">47470 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">96</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">La Política Avanzada <span class="lvlb c1">C1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Advanced Politics</div></div><span class="ltag ltag-lock">48450 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">97</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Expresiones Avanzadas <span class="lvlb c1">C1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Advanced Expressions</div></div><span class="ltag ltag-lock">49440 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">98</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Vocabulario Culto <span class="lvlb c1">C1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Sophisticated Vocabulary</div></div><span class="ltag ltag-lock">50440 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">99</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Matices del Idioma <span class="lvlb c1">C1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Language Nuances</div></div><span class="ltag ltag-lock">51450 XP</span></div><div class="lcard locked"><div class="lnum ln-lock">100</div><div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">Maestría del Español <span class="lvlb c1">C1</span></div><div style="font-size:12px;color:var(--tx2);margin-top:3px">Spanish Mastery</div></div><span class="ltag ltag-lock">52470 XP</span></div></div>
 </div>
 
 <div class="scr" id="s-cards">
   <div class="hdr">
-    <div><div class="ht">Flashcards</div><div class="hs" id="c-pl">Card 1 of 10</div></div>
-    <button onclick="shuffleCards()" style="font-size:12px;color:var(--pur);border:none;background:none;cursor:pointer;font-family:inherit;font-weight:600;padding:4px 8px">Shuffle</button>
+    <div><div class="ht">Flashcards</div><div class="hs" id="c-pl">No words yet</div></div>
+    <button id="btn-shuffle" style="font-size:12px;color:var(--pur);border:none;background:none;cursor:pointer;font-family:inherit;font-weight:600;padding:4px 8px">Shuffle</button>
   </div>
-  <div class="body">
-    <div class="xbt"><div class="xbf" id="c-pf" style="width:0%"></div></div>
-    <div class="fscene" onclick="flipCard()">
-      <div class="fcard" id="fcard">
-        <div class="fface">
-          <div style="font-size:10px;letter-spacing:.12em;color:var(--tx3);margin-bottom:14px;text-transform:uppercase;background:var(--purll);padding:4px 10px;border-radius:999px;border:1.5px solid var(--bdr)" id="fc-c">Greetings</div>
-          <div style="font-size:38px;font-weight:700;color:var(--tx);line-height:1.15" id="fc-w">hola</div>
-          <div style="font-size:13px;color:var(--tx2);margin-top:8px;font-style:italic" id="fc-p">OH-lah</div>
-          <button class="spkbtn" style="margin-top:18px" onclick="event.stopPropagation();speakCard()">
-            <svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/></svg>Pronounce
-          </button>
-          <div style="font-size:11px;color:var(--tx3);margin-top:14px">Tap card to reveal</div>
-        </div>
-        <div class="fface fback">
-          <div style="font-size:10px;font-weight:600;color:var(--pur);margin-bottom:6px;text-transform:uppercase;letter-spacing:.12em">Meaning</div>
-          <div style="font-size:30px;font-weight:700;color:var(--tx)" id="fc-m">hello</div>
-          <div style="width:36px;height:3px;background:var(--pur);margin:14px auto;border-radius:2px"></div>
-          <div style="font-size:10px;color:var(--pur);font-weight:600;margin-bottom:7px;text-transform:uppercase;letter-spacing:.12em">Example</div>
-          <div style="font-size:14px;color:var(--tx2);line-height:1.6;font-style:italic" id="fc-e"></div>
-          <button class="spkbtn" style="margin-top:14px" onclick="event.stopPropagation();speakCard()">
-            <svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/></svg>Hear it
-          </button>
-        </div>
-      </div>
-    </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-      <button class="bs" id="btn-n" onclick="rateCard('no')" style="color:var(--redd);border-color:var(--red);box-shadow:0 5px 0 var(--redb)" disabled>Don't know</button>
-      <button style="background:var(--grn);color:#fff;border:2.5px solid var(--grnd);border-radius:18px;padding:13px;font-size:15px;font-weight:600;font-family:inherit;cursor:pointer;box-shadow:0 5px 0 var(--grnb);transition:all .1s;flex-shrink:0;width:100%;opacity:.4" id="btn-y" onclick="rateCard('yes')" disabled>Know it</button>
-    </div>
-    <div style="display:flex;justify-content:space-between;padding:0 4px">
-      <span style="font-size:13px;color:var(--tx2)">Known: <span style="color:var(--grn);font-weight:600" id="c-kn">0</span></span>
-      <span style="font-size:13px;color:var(--tx2)">To review: <span style="font-weight:600" id="c-rv">0</span></span>
-    </div>
-  </div>
+  <div class="body" id="card-body"><div style="text-align:center;padding:40px 20px;color:var(--tx2);font-size:14px">Complete a lesson first to unlock flashcards.</div><button class="bp" style="margin: 0px 16px 16px;">Go to Lessons</button></div>
 </div>
 
 <div class="scr" id="s-quiz">
@@ -261,24 +215,13 @@ html,body{height:100%;background:#E0D9F7;display:flex;align-items:center;justify
     <div><div class="ht">Quiz</div><div class="hs" id="q-sc">Score: 0</div></div>
     <div style="display:flex;align-items:center;gap:8px">
       <div class="hearts" id="q-hearts"></div>
-      <button onclick="newQuiz()" style="font-size:12px;color:var(--pur);border:none;background:none;cursor:pointer;font-family:inherit;font-weight:600;padding:4px 8px">New</button>
+      <button id="btn-new-quiz" style="font-size:12px;color:var(--pur);border:none;background:none;cursor:pointer;font-family:inherit;font-weight:600;padding:4px 8px">New</button>
     </div>
   </div>
-  <div class="body">
-    <div style="display:flex;justify-content:space-between;align-items:center;flex-shrink:0">
-      <span style="font-size:13px;color:var(--tx2)" id="q-nm">Question 1 of 10</span>
-      <div style="display:flex;gap:4px" id="q-dt"></div>
-    </div>
-    <div class="card">
-      <div style="font-size:10px;font-weight:600;color:var(--pur);text-transform:uppercase;letter-spacing:.12em;margin-bottom:8px" id="q-ty">What does this mean?</div>
-      <div id="q-main"></div>
-    </div>
-    <div id="q-ans" style="display:flex;flex-direction:column;gap:9px"></div>
-    <div id="q-fb" style="display:none;flex-direction:column;gap:10px"></div>
-  </div>
+  <div class="body" id="quiz-body"><div style="text-align:center;padding:40px 20px;color:var(--tx2);font-size:14px">Complete a lesson first to unlock quizzes.</div><button class="bp" style="margin: 0px 16px 16px;">Go to Lessons</button></div>
 </div>
 
-<div class="scr" id="s-me">
+<div class="scr on" id="s-me">
   <div class="hdr"><div class="ht">My Profile</div></div>
   <div class="body">
     <div class="card" style="text-align:center;padding:24px">
@@ -288,882 +231,620 @@ html,body{height:100%;background:#E0D9F7;display:flex;align-items:center;justify
     </div>
     <div class="sg">
       <div class="sbox"><div class="sn" style="color:var(--yel)" id="me-xp">0</div><div class="sl">Total XP</div></div>
-      <div class="sbox"><div class="sn" style="color:var(--yel)" id="me-st">0</div><div class="sl">Day streak</div></div>
+      <div class="sbox"><div class="sn" style="color:var(--yel)" id="me-st">1</div><div class="sl">Day streak</div></div>
       <div class="sbox"><div class="sn" style="color:var(--grn)" id="me-kn">0</div><div class="sl">Words known</div></div>
       <div class="sbox"><div class="sn" style="color:var(--pur)" id="me-ms">0</div><div class="sl">AI sessions</div></div>
     </div>
     <div class="card">
       <div style="font-size:13px;font-weight:600;color:var(--tx)">Target language</div>
-      <div class="lgrid" id="lgrid"></div>
+      <div class="lgrid" id="lgrid"><button class="lb sel"><div class="ln">Spanish</div><div class="lv">Español</div></button><button class="lb"><div class="ln">German</div><div class="lv">Deutsch</div></button><button class="lb"><div class="ln">French</div><div class="lv">Français</div></button><button class="lb"><div class="ln">Italian</div><div class="lv">Italiano</div></button><button class="lb"><div class="ln">Portuguese</div><div class="lv">Português</div></button><button class="lb"><div class="ln">Japanese</div><div class="lv">日本語</div></button><button class="lb"><div class="ln">Mandarin</div><div class="lv">普通话</div></button></div>
     </div>
-    <button class="bs" style="color:var(--redd);border-color:var(--red);box-shadow:0 5px 0 var(--redb)" onclick="if(confirm('Reset all progress?'))resetAll()">Reset all progress</button>
-    <div style="font-size:11px;color:var(--tx3);text-align:center;padding-bottom:8px">LangAI · Powered by Claude AI</div>
+    <div class="card">
+      <div style="font-size:13px;font-weight:600;color:var(--tx);margin-bottom:12px">API Key</div>
+      <input class="inp" id="me-key-inp" type="password" placeholder="sk-ant-api03-..." style="margin-bottom:10px">
+      <button class="bs" id="btn-save-key-me" style="font-size:13px;padding:10px">Save Key</button>
+    </div>
+    <button class="bs" id="btn-download" style="color:var(--ind);border-color:var(--ind);box-shadow:0 5px 0 var(--indb)">
+  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+  Download App (Save to Files)
+</button>
+<button class="bs" id="btn-reset" style="color:var(--redd);border-color:var(--red);box-shadow:0 5px 0 var(--redb)">Reset all progress</button>
+    <div style="font-size:11px;color:var(--tx3);text-align:center;padding-bottom:8px">LangAI · 100 lessons per language · Powered by Claude AI</div>
   </div>
 </div>
 
 <div id="tabs">
-  <button class="tab on" id="tab-home" onclick="go('home')"><div class="tiw"><svg viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H5a1 1 0 01-1-1V9.5z"/><polyline points="9 21 9 12 15 12 15 21"/></svg></div><span style="font-size:10px;font-weight:500">Home</span></button>
-  <button class="tab" id="tab-practice" onclick="go('practice')"><div class="tiw"><svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2"/></svg></div><span style="font-size:10px;font-weight:500">Talk</span></button>
-  <button class="tab" id="tab-lessons" onclick="go('lessons')"><div class="tiw"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg></div><span style="font-size:10px;font-weight:500">Lessons</span></button>
-  <button class="tab" id="tab-quiz" onclick="go('quiz')"><div class="tiw"><svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></div><span style="font-size:10px;font-weight:500">Quiz</span></button>
-  <button class="tab" id="tab-me" onclick="go('me')"><div class="tiw"><svg viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"/><path d="M4 21v-2a8 8 0 0116 0v2"/></svg></div><span style="font-size:10px;font-weight:500">Me</span></button>
+  <button class="tab" id="tab-home"><div class="tiw"><svg viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H5a1 1 0 01-1-1V9.5z"></path><polyline points="9 21 9 12 15 12 15 21"></polyline></svg></div><span style="font-size:10px;font-weight:500">Home</span></button>
+  <button class="tab" id="tab-talk"><div class="tiw"><svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"></path><path d="M19 10v2a7 7 0 01-14 0v-2"></path></svg></div><span style="font-size:10px;font-weight:500">Talk</span></button>
+  <button class="tab" id="tab-lessons"><div class="tiw"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"></path><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"></path></svg></div><span style="font-size:10px;font-weight:500">Lessons</span></button>
+  <button class="tab" id="tab-cards"><div class="tiw"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"></rect><path d="M7 7V5a2 2 0 012-2h6a2 2 0 012 2v2"></path></svg></div><span style="font-size:10px;font-weight:500">Cards</span></button>
+  <button class="tab" id="tab-quiz"><div class="tiw"><svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"></path></svg></div><span style="font-size:10px;font-weight:500">Quiz</span></button>
+  <button class="tab on" id="tab-me"><div class="tiw"><svg viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"></circle><path d="M4 21v-2a8 8 0 0116 0v2"></path></svg></div><span style="font-size:10px;font-weight:500">Me</span></button>
 </div>
 </div>
-
 <script>
-// ── LESSON PLAN ─────────────────────────────────────────────────
-const LESSONS = {
-  es:[
-    {id:1,title:'First Words',sub:'Greetings & essentials',xpRequired:0,words:[
-      {id:'es01',w:'hola',m:'hello',ex:'¡Hola! ¿Cómo estás?',p:'OH-lah',c:'Greetings'},
-      {id:'es02',w:'adiós',m:'goodbye',ex:'Adiós, hasta luego.',p:'ah-DYOHS',c:'Greetings'},
-      {id:'es03',w:'gracias',m:'thank you',ex:'Muchas gracias.',p:'GRAH-see-ahs',c:'Greetings'},
-      {id:'es04',w:'por favor',m:'please',ex:'Un café, por favor.',p:'por fah-VOR',c:'Greetings'},
-      {id:'es05',w:'sí',m:'yes',ex:'Sí, claro.',p:'see',c:'Basics'},
-      {id:'es06',w:'no',m:'no',ex:'No, gracias.',p:'noh',c:'Basics'},
-      {id:'es07',w:'lo siento',m:"sorry",ex:'Lo siento mucho.',p:'loh SYEHN-toh',c:'Greetings'},
-      {id:'es08',w:'buenos días',m:'good morning',ex:'¡Buenos días a todos!',p:'BWEH-nohs DEE-ahs',c:'Greetings'}
-    ]},
-    {id:2,title:'Meeting People',sub:'Introductions & small talk',xpRequired:40,words:[
-      {id:'es09',w:'me llamo',m:'my name is',ex:'Me llamo Carlos.',p:'meh YAH-moh',c:'Introductions'},
-      {id:'es10',w:'mucho gusto',m:'nice to meet you',ex:'Mucho gusto, María.',p:'MOO-choh GOOS-toh',c:'Introductions'},
-      {id:'es11',w:'¿cómo estás?',m:'how are you?',ex:'Hola, ¿cómo estás?',p:'KOH-moh es-TAHS',c:'Introductions'},
-      {id:'es12',w:'bien',m:'well / good',ex:'Estoy muy bien, gracias.',p:'byehn',c:'Introductions'},
-      {id:'es13',w:'¿y tú?',m:'and you?',ex:'Bien, ¿y tú?',p:'ee TOO',c:'Introductions'},
-      {id:'es14',w:'de dónde eres',m:'where are you from',ex:'¿De dónde eres?',p:'deh DOHN-deh EH-res',c:'Introductions'},
-      {id:'es15',w:'soy de',m:'I am from',ex:'Soy de Nueva York.',p:'soy deh',c:'Introductions'},
-      {id:'es16',w:'encantado',m:'delighted / pleased',ex:'Encantado de conocerte.',p:'en-kan-TAH-doh',c:'Introductions'}
-    ]},
-    {id:3,title:'Numbers & Time',sub:'Count and tell time',xpRequired:100,words:[
-      {id:'es17',w:'uno',m:'one',ex:'Uno, dos, tres.',p:'OO-noh',c:'Numbers'},
-      {id:'es18',w:'dos',m:'two',ex:'Tengo dos hermanos.',p:'dohs',c:'Numbers'},
-      {id:'es19',w:'tres',m:'three',ex:'Son las tres.',p:'trehs',c:'Numbers'},
-      {id:'es20',w:'diez',m:'ten',ex:'Tengo diez dólares.',p:'dyehs',c:'Numbers'},
-      {id:'es21',w:'hoy',m:'today',ex:'Hoy es lunes.',p:'oy',c:'Time'},
-      {id:'es22',w:'mañana',m:'tomorrow',ex:'Hasta mañana.',p:'mah-NYAH-nah',c:'Time'},
-      {id:'es23',w:'ayer',m:'yesterday',ex:'Ayer fui al mercado.',p:'ah-YEHR',c:'Time'},
-      {id:'es24',w:'ahora',m:'now',ex:'Ven ahora mismo.',p:'ah-OH-rah',c:'Time'}
-    ]},
-    {id:4,title:'Food & Drink',sub:'Order and describe food',xpRequired:180,words:[
-      {id:'es25',w:'el agua',m:'water',ex:'Quiero agua, por favor.',p:'ehl AH-gwah',c:'Food'},
-      {id:'es26',w:'el café',m:'coffee',ex:'Un café con leche.',p:'ehl kah-FEH',c:'Food'},
-      {id:'es27',w:'el pan',m:'bread',ex:'El pan está fresco.',p:'ehl pahn',c:'Food'},
-      {id:'es28',w:'la comida',m:'food / meal',ex:'La comida está deliciosa.',p:'lah koh-MEE-dah',c:'Food'},
-      {id:'es29',w:'quiero',m:'I want',ex:'Quiero comer algo.',p:'KYEH-roh',c:'Verbs'},
-      {id:'es30',w:'hambre',m:'hungry',ex:'Tengo mucha hambre.',p:'AHM-breh',c:'Food'},
-      {id:'es31',w:'delicioso',m:'delicious',ex:'¡Está delicioso!',p:'deh-lee-SYOH-soh',c:'Food'},
-      {id:'es32',w:'la cuenta',m:'the bill',ex:'La cuenta, por favor.',p:'lah KWEHN-tah',c:'Food'}
-    ]},
-    {id:5,title:'Getting Around',sub:'Places & directions',xpRequired:280,words:[
-      {id:'es33',w:'dónde está',m:'where is',ex:'¿Dónde está el baño?',p:'DOHN-deh es-TAH',c:'Places'},
-      {id:'es34',w:'la calle',m:'street',ex:'Vivo en esta calle.',p:'lah KAH-yeh',c:'Places'},
-      {id:'es35',w:'el hotel',m:'hotel',ex:'El hotel está cerca.',p:'ehl oh-TEHL',c:'Places'},
-      {id:'es36',w:'a la derecha',m:'to the right',ex:'Gira a la derecha.',p:'ah lah deh-REH-chah',c:'Directions'},
-      {id:'es37',w:'a la izquierda',m:'to the left',ex:'Está a la izquierda.',p:'ah lah ees-KYEHR-dah',c:'Directions'},
-      {id:'es38',w:'cerca',m:'near / close',ex:'El banco está cerca.',p:'SEHR-kah',c:'Directions'},
-      {id:'es39',w:'lejos',m:'far',ex:'No, está muy lejos.',p:'LEH-hohs',c:'Directions'},
-      {id:'es40',w:'el aeropuerto',m:'airport',ex:'¿Cómo llego al aeropuerto?',p:'ehl ah-eh-roh-PWEHR-toh',c:'Places'}
-    ]},
-    {id:6,title:'Daily Life',sub:'Routines and habits',xpRequired:400,words:[
-      {id:'es41',w:'me despierto',m:'I wake up',ex:'Me despierto a las siete.',p:'meh des-PYEHR-toh',c:'Routines'},
-      {id:'es42',w:'el trabajo',m:'work / job',ex:'Voy al trabajo en metro.',p:'ehl trah-BAH-hoh',c:'Life'},
-      {id:'es43',w:'la casa',m:'house / home',ex:'Estoy en casa.',p:'lah KAH-sah',c:'Places'},
-      {id:'es44',w:'comprar',m:'to buy',ex:'Necesito comprar leche.',p:'kohm-PRAHR',c:'Verbs'},
-      {id:'es45',w:'el dinero',m:'money',ex:'No tengo dinero.',p:'ehl dee-NEH-roh',c:'Life'},
-      {id:'es46',w:'tarde',m:'late',ex:'Llego tarde siempre.',p:'TAHR-deh',c:'Time'},
-      {id:'es47',w:'temprano',m:'early',ex:'Me levanto temprano.',p:'tehm-PRAH-noh',c:'Time'},
-      {id:'es48',w:'siempre',m:'always',ex:'Siempre llego a tiempo.',p:'SYEHM-preh',c:'Adverbs'}
-    ]},
-    {id:7,title:'People & Family',sub:'Describe people around you',xpRequired:550,words:[
-      {id:'es49',w:'la familia',m:'family',ex:'Mi familia es grande.',p:'lah fah-MEE-lyah',c:'People'},
-      {id:'es50',w:'la madre',m:'mother',ex:'Mi madre es doctora.',p:'lah MAH-dreh',c:'Family'},
-      {id:'es51',w:'el padre',m:'father',ex:'Mi padre trabaja mucho.',p:'ehl PAH-dreh',c:'Family'},
-      {id:'es52',w:'el hermano',m:'brother',ex:'Tengo un hermano.',p:'ehl ehr-MAH-noh',c:'Family'},
-      {id:'es53',w:'el amigo',m:'friend',ex:'Mi amigo es muy divertido.',p:'ehl ah-MEE-goh',c:'People'},
-      {id:'es54',w:'joven',m:'young',ex:'Soy bastante joven.',p:'HOH-behn',c:'Adjectives'},
-      {id:'es55',w:'alto',m:'tall',ex:'Mi hermano es muy alto.',p:'AHL-toh',c:'Adjectives'},
-      {id:'es56',w:'simpático',m:'nice / friendly',ex:'Es una persona muy simpática.',p:'seem-PAH-tee-koh',c:'Adjectives'}
-    ]},
-    {id:8,title:'Feelings & Opinions',sub:'Express yourself',xpRequired:720,words:[
-      {id:'es57',w:'me gusta',m:'I like',ex:'Me gusta mucho la música.',p:'meh GOOS-tah',c:'Opinions'},
-      {id:'es58',w:'no me gusta',m:"I don't like",ex:'No me gusta el frío.',p:'noh meh GOOS-tah',c:'Opinions'},
-      {id:'es59',w:'creo que',m:'I think that',ex:'Creo que tienes razón.',p:'KREH-oh keh',c:'Opinions'},
-      {id:'es60',w:'feliz',m:'happy',ex:'Estoy muy feliz hoy.',p:'feh-LEES',c:'Feelings'},
-      {id:'es61',w:'triste',m:'sad',ex:'Estoy un poco triste.',p:'TREES-teh',c:'Feelings'},
-      {id:'es62',w:'cansado',m:'tired',ex:'Estoy muy cansado.',p:'kahn-SAH-doh',c:'Feelings'},
-      {id:'es63',w:'emocionado',m:'excited',ex:'Estoy muy emocionado.',p:'eh-moh-syoh-NAH-doh',c:'Feelings'},
-      {id:'es64',w:'de acuerdo',m:'I agree',ex:'Sí, estoy de acuerdo.',p:'deh ah-KWEHR-doh',c:'Opinions'}
-    ]},
-    {id:9,title:'Past & Future',sub:'Talk about time',xpRequired:920,words:[
-      {id:'es65',w:'fui',m:'I went',ex:'Fui al mercado ayer.',p:'fwee',c:'Past'},
-      {id:'es66',w:'hice',m:'I did / I made',ex:'Hice la tarea.',p:'EE-seh',c:'Past'},
-      {id:'es67',w:'voy a',m:'I am going to',ex:'Voy a estudiar mañana.',p:'boy ah',c:'Future'},
-      {id:'es68',w:'quiero',m:'I want to',ex:'Quiero viajar el año que viene.',p:'KYEH-roh',c:'Future'},
-      {id:'es69',w:'el año pasado',m:'last year',ex:'El año pasado fui a España.',p:'ehl AH-nyoh pah-SAH-doh',c:'Time'},
-      {id:'es70',w:'la próxima semana',m:'next week',ex:'La próxima semana tengo vacaciones.',p:'lah PROHK-see-mah seh-MAH-nah',c:'Time'},
-      {id:'es71',w:'ya',m:'already',ex:'Ya terminé.',p:'yah',c:'Adverbs'},
-      {id:'es72',w:'todavía',m:'still / yet',ex:'Todavía no lo sé.',p:'toh-dah-VEE-ah',c:'Adverbs'}
-    ]},
-    {id:10,title:'Fluency Practice',sub:'Complex conversations',xpRequired:1150,words:[
-      {id:'es73',w:'sin embargo',m:'however',ex:'Sin embargo, no estoy de acuerdo.',p:'seen em-BAHR-goh',c:'Connectors'},
-      {id:'es74',w:'por supuesto',m:'of course',ex:'Por supuesto, con mucho gusto.',p:'por soo-PWEHS-toh',c:'Connectors'},
-      {id:'es75',w:'aunque',m:'although / even though',ex:'Aunque llueve, salgo a correr.',p:'OWN-keh',c:'Connectors'},
-      {id:'es76',w:'me parece',m:'it seems to me',ex:'Me parece una buena idea.',p:'meh pah-REH-seh',c:'Opinions'},
-      {id:'es77',w:'depende',m:'it depends',ex:'Depende de la situación.',p:'deh-PEHN-deh',c:'Connectors'},
-      {id:'es78',w:'a propósito',m:'by the way',ex:'A propósito, ¿cómo te fue?',p:'ah proh-POH-see-toh',c:'Connectors'},
-      {id:'es79',w:'en realidad',m:'actually / in reality',ex:'En realidad, no lo sé.',p:'en reh-ah-lee-DAHD',c:'Connectors'},
-      {id:'es80',w:'al final',m:'in the end',ex:'Al final, todo salió bien.',p:'ahl fee-NAHL',c:'Connectors'}
-    ]}
-  ],
-  de:[
-    {id:1,title:'Erste Worte',sub:'Greetings and essentials',xpRequired:0,words:[
-      {id:'de01',w:'Hallo',m:'hello',ex:'Hallo! Wie geht es Ihnen?',p:'HAH-loh',c:'Greetings'},
-      {id:'de02',w:'Tschüss',m:'goodbye',ex:'Tschüss, bis später!',p:'CHYOOS',c:'Greetings'},
-      {id:'de03',w:'Danke',m:'thank you',ex:'Vielen Dank für alles.',p:'DAHN-keh',c:'Greetings'},
-      {id:'de04',w:'Bitte',m:'please / you are welcome',ex:'Einen Kaffee, bitte.',p:'BIT-teh',c:'Greetings'},
-      {id:'de05',w:'Ja',m:'yes',ex:'Ja, natürlich.',p:'yah',c:'Basics'},
-      {id:'de06',w:'Nein',m:'no',ex:'Nein, danke.',p:'nine',c:'Basics'},
-      {id:'de07',w:'Entschuldigung',m:'excuse me / sorry',ex:'Entschuldigung, sprechen Sie Englisch?',p:'ent-SHOOL-dee-goong',c:'Greetings'},
-      {id:'de08',w:'Guten Morgen',m:'good morning',ex:'Guten Morgen! Wie geht es dir?',p:'GOO-ten MOR-gen',c:'Greetings'}
-    ]},
-    {id:2,title:'Menschen kennenlernen',sub:'Meeting people',xpRequired:40,words:[
-      {id:'de09',w:'Ich heiße',m:'my name is',ex:'Ich heiße Thomas.',p:'ikh HY-sseh',c:'Introductions'},
-      {id:'de10',w:'Freut mich',m:'nice to meet you',ex:'Freut mich sehr, Sie kennenzulernen.',p:'froyt mikh',c:'Introductions'},
-      {id:'de11',w:'Wie geht es Ihnen?',m:'how are you? (formal)',ex:'Guten Tag, wie geht es Ihnen?',p:'vee gayt es EE-nen',c:'Introductions'},
-      {id:'de12',w:'Gut, danke',m:'good, thank you',ex:'Gut, danke. Und Ihnen?',p:'goot DAHN-keh',c:'Introductions'},
-      {id:'de13',w:'Woher kommen Sie?',m:'where are you from?',ex:'Woher kommen Sie, bitte?',p:'VOH-hehr KOM-men zee',c:'Introductions'},
-      {id:'de14',w:'Ich komme aus',m:'I am from',ex:'Ich komme aus den USA.',p:'ikh KOM-meh ows',c:'Introductions'},
-      {id:'de15',w:'Sehr erfreut',m:'delighted to meet you',ex:'Sehr erfreut, Ihre Bekanntschaft zu machen.',p:'zehr er-FROYT',c:'Introductions'},
-      {id:'de16',w:'Wie alt sind Sie?',m:'how old are you?',ex:'Wie alt sind Sie, wenn ich fragen darf?',p:'vee alt zint zee',c:'Introductions'}
-    ]},
-    {id:3,title:'Zahlen und Zeit',sub:'Numbers and time',xpRequired:100,words:[
-      {id:'de17',w:'eins',m:'one',ex:'Ich möchte eins davon.',p:'eyns',c:'Numbers'},
-      {id:'de18',w:'zwei',m:'two',ex:'Zwei Kaffee, bitte.',p:'tsvye',c:'Numbers'},
-      {id:'de19',w:'drei',m:'three',ex:'Ich habe drei Geschwister.',p:'dry',c:'Numbers'},
-      {id:'de20',w:'zehn',m:'ten',ex:'Zehn Euro, bitte.',p:'tsayn',c:'Numbers'},
-      {id:'de21',w:'heute',m:'today',ex:'Heute ist Montag.',p:'HOY-teh',c:'Time'},
-      {id:'de22',w:'morgen',m:'tomorrow',ex:'Bis morgen!',p:'MOR-gen',c:'Time'},
-      {id:'de23',w:'gestern',m:'yesterday',ex:'Gestern war ich krank.',p:'GES-tern',c:'Time'},
-      {id:'de24',w:'jetzt',m:'now',ex:'Komm jetzt her!',p:'yetst',c:'Time'}
-    ]},
-    {id:4,title:'Essen und Trinken',sub:'Food and drink',xpRequired:180,words:[
-      {id:'de25',w:'das Wasser',m:'water',ex:'Ich möchte ein Glas Wasser.',p:'dahs VAH-ser',c:'Food'},
-      {id:'de26',w:'der Kaffee',m:'coffee',ex:'Einen Kaffee mit Milch, bitte.',p:'dehr KAH-feh',c:'Food'},
-      {id:'de27',w:'das Brot',m:'bread',ex:'Das Brot schmeckt frisch.',p:'dahs broht',c:'Food'},
-      {id:'de28',w:'das Essen',m:'food / meal',ex:'Das Essen ist sehr lecker.',p:'dahs ES-sen',c:'Food'},
-      {id:'de29',w:'ich möchte',m:'I would like',ex:'Ich möchte bitte die Rechnung.',p:'ikh MERKH-teh',c:'Verbs'},
-      {id:'de30',w:'hungrig',m:'hungry',ex:'Ich bin sehr hungrig.',p:'HOONG-rikh',c:'Food'},
-      {id:'de31',w:'lecker',m:'delicious / tasty',ex:'Das schmeckt sehr lecker!',p:'LEK-ker',c:'Food'},
-      {id:'de32',w:'die Rechnung',m:'the bill',ex:'Die Rechnung, bitte.',p:'dee REKH-noong',c:'Food'}
-    ]},
-    {id:5,title:'Orientierung',sub:'Getting around',xpRequired:280,words:[
-      {id:'de33',w:'Wo ist',m:'where is',ex:'Wo ist der Bahnhof?',p:'voh ist',c:'Places'},
-      {id:'de34',w:'die Straße',m:'street',ex:'Ich wohne in dieser Straße.',p:'dee SHTRAH-seh',c:'Places'},
-      {id:'de35',w:'das Hotel',m:'hotel',ex:'Das Hotel ist in der Nähe.',p:'dahs hoh-TEL',c:'Places'},
-      {id:'de36',w:'rechts',m:'right',ex:'Biegen Sie rechts ab.',p:'rekhts',c:'Directions'},
-      {id:'de37',w:'links',m:'left',ex:'Es ist auf der linken Seite.',p:'links',c:'Directions'},
-      {id:'de38',w:'nah',m:'near / close',ex:'Der Supermarkt ist ganz nah.',p:'nah',c:'Directions'},
-      {id:'de39',w:'weit',m:'far',ex:'Nein, das ist zu weit.',p:'vyte',c:'Directions'},
-      {id:'de40',w:'der Flughafen',m:'airport',ex:'Wie komme ich zum Flughafen?',p:'dehr FLOOG-hah-fen',c:'Places'}
-    ]},
-    {id:6,title:'Alltag',sub:'Daily life and routines',xpRequired:400,words:[
-      {id:'de41',w:'ich wache auf',m:'I wake up',ex:'Ich wache jeden Tag um sieben auf.',p:'ikh VAH-kheh owf',c:'Routines'},
-      {id:'de42',w:'die Arbeit',m:'work / job',ex:'Ich fahre mit der U-Bahn zur Arbeit.',p:'dee AR-byte',c:'Life'},
-      {id:'de43',w:'das Haus',m:'house / home',ex:'Ich bin zu Hause.',p:'dahs hows',c:'Places'},
-      {id:'de44',w:'kaufen',m:'to buy',ex:'Ich muss Milch kaufen.',p:'KOW-fen',c:'Verbs'},
-      {id:'de45',w:'das Geld',m:'money',ex:'Ich habe kein Geld.',p:'dahs gelt',c:'Life'},
-      {id:'de46',w:'spät',m:'late',ex:'Ich komme immer zu spät.',p:'shpayt',c:'Time'},
-      {id:'de47',w:'früh',m:'early',ex:'Ich stehe früh auf.',p:'froo',c:'Time'},
-      {id:'de48',w:'immer',m:'always',ex:'Ich bin immer müde.',p:'IM-mer',c:'Adverbs'}
-    ]},
-    {id:7,title:'Familie und Menschen',sub:'People around you',xpRequired:550,words:[
-      {id:'de49',w:'die Familie',m:'family',ex:'Meine Familie ist sehr wichtig.',p:'dee fah-MEE-lyeh',c:'People'},
-      {id:'de50',w:'die Mutter',m:'mother',ex:'Meine Mutter ist Ärztin.',p:'dee MOO-ter',c:'Family'},
-      {id:'de51',w:'der Vater',m:'father',ex:'Mein Vater arbeitet viel.',p:'dehr FAH-ter',c:'Family'},
-      {id:'de52',w:'der Bruder',m:'brother',ex:'Ich habe einen Bruder.',p:'dehr BROO-der',c:'Family'},
-      {id:'de53',w:'der Freund',m:'friend / boyfriend',ex:'Er ist mein bester Freund.',p:'dehr froynd',c:'People'},
-      {id:'de54',w:'jung',m:'young',ex:'Sie ist noch sehr jung.',p:'yoong',c:'Adjectives'},
-      {id:'de55',w:'groß',m:'tall / big',ex:'Mein Bruder ist sehr groß.',p:'grohs',c:'Adjectives'},
-      {id:'de56',w:'nett',m:'nice / kind',ex:'Sie ist eine sehr nette Person.',p:'net',c:'Adjectives'}
-    ]},
-    {id:8,title:'Gefühle und Meinungen',sub:'Feelings and opinions',xpRequired:720,words:[
-      {id:'de57',w:'ich mag',m:'I like',ex:'Ich mag Musik sehr gerne.',p:'ikh mahk',c:'Opinions'},
-      {id:'de58',w:'ich mag nicht',m:'I do not like',ex:'Ich mag Montage nicht.',p:'ikh mahk nikht',c:'Opinions'},
-      {id:'de59',w:'ich denke',m:'I think',ex:'Ich denke, du hast recht.',p:'ikh DEN-keh',c:'Opinions'},
-      {id:'de60',w:'glücklich',m:'happy',ex:'Ich bin sehr glücklich heute.',p:'GLYK-likh',c:'Feelings'},
-      {id:'de61',w:'traurig',m:'sad',ex:'Ich bin ein bisschen traurig.',p:'TROW-rikh',c:'Feelings'},
-      {id:'de62',w:'müde',m:'tired',ex:'Ich bin total müde.',p:'MOO-deh',c:'Feelings'},
-      {id:'de63',w:'aufgeregt',m:'excited',ex:'Ich bin so aufgeregt!',p:'OWF-geh-regt',c:'Feelings'},
-      {id:'de64',w:'einverstanden',m:'I agree',ex:'Ja, ich bin einverstanden.',p:'EYN-fer-shtahn-den',c:'Opinions'}
-    ]},
-    {id:9,title:'Vergangenheit und Zukunft',sub:'Past and future tense',xpRequired:920,words:[
-      {id:'de65',w:'ich war',m:'I was / I went',ex:'Ich war gestern im Supermarkt.',p:'ikh vahr',c:'Past'},
-      {id:'de66',w:'ich habe gemacht',m:'I did / I made',ex:'Ich habe meine Hausaufgaben gemacht.',p:'ikh HAH-beh geh-MAKHT',c:'Past'},
-      {id:'de67',w:'ich werde',m:'I will',ex:'Ich werde morgen lernen.',p:'ikh VER-deh',c:'Future'},
-      {id:'de68',w:'ich möchte',m:'I would like to',ex:'Ich möchte nächstes Jahr reisen.',p:'ikh MERKH-teh',c:'Future'},
-      {id:'de69',w:'letztes Jahr',m:'last year',ex:'Letztes Jahr war ich in Berlin.',p:'LETS-tes yahr',c:'Time'},
-      {id:'de70',w:'nächste Woche',m:'next week',ex:'Nächste Woche habe ich Urlaub.',p:'NAYKH-steh VOH-kheh',c:'Time'},
-      {id:'de71',w:'schon',m:'already',ex:'Ich habe schon gegessen.',p:'shohn',c:'Adverbs'},
-      {id:'de72',w:'noch nicht',m:'not yet',ex:'Ich habe das noch nicht gemacht.',p:'nokh nikht',c:'Adverbs'}
-    ]},
-    {id:10,title:'Fließend sprechen',sub:'Fluency and complex speech',xpRequired:1150,words:[
-      {id:'de73',w:'obwohl',m:'although / even though',ex:'Obwohl es regnet, gehe ich spazieren.',p:'op-VOHL',c:'Connectors'},
-      {id:'de74',w:'natürlich',m:'of course / naturally',ex:'Natürlich, das mache ich gerne.',p:'nah-TYOOR-likh',c:'Connectors'},
-      {id:'de75',w:'allerdings',m:'however / though',ex:'Das ist gut, allerdings sehr teuer.',p:'AH-ler-dings',c:'Connectors'},
-      {id:'de76',w:'ich finde',m:'I find / I think',ex:'Ich finde das sehr interessant.',p:'ikh FIN-deh',c:'Opinions'},
-      {id:'de77',w:'es kommt darauf an',m:'it depends',ex:'Es kommt darauf an, was du meinst.',p:'es komt dah-ROWF an',c:'Connectors'},
-      {id:'de78',w:'übrigens',m:'by the way',ex:'Übrigens, wie war dein Tag?',p:'OO-bri-gens',c:'Connectors'},
-      {id:'de79',w:'eigentlich',m:'actually / to be honest',ex:'Eigentlich weiß ich das nicht.',p:'EY-gen-tlikhh',c:'Connectors'},
-      {id:'de80',w:'am Ende',m:'in the end',ex:'Am Ende hat alles gut geklappt.',p:'am EN-deh',c:'Connectors'}
-    ]}
-  ]
-};
 
-// Build vocab pool from all lessons
-function buildVocab(lang) {
-  const lessons = LESSONS[lang] || LESSONS.es;
-  const all = [];
-  lessons.forEach(l => l.words.forEach(w => all.push(w)));
-  return all;
+var KEY='';
+var VOCAB_CACHE={};
+
+// ── CURRICULUM ────────────────────────────────────────────────
+var CURRICULUM_ES=[{id:1,title:"Saludos",sub:"Greetings & Essentials",xpRequired:0},{id:2,title:"Presentaciones",sub:"Introducing Yourself",xpRequired:40},{id:3,title:"Números 1-20",sub:"Numbers 1-20",xpRequired:90},{id:4,title:"Números 21-1000",sub:"Numbers 21-1000",xpRequired:150},{id:5,title:"Los Días",sub:"Days of the Week",xpRequired:220},{id:6,title:"Los Meses",sub:"Months & Seasons",xpRequired:300},{id:7,title:"La Hora",sub:"Telling the Time",xpRequired:390},{id:8,title:"Los Colores",sub:"Colors & Shapes",xpRequired:490},{id:9,title:"La Familia",sub:"Family Members",xpRequired:600},{id:10,title:"El Cuerpo",sub:"The Human Body",xpRequired:720},{id:11,title:"La Ropa",sub:"Clothing & Fashion",xpRequired:850},{id:12,title:"La Comida",sub:"Food & Drink",xpRequired:990},{id:13,title:"En el Restaurante",sub:"At the Restaurant",xpRequired:1140},{id:14,title:"Las Frutas y Verduras",sub:"Fruits & Vegetables",xpRequired:1300},{id:15,title:"Los Animales",sub:"Animals & Pets",xpRequired:1470},{id:16,title:"La Casa",sub:"Home & Furniture",xpRequired:1650},{id:17,title:"Los Cuartos",sub:"Rooms in a House",xpRequired:1840},{id:18,title:"El Barrio",sub:"The Neighborhood",xpRequired:2040},{id:19,title:"El Transporte",sub:"Transport & Travel",xpRequired:2250},{id:20,title:"Los Números Ordinales",sub:"Ordinal Numbers",xpRequired:2470},{id:21,title:"Las Profesiones",sub:"Jobs & Professions",xpRequired:2700},{id:22,title:"El Trabajo",sub:"The Workplace",xpRequired:2940},{id:23,title:"La Escuela",sub:"School & Education",xpRequired:3190},{id:24,title:"Las Asignaturas",sub:"School Subjects",xpRequired:3450},{id:25,title:"El Clima",sub:"Weather & Climate",xpRequired:3720},{id:26,title:"La Naturaleza",sub:"Nature & Environment",xpRequired:4000},{id:27,title:"Los Deportes",sub:"Sports & Exercise",xpRequired:4290},{id:28,title:"Los Pasatiempos",sub:"Hobbies & Interests",xpRequired:4590},{id:29,title:"La Música",sub:"Music & Entertainment",xpRequired:4900},{id:30,title:"Las Compras",sub:"Shopping & Money",xpRequired:5220},{id:31,title:"El Supermercado",sub:"At the Supermarket",xpRequired:5550},{id:32,title:"El Banco",sub:"Banking & Finance",xpRequired:5890},{id:33,title:"La Salud",sub:"Health & the Body",xpRequired:6240},{id:34,title:"En el Médico",sub:"At the Doctor",xpRequired:6600},{id:35,title:"Las Emociones",sub:"Emotions & Feelings",xpRequired:6970},{id:36,title:"La Personalidad",sub:"Personality Traits",xpRequired:7350},{id:37,title:"Las Relaciones",sub:"Relationships & Social Life",xpRequired:7740},{id:38,title:"Las Tecnologías",sub:"Technology & Internet",xpRequired:8140},{id:39,title:"El Teléfono",sub:"Phone Calls & Messages",xpRequired:8550},{id:40,title:"Los Viajes",sub:"Travel & Tourism",xpRequired:8970},{id:41,title:"El Aeropuerto",sub:"At the Airport",xpRequired:9400},{id:42,title:"El Hotel",sub:"At the Hotel",xpRequired:9840},{id:43,title:"Las Instrucciones",sub:"Giving Directions",xpRequired:10290},{id:44,title:"La Ciudad",sub:"The City & Landmarks",xpRequired:10750},{id:45,title:"El Campo",sub:"The Countryside",xpRequired:11220},{id:46,title:"Verbos Esenciales",sub:"Essential Verbs",xpRequired:11700},{id:47,title:"Ser vs Estar",sub:"To Be: Ser vs Estar",xpRequired:12190},{id:48,title:"El Presente",sub:"Present Tense Verbs",xpRequired:12690},{id:49,title:"El Pretérito",sub:"Simple Past Tense",xpRequired:13200},{id:50,title:"El Imperfecto",sub:"Imperfect Past Tense",xpRequired:13720},{id:51,title:"El Futuro",sub:"Future Tense",xpRequired:14250},{id:52,title:"El Condicional",sub:"Conditional Tense",xpRequired:14790},{id:53,title:"Los Reflexivos",sub:"Reflexive Verbs",xpRequired:15340},{id:54,title:"Ser Humano",sub:"Human Conditions & States",xpRequired:15900},{id:55,title:"La Política",sub:"Politics & Government",xpRequired:16470},{id:56,title:"La Economía",sub:"Economy & Business",xpRequired:17050},{id:57,title:"El Medio Ambiente",sub:"The Environment",xpRequired:17640},{id:58,title:"La Ciencia",sub:"Science & Technology",xpRequired:18240},{id:59,title:"La Historia",sub:"History & Culture",xpRequired:18850},{id:60,title:"El Arte",sub:"Art & Literature",xpRequired:19470},{id:61,title:"La Religión",sub:"Religion & Beliefs",xpRequired:20100},{id:62,title:"La Filosofía",sub:"Philosophy & Ideas",xpRequired:20740},{id:63,title:"La Psicología",sub:"Psychology & Mind",xpRequired:21390},{id:64,title:"Las Opiniones",sub:"Giving Opinions",xpRequired:22050},{id:65,title:"El Debate",sub:"Debating & Arguing",xpRequired:22720},{id:66,title:"Las Noticias",sub:"News & Current Events",xpRequired:23400},{id:67,title:"Los Medios",sub:"Media & Journalism",xpRequired:24090},{id:68,title:"La Cocina",sub:"Cooking & Recipes",xpRequired:24790},{id:69,title:"La Moda",sub:"Fashion & Style",xpRequired:25500},{id:70,title:"La Arquitectura",sub:"Architecture & Design",xpRequired:26220},{id:71,title:"Los Negocios",sub:"Business Spanish",xpRequired:26950},{id:72,title:"Las Negociaciones",sub:"Negotiation Language",xpRequired:27690},{id:73,title:"El Derecho",sub:"Law & Legal Terms",xpRequired:28440},{id:74,title:"La Medicina",sub:"Medical Spanish",xpRequired:29200},{id:75,title:"La Ingeniería",sub:"Engineering & Tech",xpRequired:29970},{id:76,title:"Las Finanzas",sub:"Finance & Investment",xpRequired:30750},{id:77,title:"El Marketing",sub:"Marketing Language",xpRequired:31540},{id:78,title:"Los Recursos Humanos",sub:"HR & Workplace",xpRequired:32340},{id:79,title:"El Subjuntivo",sub:"Subjunctive Mood",xpRequired:33150},{id:80,title:"El Imperativo",sub:"Commands & Imperatives",xpRequired:33970},{id:81,title:"Las Preposiciones",sub:"Prepositions Mastery",xpRequired:34800},{id:82,title:"Los Conectores",sub:"Connectors & Transitions",xpRequired:35640},{id:83,title:"Las Metáforas",sub:"Idioms & Metaphors",xpRequired:36490},{id:84,title:"Los Refranes",sub:"Proverbs & Sayings",xpRequired:37350},{id:85,title:"El Humor",sub:"Humor & Wordplay",xpRequired:38220},{id:86,title:"La Poesía",sub:"Poetry & Poetic Language",xpRequired:39100},{id:87,title:"Los Dialectos",sub:"Regional Dialects",xpRequired:39990},{id:88,title:"El Argot",sub:"Slang & Colloquial Spanish",xpRequired:40890},{id:89,title:"Lenguaje Formal",sub:"Formal Language",xpRequired:41800},{id:90,title:"Lenguaje Académico",sub:"Academic Writing",xpRequired:42720},{id:91,title:"Los Discursos",sub:"Speeches & Presentations",xpRequired:43650},{id:92,title:"La Diplomacia",sub:"Diplomatic Language",xpRequired:44590},{id:93,title:"El Periodismo",sub:"Journalism Spanish",xpRequired:45540},{id:94,title:"La Literatura",sub:"Literary Spanish",xpRequired:46500},{id:95,title:"La Filosofía Avanzada",sub:"Advanced Philosophy",xpRequired:47470},{id:96,title:"La Política Avanzada",sub:"Advanced Politics",xpRequired:48450},{id:97,title:"Expresiones Avanzadas",sub:"Advanced Expressions",xpRequired:49440},{id:98,title:"Vocabulario Culto",sub:"Sophisticated Vocabulary",xpRequired:50440},{id:99,title:"Matices del Idioma",sub:"Language Nuances",xpRequired:51450},{id:100,title:"Maestría del Español",sub:"Spanish Mastery",xpRequired:52470}];
+var CURRICULUM_DE=[{id:1,title:"Grüße",sub:"Greetings & Essentials",xpRequired:0},{id:2,title:"Vorstellungen",sub:"Introducing Yourself",xpRequired:40},{id:3,title:"Zahlen 1-20",sub:"Numbers 1-20",xpRequired:90},{id:4,title:"Zahlen 21-1000",sub:"Numbers 21-1000",xpRequired:150},{id:5,title:"Die Wochentage",sub:"Days of the Week",xpRequired:220},{id:6,title:"Die Monate",sub:"Months & Seasons",xpRequired:300},{id:7,title:"Die Uhrzeit",sub:"Telling the Time",xpRequired:390},{id:8,title:"Die Farben",sub:"Colors & Shapes",xpRequired:490},{id:9,title:"Die Familie",sub:"Family Members",xpRequired:600},{id:10,title:"Der Körper",sub:"The Human Body",xpRequired:720},{id:11,title:"Die Kleidung",sub:"Clothing & Fashion",xpRequired:850},{id:12,title:"Essen und Trinken",sub:"Food & Drink",xpRequired:990},{id:13,title:"Im Restaurant",sub:"At the Restaurant",xpRequired:1140},{id:14,title:"Obst und Gemüse",sub:"Fruits & Vegetables",xpRequired:1300},{id:15,title:"Die Tiere",sub:"Animals & Pets",xpRequired:1470},{id:16,title:"Das Zuhause",sub:"Home & Furniture",xpRequired:1650},{id:17,title:"Die Zimmer",sub:"Rooms in a House",xpRequired:1840},{id:18,title:"Die Nachbarschaft",sub:"The Neighborhood",xpRequired:2040},{id:19,title:"Verkehr und Reisen",sub:"Transport & Travel",xpRequired:2250},{id:20,title:"Ordinalzahlen",sub:"Ordinal Numbers",xpRequired:2470},{id:21,title:"Die Berufe",sub:"Jobs & Professions",xpRequired:2700},{id:22,title:"Der Arbeitsplatz",sub:"The Workplace",xpRequired:2940},{id:23,title:"Die Schule",sub:"School & Education",xpRequired:3190},{id:24,title:"Die Fächer",sub:"School Subjects",xpRequired:3450},{id:25,title:"Das Wetter",sub:"Weather & Climate",xpRequired:3720},{id:26,title:"Die Natur",sub:"Nature & Environment",xpRequired:4000},{id:27,title:"Der Sport",sub:"Sports & Exercise",xpRequired:4290},{id:28,title:"Die Hobbys",sub:"Hobbies & Interests",xpRequired:4590},{id:29,title:"Die Musik",sub:"Music & Entertainment",xpRequired:4900},{id:30,title:"Einkaufen",sub:"Shopping & Money",xpRequired:5220},{id:31,title:"Im Supermarkt",sub:"At the Supermarket",xpRequired:5550},{id:32,title:"Die Bank",sub:"Banking & Finance",xpRequired:5890},{id:33,title:"Die Gesundheit",sub:"Health & the Body",xpRequired:6240},{id:34,title:"Beim Arzt",sub:"At the Doctor",xpRequired:6600},{id:35,title:"Die Gefühle",sub:"Emotions & Feelings",xpRequired:6970},{id:36,title:"Die Persönlichkeit",sub:"Personality Traits",xpRequired:7350},{id:37,title:"Beziehungen",sub:"Relationships & Social Life",xpRequired:7740},{id:38,title:"Technologie",sub:"Technology & Internet",xpRequired:8140},{id:39,title:"Das Telefon",sub:"Phone Calls & Messages",xpRequired:8550},{id:40,title:"Das Reisen",sub:"Travel & Tourism",xpRequired:8970},{id:41,title:"Am Flughafen",sub:"At the Airport",xpRequired:9400},{id:42,title:"Im Hotel",sub:"At the Hotel",xpRequired:9840},{id:43,title:"Wegbeschreibung",sub:"Giving Directions",xpRequired:10290},{id:44,title:"Die Stadt",sub:"The City & Landmarks",xpRequired:10750},{id:45,title:"Das Land",sub:"The Countryside",xpRequired:11220},{id:46,title:"Wichtige Verben",sub:"Essential Verbs",xpRequired:11700},{id:47,title:"Sein und Haben",sub:"To Be and To Have",xpRequired:12190},{id:48,title:"Das Präsens",sub:"Present Tense",xpRequired:12690},{id:49,title:"Das Perfekt",sub:"Perfect Past Tense",xpRequired:13200},{id:50,title:"Das Präteritum",sub:"Simple Past Tense",xpRequired:13720},{id:51,title:"Das Futur",sub:"Future Tense",xpRequired:14250},{id:52,title:"Der Konjunktiv",sub:"Subjunctive Mood",xpRequired:14790},{id:53,title:"Reflexive Verben",sub:"Reflexive Verbs",xpRequired:15340},{id:54,title:"Der Mensch",sub:"Human Conditions",xpRequired:15900},{id:55,title:"Die Politik",sub:"Politics & Government",xpRequired:16470},{id:56,title:"Die Wirtschaft",sub:"Economy & Business",xpRequired:17050},{id:57,title:"Die Umwelt",sub:"The Environment",xpRequired:17640},{id:58,title:"Die Wissenschaft",sub:"Science & Technology",xpRequired:18240},{id:59,title:"Die Geschichte",sub:"History & Culture",xpRequired:18850},{id:60,title:"Die Kunst",sub:"Art & Literature",xpRequired:19470},{id:61,title:"Die Religion",sub:"Religion & Beliefs",xpRequired:20100},{id:62,title:"Die Philosophie",sub:"Philosophy & Ideas",xpRequired:20740},{id:63,title:"Die Psychologie",sub:"Psychology & Mind",xpRequired:21390},{id:64,title:"Meinungen äußern",sub:"Giving Opinions",xpRequired:22050},{id:65,title:"Diskutieren",sub:"Debating & Arguing",xpRequired:22720},{id:66,title:"Die Nachrichten",sub:"News & Current Events",xpRequired:23400},{id:67,title:"Die Medien",sub:"Media & Journalism",xpRequired:24090},{id:68,title:"Das Kochen",sub:"Cooking & Recipes",xpRequired:24790},{id:69,title:"Die Mode",sub:"Fashion & Style",xpRequired:25500},{id:70,title:"Die Architektur",sub:"Architecture & Design",xpRequired:26220},{id:71,title:"Das Geschäftsleben",sub:"Business German",xpRequired:26950},{id:72,title:"Verhandlungen",sub:"Negotiation Language",xpRequired:27690},{id:73,title:"Das Recht",sub:"Law & Legal Terms",xpRequired:28440},{id:74,title:"Die Medizin",sub:"Medical German",xpRequired:29200},{id:75,title:"Die Technik",sub:"Engineering & Tech",xpRequired:29970},{id:76,title:"Die Finanzen",sub:"Finance & Investment",xpRequired:30750},{id:77,title:"Das Marketing",sub:"Marketing Language",xpRequired:31540},{id:78,title:"Personalwesen",sub:"HR & Workplace",xpRequired:32340},{id:79,title:"Die Präpositionen",sub:"Prepositions Mastery",xpRequired:33150},{id:80,title:"Der Imperativ",sub:"Commands & Imperatives",xpRequired:33970},{id:81,title:"Die Konnektoren",sub:"Connectors & Transitions",xpRequired:34800},{id:82,title:"Redewendungen",sub:"Idioms & Expressions",xpRequired:35640},{id:83,title:"Sprichwörter",sub:"Proverbs & Sayings",xpRequired:36490},{id:84,title:"Der Humor",sub:"Humor & Wordplay",xpRequired:37350},{id:85,title:"Die Poesie",sub:"Poetry & Poetic Language",xpRequired:38220},{id:86,title:"Die Dialekte",sub:"Regional Dialects",xpRequired:39100},{id:87,title:"Die Umgangssprache",sub:"Slang & Colloquial German",xpRequired:39990},{id:88,title:"Formelle Sprache",sub:"Formal Language",xpRequired:40890},{id:89,title:"Akademische Sprache",sub:"Academic Writing",xpRequired:41800},{id:90,title:"Reden und Präsentationen",sub:"Speeches & Presentations",xpRequired:42720},{id:91,title:"Diplomatische Sprache",sub:"Diplomatic Language",xpRequired:43650},{id:92,title:"Der Journalismus",sub:"Journalism German",xpRequired:44590},{id:93,title:"Die Literatur",sub:"Literary German",xpRequired:45540},{id:94,title:"Fortgeschrittene Philosophie",sub:"Advanced Philosophy",xpRequired:46500},{id:95,title:"Fortgeschrittene Politik",sub:"Advanced Politics",xpRequired:47470},{id:96,title:"Fortgeschrittene Ausdrücke",sub:"Advanced Expressions",xpRequired:48450},{id:97,title:"Gehobenes Vokabular",sub:"Sophisticated Vocabulary",xpRequired:49440},{id:98,title:"Sprachliche Nuancen",sub:"Language Nuances",xpRequired:50440},{id:99,title:"Kulturelles Wissen",sub:"Cultural Knowledge",xpRequired:51450},{id:100,title:"Meisterschaft",sub:"German Mastery",xpRequired:52470}];
+
+var LANGS={es:{name:'Spanish',native:'Español'},de:{name:'German',native:'Deutsch'},fr:{name:'French',native:'Français'},it:{name:'Italian',native:'Italiano'},pt:{name:'Portuguese',native:'Português'},ja:{name:'Japanese',native:'日本語'},zh:{name:'Mandarin',native:'普通话'}};
+var LC={es:'es-ES',de:'de-DE',fr:'fr-FR',it:'it-IT',pt:'pt-BR',ja:'ja-JP',zh:'zh-CN'};
+var XPL=[0,100,250,450,700,1000,1350,1750,2200,2700,3250,3850,4500,5200,5950];
+var HM=5;
+var S={lang:'es',xp:0,streak:0,lastDate:null,known:{},totalMsgs:0,todayPrac:false,todayCards:0,todayQuiz:0,currentLesson:1,apiKey:''};
+
+function save(){try{localStorage.setItem('langai_v7',JSON.stringify(S));localStorage.setItem('langai_vocab',JSON.stringify(VOCAB_CACHE));}catch(e){}}
+function load(){try{var r=localStorage.getItem('langai_v7');if(r)Object.assign(S,JSON.parse(r));var v=localStorage.getItem('langai_vocab');if(v)VOCAB_CACHE=JSON.parse(v);}catch(e){}}
+function getKey(){return KEY||S.apiKey||'';}
+function saveKey(k){KEY=k;S.apiKey=k;save();}
+
+async function apiCall(system,messages,maxTokens){
+  var key=getKey();
+  if(!key)throw new Error('No API key — tap the Key button to add one.');
+  var r=await fetch('https://api.anthropic.com/v1/messages',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+    body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:maxTokens||1500,system:system,messages:messages})
+  });
+  var data=await r.json();
+  if(!r.ok){
+    var em=(data.error&&data.error.message)||('HTTP '+r.status);
+    if(r.status===401)em='Invalid API key.';
+    if(r.status===429)em='Rate limit. Try again in a moment.';
+    if(r.status===400&&em.includes('credit'))em='No credits. Add at console.anthropic.com';
+    throw new Error(em);
+  }
+  return data.content.map(function(b){return b.text||'';}).join('');
 }
 
-const LANGS={es:{name:'Spanish',native:'Español'},fr:{name:'French',native:'Français'},de:{name:'German',native:'Deutsch'},ja:{name:'Japanese',native:'日本語'},it:{name:'Italian',native:'Italiano'},pt:{name:'Portuguese',native:'Português'},zh:{name:'Mandarin',native:'普通话'}};
-const LC={es:'es-ES',fr:'fr-FR',de:'de-DE',ja:'ja-JP',it:'it-IT',pt:'pt-BR',zh:'zh-CN'};
-const XPL=[0,100,250,450,700,1000,1350,1750,2200,2700,3250];
-const HM=5;
+async function generateLessonVocab(lang,lesson){
+  var key=lang+'_'+lesson.id;
+  if(VOCAB_CACHE[key])return VOCAB_CACHE[key];
+  var ln=LANGS[lang]&&LANGS[lang].name||lang;
+  var p='Generate 20 '+ln+' vocabulary words for: '+lesson.title+' ('+lesson.sub+'). Lesson '+lesson.id+' of 100. Return ONLY a JSON array, no markdown: [{"word":"","meaning":"English","example":"sentence","pronunciation":"phonetic","category":"tag"}]. Difficulty must match lesson '+lesson.id+'/100. Mix nouns verbs adjectives phrases.';
+  var text=await apiCall('You are a language curriculum expert. Return only valid JSON arrays.',
+    [{role:'user',content:p}],2000);
+  var clean=text.replace(/```json|```/g,'').trim();
+  var words=JSON.parse(clean);
+  words=words.map(function(w,i){return Object.assign({id:lang+'_'+lesson.id+'_'+i},w);});
+  VOCAB_CACHE[key]=words;
+  save();
+  return words;
+}
 
-let S={lang:'es',xp:0,streak:0,lastDate:null,known:{},totalMsgs:0,todayPrac:false,todayCards:0,todayQuiz:0,currentLesson:1};
-function save(){try{localStorage.setItem('langai_v5',JSON.stringify(S))}catch(e){}}
-function load(){try{const r=localStorage.getItem('langai_v5');if(r)Object.assign(S,JSON.parse(r))}catch(e){}}
+var audioCtx;
+function getAC(){if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();return audioCtx;}
+function tone(f,d,t){t=t||'sine';try{var c=getAC();if(c.state==='suspended')c.resume();var o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);o.frequency.value=f;o.type=t;g.gain.setValueAtTime(.08,c.currentTime);g.gain.exponentialRampToValueAtTime(.001,c.currentTime+d);o.start(c.currentTime);o.stop(c.currentTime+d);}catch(e){}}
+function sfxOk(){tone(600,.07);setTimeout(function(){tone(900,.12);},85);}
+function sfxNo(){tone(180,.25,'sawtooth');}
+function sfxFlip(){tone(440,.06);}
+function sfxXP(){tone(800,.04);setTimeout(function(){tone(1050,.07);},55);setTimeout(function(){tone(1300,.1);},120);}
 
-// ── AUDIO ──────────────────────────────────────────────────────
-let audioCtx;
-function getAC(){if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();return audioCtx}
-function tone(f,d,t){t=t||'sine';try{const c=getAC();if(c.state==='suspended')c.resume();const o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);o.frequency.value=f;o.type=t;g.gain.setValueAtTime(.08,c.currentTime);g.gain.exponentialRampToValueAtTime(.001,c.currentTime+d);o.start(c.currentTime);o.stop(c.currentTime+d)}catch(e){}}
-function sfxOk(){tone(600,.07);setTimeout(function(){tone(900,.12)},85)}
-function sfxNo(){tone(180,.25,'sawtooth')}
-function sfxFlip(){tone(440,.06)}
-function sfxXP(){tone(800,.04);setTimeout(function(){tone(1050,.07)},55);setTimeout(function(){tone(1300,.1)},120)}
-
-// ── TTS ────────────────────────────────────────────────────────
 function speak(text){
   if(!('speechSynthesis' in window)||!text)return;
   window.speechSynthesis.cancel();
   var u=new SpeechSynthesisUtterance(text);
-  u.lang=LC[S.lang]||'en-US';
-  u.rate=0.82;u.pitch=1;
-  var voices=window.speechSynthesis.getVoices();
+  u.lang=LC[S.lang]||'en-US';u.rate=.82;
+  var vs=window.speechSynthesis.getVoices();
   var lp=(LC[S.lang]||'en').split('-')[0];
-  var match=voices.find(function(v){return v.lang.startsWith(lp)&&!v.name.includes('(')})||voices.find(function(v){return v.lang.startsWith(lp)})||voices[0];
-  if(match)u.voice=match;
-  setTimeout(function(){try{window.speechSynthesis.speak(u)}catch(e){}},50);
+  var m=vs.find(function(v){return v.lang.startsWith(lp)&&!v.name.includes('(');})||vs.find(function(v){return v.lang.startsWith(lp);})||vs[0];
+  if(m)u.voice=m;
+  setTimeout(function(){try{window.speechSynthesis.speak(u);}catch(e){}},50);
 }
-if('speechSynthesis' in window){
-  window.speechSynthesis.onvoiceschanged=function(){window.speechSynthesis.getVoices()};
-  window.speechSynthesis.getVoices();
-}
+if('speechSynthesis' in window){window.speechSynthesis.onvoiceschanged=function(){window.speechSynthesis.getVoices();};window.speechSynthesis.getVoices();}
 
-// ── SPEECH INPUT (with live interim results) ──────────────────
-var recog=null,isListen=false,finalTranscript='';
-
+var recog=null,isListen=false;
 function initSTT(){
   var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
   if(!SR)return;
-  recog=new SR();
-  recog.lang=LC[S.lang]||'en-US';
-  recog.continuous=true;
-  recog.interimResults=true;
-  recog.maxAlternatives=1;
-
-  recog.onstart=function(){
-    isListen=true;
-    finalTranscript='';
-    document.getElementById('cmic').classList.add('on');
-    document.getElementById('mic-hint').classList.add('on');
-    document.getElementById('cin').classList.add('listening');
-    document.getElementById('cin').placeholder='Listening...';
-  };
-
-  recog.onresult=function(e){
-    var interim='';
-    finalTranscript='';
-    for(var i=0;i<e.results.length;i++){
-      if(e.results[i].isFinal){
-        finalTranscript+=e.results[i][0].transcript;
-      }else{
-        interim+=e.results[i][0].transcript;
-      }
-    }
-    // Show live text in box
-    document.getElementById('cin').value=finalTranscript||interim;
-    autoResize(document.getElementById('cin'));
-  };
-
-  recog.onspeechend=function(){
-    // Auto-send after speech ends
-    setTimeout(function(){
-      if(isListen&&(document.getElementById('cin').value.trim())){
-        stopListen();
-        sendMsg();
-      }else{
-        stopListen();
-      }
-    },700);
-  };
-
-  recog.onerror=function(e){
-    console.log('STT error:',e.error);
-    stopListen();
-    if(e.error==='not-allowed'){
-      addBubble('ai','Microphone access was denied. Please allow microphone access in your browser settings, then try again.');
-    }
-  };
-
-  recog.onend=function(){
-    if(isListen){
-      // Auto-restart if we stopped unexpectedly and still have no text
-      var txt=document.getElementById('cin').value.trim();
-      if(!txt){
-        stopListen();
-      }
-    }
-  };
+  recog=new SR();recog.continuous=true;recog.interimResults=true;
+  recog.onstart=function(){isListen=true;el('cmic').classList.add('on');el('mic-hint').classList.add('on');el('cin').classList.add('listening');el('cin').placeholder='Listening...';};
+  recog.onresult=function(e){var fi='',int='';for(var i=0;i<e.results.length;i++){if(e.results[i].isFinal)fi+=e.results[i][0].transcript;else int+=e.results[i][0].transcript;}el('cin').value=fi||int;ar(el('cin'));};
+  recog.onspeechend=function(){setTimeout(function(){if(isListen&&el('cin').value.trim()){stopListen();sendMsg();}else stopListen();},700);};
+  recog.onerror=function(e){stopListen();if(e.error==='not-allowed')addBubble('ai','Microphone access denied. Allow it in browser settings.');};
+  recog.onend=function(){if(isListen&&!el('cin').value.trim())stopListen();};
 }
+function toggleMic(){if(isListen){stopListen();return;}if(!recog){addBubble('ai','Voice works in Safari on iPhone. Allow microphone access.');return;}try{el('cin').value='';recog.lang=LC[S.lang]||'en-US';recog.start();}catch(e){stopListen();}}
+function stopListen(){isListen=false;try{if(recog)recog.stop();}catch(e){}var m=el('cmic'),h=el('mic-hint'),c=el('cin');if(m)m.classList.remove('on');if(h)h.classList.remove('on');if(c){c.classList.remove('listening');c.placeholder='Type or tap mic to speak...';}}
+function ar(el2){el2.style.height='auto';el2.style.height=Math.min(el2.scrollHeight,100)+'px';}
+function el(id){return document.getElementById(id);}
 
-function toggleMic(){
-  if(isListen){stopListen();return}
-  if(!recog){
-    addBubble('ai','Voice input requires Safari on iPhone or Chrome on desktop. Make sure you have allowed microphone access.');
-    return;
-  }
-  try{
-    finalTranscript='';
-    document.getElementById('cin').value='';
-    recog.lang=LC[S.lang]||'en-US';
-    recog.start();
-  }catch(e){
-    console.log('STT start error:',e);
-    stopListen();
-  }
-}
+function getLvl(x){for(var i=XPL.length-1;i>=0;i--)if(x>=XPL[i])return i+1;return 1;}
+function getBase(l){return XPL[Math.min(l-1,XPL.length-1)]||0;}
+function getTop(l){return XPL[Math.min(l,XPL.length-1)]||XPL[XPL.length-1];}
+function addXP(n){S.xp+=n;sfxXP();updateLesson();save();}
+function getCur(){return S.lang==='de'?CURRICULUM_DE:CURRICULUM_ES;}
+function updateLesson(){var c=getCur();for(var i=c.length-1;i>=0;i--){if(S.xp>=c[i].xpRequired){if(c[i].id>S.currentLesson)S.currentLesson=c[i].id;break;}}}
+function checkStreak(){var t=new Date().toDateString();if(!S.lastDate){S.streak=1;S.lastDate=t;return;}if(S.lastDate===t)return;var d=Math.round((new Date()-new Date(S.lastDate))/864e5);S.streak=d===1?S.streak+1:1;S.lastDate=t;S.todayPrac=false;S.todayCards=0;S.todayQuiz=0;}
 
-function stopListen(){
-  isListen=false;
-  try{if(recog)recog.stop()}catch(e){}
-  var mic=document.getElementById('cmic');
-  var hint=document.getElementById('mic-hint');
-  var cin=document.getElementById('cin');
-  if(mic)mic.classList.remove('on');
-  if(hint)hint.classList.remove('on');
-  if(cin){cin.classList.remove('listening');cin.placeholder='Type or tap mic to speak...';}
-}
-
-function autoResize(el){
-  el.style.height='auto';
-  el.style.height=Math.min(el.scrollHeight,100)+'px';
-}
-
-// ── XP & LEVELS ───────────────────────────────────────────────
-function getLvl(x){for(var i=XPL.length-1;i>=0;i--)if(x>=XPL[i])return i+1;return 1}
-function getBase(l){return XPL[Math.min(l-1,XPL.length-1)]||0}
-function getTop(l){return XPL[Math.min(l,XPL.length-1)]||XPL[XPL.length-1]}
-function addXP(n){S.xp+=n;sfxXP();updateCurrentLesson();save()}
-
-function updateCurrentLesson(){
-  var lessons=LESSONS[S.lang]||LESSONS.es;
-  for(var i=lessons.length-1;i>=0;i--){
-    if(S.xp>=lessons[i].xpRequired){
-      if(lessons[i].id>S.currentLesson)S.currentLesson=lessons[i].id;
-      break;
-    }
-  }
-}
-
-function checkStreak(){
-  var today=new Date().toDateString();
-  if(!S.lastDate){S.streak=1;S.lastDate=today;return}
-  if(S.lastDate===today)return;
-  var diff=Math.round((new Date()-new Date(S.lastDate))/864e5);
-  S.streak=diff===1?S.streak+1:1;
-  S.lastDate=today;
-  S.todayPrac=false;S.todayCards=0;S.todayQuiz=0;
-}
-
-// ── NAVIGATION ────────────────────────────────────────────────
-var TABS=['home','practice','lessons','quiz','me'];
+var TABS=['home','talk','lessons','cards','quiz','me'];
 function go(tab){
   TABS.forEach(function(t){
-    document.getElementById('s-'+t).classList.toggle('on',t===tab);
-    var el=document.getElementById('tab-'+t);
-    if(el)el.classList.toggle('on',t===tab);
+    el('s-'+t).classList.toggle('on',t===tab);
+    var e=el('tab-'+t);if(e)e.classList.toggle('on',t===tab);
   });
   if(tab==='home')renderHome();
-  if(tab==='practice'){if(!document.getElementById('cbody').childElementCount)initChat();setTimeout(function(){document.getElementById('cin').focus()},150)}
+  if(tab==='talk'){if(!el('cbody').childElementCount)initChat();setTimeout(function(){el('cin').focus();},150);}
   if(tab==='lessons')renderLessons();
-  if(tab==='quiz')initQuiz();
+  if(tab==='cards')renderCards();
+  if(tab==='quiz')renderQuiz();
   if(tab==='me')renderMe();
 }
 
-// ── HOME ──────────────────────────────────────────────────────
 function renderHome(){
-  var lessons=LESSONS[S.lang]||LESSONS.es;
-  var allWords=buildVocab(S.lang);
+  var c=getCur();
   var lvl=getLvl(S.xp),base=getBase(lvl),top=getTop(lvl);
-  var cur=S.xp-base,need=top-base,pct=Math.min(100,Math.round((cur/need)*100));
-  var known=Object.keys(S.known).filter(function(id){return id.startsWith(S.lang)}).length;
+  var pct=Math.min(100,Math.round(((S.xp-base)/(top-base))*100));
+  var known=Object.keys(S.known).filter(function(id){return id.startsWith(S.lang);}).length;
+  var done=c.filter(function(l){return S.currentLesson>l.id;}).length;
   var h=new Date().getHours();
-  var days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  var days=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
   var months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   var d=new Date();
-  var curLesson=lessons.find(function(l){return l.id===S.currentLesson})||lessons[0];
-  document.getElementById('h-gr').textContent=h<12?'Good morning':h<17?'Good afternoon':'Good evening';
-  document.getElementById('h-ll').textContent='Learning '+(LANGS[S.lang]&&LANGS[S.lang].name||'Spanish');
-  document.getElementById('h-lb').textContent='Level '+lvl;
-  document.getElementById('h-lv').textContent=lvl;
-  document.getElementById('h-xp').textContent=S.xp;
-  document.getElementById('h-str').textContent=S.streak;
-  document.getElementById('h-stars').textContent=S.streak>=7?'★★★':S.streak>=3?'★★':S.streak>=1?'★':'';
-  document.getElementById('h-date').textContent=days[d.getDay()]+', '+months[d.getMonth()]+' '+d.getDate();
-  document.getElementById('h-enc').textContent=S.streak===0?'Start today!':S.streak>=7?'On fire!':S.streak>=3?'Keep it up!':'Keep going!';
-  document.getElementById('h-xf').style.width=pct+'%';
-  document.getElementById('h-xl').textContent=cur+' / '+need+' XP to next level';
-  document.getElementById('h-kn').textContent=known;
-  document.getElementById('h-tv').textContent=allWords.length;
-  document.getElementById('h-lesson-lbl').textContent='Lesson '+S.currentLesson+': '+curLesson.title;
-  document.getElementById('g-p').textContent=(S.todayPrac?1:0)+' / 1';
-  document.getElementById('g-c').textContent=Math.min(S.todayCards,5)+' / 5';
-  document.getElementById('g-q').textContent=Math.min(S.todayQuiz,3)+' / 3';
+  var cl=c.find(function(l){return l.id===S.currentLesson;})||c[0];
+  el('h-gr').textContent=h<12?'Good morning':h<17?'Good afternoon':'Good evening';
+  el('h-ll').textContent='Learning '+(LANGS[S.lang]&&LANGS[S.lang].name||'Spanish');
+  el('h-lb').textContent='Level '+lvl;
+  el('h-lv').textContent=lvl;el('h-xp').textContent=S.xp;
+  el('h-str').textContent=S.streak;
+  el('h-stars').textContent=S.streak>=7?'★★★':S.streak>=3?'★★':S.streak>=1?'★':'';
+  el('h-date').textContent=days[d.getDay()]+', '+months[d.getMonth()]+' '+d.getDate();
+  el('h-enc').textContent=S.streak===0?'Start today!':S.streak>=7?'On fire!':S.streak>=3?'Keep it up!':'Keep going!';
+  el('h-xf').style.width=pct+'%';
+  el('h-xl').textContent=(S.xp-base)+' / '+(top-base)+' XP to next level';
+  el('h-kn').textContent=known;
+  el('h-kn-lbl').textContent=known+' known';
+  el('h-ld').textContent=done;
+  el('h-ll2').textContent='Lesson '+S.currentLesson+' of 100';
+  el('g-p').textContent=(S.todayPrac?1:0)+' / 1';
+  el('g-c').textContent=Math.min(S.todayCards,10)+' / 10';
+  el('g-q').textContent=Math.min(S.todayQuiz,5)+' / 5';
 }
 
-// ── LESSONS ───────────────────────────────────────────────────
+function lvlBadge(id){
+  if(id<=20)return '<span class="lvlb a1">A1</span>';
+  if(id<=45)return '<span class="lvlb a2">A2</span>';
+  if(id<=70)return '<span class="lvlb b1">B1</span>';
+  if(id<=88)return '<span class="lvlb b2">B2</span>';
+  return '<span class="lvlb c1">C1</span>';
+}
+
 function renderLessons(){
-  var lessons=LESSONS[S.lang]||LESSONS.es;
-  var container=document.getElementById('lesson-list');
-  container.innerHTML='';
-  var sub=document.getElementById('ls-sub');
-  sub.textContent=(LANGS[S.lang]&&LANGS[S.lang].name||'Spanish')+' · '+lessons.length+' lessons';
-
-  lessons.forEach(function(lesson){
+  var c=getCur();
+  var ln=LANGS[S.lang]&&LANGS[S.lang].name||'Spanish';
+  el('ls-sub').textContent=ln+' · 100 lessons · AI generates vocabulary as you learn';
+  var container=el('lesson-list');container.innerHTML='';
+  c.forEach(function(lesson){
     var unlocked=S.xp>=lesson.xpRequired;
-    var done=S.xp>=(lesson.xpRequired+(lessons[lesson.id]?lessons[lesson.id].xpRequired-lesson.xpRequired:200));
+    var done=S.currentLesson>lesson.id;
     var isCurrent=lesson.id===S.currentLesson;
-
+    var cached=!!VOCAB_CACHE[S.lang+'_'+lesson.id];
     var card=document.createElement('div');
     card.className='lcard'+(isCurrent?' current':done?' done':unlocked?'':' locked');
-
-    var numEl=document.createElement('div');
-    numEl.className='lnum '+(done?'ln-done':unlocked?'ln-idle':'ln-lock');
-    numEl.textContent=done?'✓':lesson.id;
-    card.appendChild(numEl);
-
-    var info=document.createElement('div');
-    info.className='linfo';
-    info.innerHTML='<div class="ltitle">'+lesson.title+'</div><div class="lsub">'+lesson.sub+' · '+lesson.words.length+' words</div>';
-    card.appendChild(info);
-
-    var tag=document.createElement('span');
-    tag.className='ltag '+(done?'ltag-done':unlocked?'ltag-new':'ltag-lock');
-    tag.textContent=done?'Done':unlocked?'Start':'🔒 '+lesson.xpRequired+' XP';
-    card.appendChild(tag);
-
-    if(unlocked){
-      card.onclick=function(){openLesson(lesson)};
-    }
+    var nc=done?'lnum ln-done':unlocked?'lnum ln-idle':'lnum ln-lock';
+    var tag=done?'<span class="ltag ltag-done">Done</span>':
+             cached?'<span class="ltag ltag-gen">Ready</span>':
+             unlocked?'<span class="ltag ltag-new">Start</span>':
+             '<span class="ltag ltag-lock">'+lesson.xpRequired+' XP</span>';
+    card.innerHTML='<div class="'+nc+'">'+(done?'&#10003;':lesson.id)+'</div>'+
+      '<div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">'+
+      lesson.title+' '+lvlBadge(lesson.id)+'</div>'+
+      '<div style="font-size:12px;color:var(--tx2);margin-top:3px">'+lesson.sub+'</div></div>'+tag;
+    if(unlocked)card.addEventListener('click',function(){openLesson(lesson);});
     container.appendChild(card);
   });
 }
 
-function openLesson(lesson){
-  S.currentLesson=lesson.id;
-  save();
-  // Load this lesson's words into flashcards and go there
-  currentDeck=lesson.words.slice();
-  cardIdx=0;
-  go('lessons');
-  showLessonDetail(lesson);
+var curLessonData=null,chatHistory=[],curLessonForTutor=null;
+
+async function openLesson(lesson){
+  curLessonData=lesson;S.currentLesson=lesson.id;save();
+  var container=el('lesson-list');
+  var cached=VOCAB_CACHE[S.lang+'_'+lesson.id];
+  container.innerHTML='<div style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:40px 0"><div class="spinner"></div><div style="font-size:13px;color:var(--tx2)">'+(cached?'Loading...':'Generating vocabulary with AI...')+'</div></div>';
+  try{
+    var words=await generateLessonVocab(S.lang,lesson);
+    showLessonDetail(lesson,words);
+    addXP(5);
+  }catch(e){
+    container.innerHTML='<div style="padding:20px;text-align:center;color:var(--redd);font-size:13px">Error: '+e.message+'</div>';
+    var btn=document.createElement('button');btn.className='bp';btn.style.margin='0 16px 16px';btn.textContent='Back to Lessons';
+    btn.addEventListener('click',function(){renderLessons();});
+    container.appendChild(btn);
+  }
 }
 
-function showLessonDetail(lesson){
-  var container=document.getElementById('lesson-list');
-  container.innerHTML='';
-
-  var backBtn=document.createElement('button');
-  backBtn.className='bs';
-  backBtn.textContent='← Back to all lessons';
-  backBtn.onclick=function(){renderLessons()};
-  container.appendChild(backBtn);
-
-  var header=document.createElement('div');
-  header.className='card';
-  header.innerHTML='<div style="font-size:20px;font-weight:700;color:var(--tx);margin-bottom:4px">Lesson '+lesson.id+': '+lesson.title+'</div><div style="font-size:13px;color:var(--tx2)">'+lesson.sub+'</div>';
-  container.appendChild(header);
-
-  var practiceBtn=document.createElement('button');
-  practiceBtn.className='bp';
-  practiceBtn.textContent='Practice with AI Tutor';
-  practiceBtn.onclick=function(){
-    // Set up tutor for this lesson
-    chatHistory=[];
-    document.getElementById('cbody').innerHTML='';
-    currentLessonForTutor=lesson;
-    initChatForLesson(lesson);
-    go('practice');
-  };
-  container.appendChild(practiceBtn);
-
-  var wordsTitle=document.createElement('div');
-  wordsTitle.style.cssText='font-size:13px;font-weight:600;color:var(--tx);padding:4px 0';
-  wordsTitle.textContent='Words in this lesson:';
-  container.appendChild(wordsTitle);
-
-  lesson.words.forEach(function(word){
-    var wc=document.createElement('div');
-    wc.className='card';
-    wc.style.cursor='pointer';
-    wc.innerHTML='<div style="display:flex;justify-content:space-between;align-items:center"><div><div style="font-size:18px;font-weight:700;color:var(--tx)">'+word.w+'</div><div style="font-size:12px;color:var(--tx2);margin-top:2px;font-style:italic">'+word.p+'</div></div><div style="text-align:right"><div style="font-size:14px;color:var(--tx2)">'+word.m+'</div><div style="font-size:11px;color:var(--tx3);margin-top:4px">'+word.c+'</div></div></div><div style="font-size:12px;color:var(--tx3);margin-top:8px;font-style:italic">'+word.ex+'</div>';
-    wc.onclick=function(){speak(word.w)};
+function showLessonDetail(lesson,words){
+  var container=el('lesson-list');container.innerHTML='';
+  var back=document.createElement('button');back.className='bs';back.textContent='← All Lessons';
+  back.addEventListener('click',function(){renderLessons();});container.appendChild(back);
+  var hdr=document.createElement('div');hdr.className='card';
+  hdr.innerHTML='<div style="font-size:20px;font-weight:700;color:var(--tx);margin-bottom:4px">'+lesson.title+' '+lvlBadge(lesson.id)+'</div><div style="font-size:13px;color:var(--tx2)">'+lesson.sub+' &middot; '+words.length+' words</div>';
+  container.appendChild(hdr);
+  var pb=document.createElement('button');pb.className='bp';pb.textContent='Practice with AI Tutor';
+  pb.addEventListener('click',function(){
+    chatHistory=[];el('cbody').innerHTML='';curLessonForTutor=lesson;
+    initChatLesson(lesson,words);go('talk');
+  });
+  container.appendChild(pb);
+  var wt=document.createElement('div');
+  wt.style.cssText='font-size:10px;font-weight:700;color:var(--tx3);letter-spacing:.1em;text-transform:uppercase;padding:4px 0';
+  wt.textContent='VOCABULARY ('+words.length+' words — tap any to hear pronunciation)';
+  container.appendChild(wt);
+  words.forEach(function(word){
+    var wc=document.createElement('div');wc.className='card card-sm';wc.style.cursor='pointer';
+    var known=!!S.known[word.id];
+    if(known)wc.style.cssText='background:var(--grnl);border-color:var(--grn);box-shadow:0 4px 0 var(--grnb);border-radius:14px;padding:13px;flex-shrink:0;cursor:pointer';
+    wc.innerHTML='<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px">'+
+      '<div style="flex:1"><div style="font-size:18px;font-weight:700;color:var(--tx)">'+word.word+'</div>'+
+      '<div style="font-size:11px;color:var(--tx2);margin-top:2px;font-style:italic">'+word.pronunciation+'</div>'+
+      '<div style="font-size:12px;color:var(--tx3);margin-top:5px">'+word.example+'</div></div>'+
+      '<div style="text-align:right;flex-shrink:0"><div style="font-size:13px;font-weight:600;color:var(--tx2)">'+word.meaning+'</div>'+
+      '<div style="font-size:10px;color:var(--tx3);margin-top:2px">'+word.category+'</div>'+
+      (known?'<div style="font-size:10px;color:var(--grnd);font-weight:700;margin-top:4px">&#10003; Known</div>':'')+'</div></div>';
+    wc.addEventListener('click',function(){speak(word.word);});
     container.appendChild(wc);
   });
 }
 
-// ── CHAT ──────────────────────────────────────────────────────
-var chatBusy=false,chatHistory=[],currentLessonForTutor=null;
-
 function buildSystem(){
-  var lang=S.lang,name=LANGS[S.lang]&&LANGS[S.lang].name||'Spanish';
-  var lessons=LESSONS[lang]||LESSONS.es;
-  var curLesson=lessons.find(function(l){return l.id===S.currentLesson})||lessons[0];
-  var lessonWords=curLesson.words.map(function(w){return w.w+' ('+w.m+')'}).join(', ');
-  var nextLesson=lessons[S.currentLesson]; // next one
-  return 'You are a warm, expert '+name+' tutor inside LangAI. The student is currently on Lesson '+S.currentLesson+': "'+curLesson.title+'" ('+curLesson.sub+').\n\nCurrent lesson vocabulary: '+lessonWords+'.\n\nFocus your teaching on these words first, but use previously learned words naturally. As the student shows mastery, gradually introduce complexity. Adapt difficulty to their responses.\n\nWhen they write:\n- In '+name+' with mistakes → Correction: [fixed], Note: [brief tip], Response: [natural '+name+' reply], (English)\n- In '+name+' correctly → affirm briefly, continue naturally\n- In English → encourage '+name+', respond in both\n- Off-topic → gently redirect to language practice\n\nBe warm, adaptive, encouraging. Keep responses concise.';
+  var c=getCur();var lang=S.lang;var name=LANGS[lang]&&LANGS[lang].name||'Spanish';
+  var cl=c.find(function(l){return l.id===S.currentLesson;})||c[0];
+  var cw=VOCAB_CACHE[lang+'_'+cl.id];
+  var wl=cw?cw.map(function(w){return w.word+' ('+w.meaning+')';}).join(', '):'vocabulary for this lesson';
+  var sys='You are a warm expert '+name+' tutor in LangAI.\n';
+  sys+='Student is on Lesson '+S.currentLesson+'/100: '+cl.title+' ('+cl.sub+').\n';
+  sys+='Current vocabulary: '+wl+'.\n';
+  sys+='When student writes in '+name+' with mistakes:\n';
+  sys+='Correction: [fixed sentence]\nNote: [brief grammar tip]\nResponse: [natural '+name+' reply]\n(English translation)\n';
+  sys+='When correct: affirm briefly and continue in '+name+'.\n';
+  sys+='When in English: encourage '+name+', respond in both.\n';
+  sys+='Be warm adaptive encouraging. Keep responses concise.';
+  return sys;
 }
 
 function addBubble(role,text){
-  var d=document.createElement('div');
-  d.className='msg '+(role==='user'?'mu':'ma');
-  d.textContent=text;
-  var cb=document.getElementById('cbody');
-  cb.appendChild(d);
-  cb.scrollTop=cb.scrollHeight;
-  return d;
+  var d=document.createElement('div');d.className='msg '+(role==='user'?'mu':'ma');d.textContent=text;
+  var cb=el('cbody');cb.appendChild(d);cb.scrollTop=cb.scrollHeight;return d;
 }
 
 function initChat(){
-  var lang=S.lang,name=LANGS[S.lang]&&LANGS[S.lang].name||'Spanish';
-  var lessons=LESSONS[lang]||LESSONS.es;
-  var curLesson=lessons.find(function(l){return l.id===S.currentLesson})||lessons[0];
-  var firstWord=curLesson.words[0];
-  addBubble('ai','Hello! I\'m your '+name+' tutor.\n\nWe\'re on Lesson '+S.currentLesson+': '+curLesson.title+'. Let\'s practice!\n\nTap the mic to speak or type below. I\'ll teach you the words in this lesson, correct your mistakes, and have real conversations.\n\nLet\'s start simple. Try saying "'+firstWord.w+'" — it means "'+firstWord.m+'"!');
+  var c=getCur();var name=LANGS[S.lang]&&LANGS[S.lang].name||'Spanish';
+  var cl=c.find(function(l){return l.id===S.currentLesson;})||c[0];
+  addBubble('ai','Hello! I am your '+name+' tutor.\n\nWe are on Lesson '+S.currentLesson+': '+cl.title+'.\n\nTap the mic to speak or type below. I will correct your mistakes, explain grammar, and have real conversations.\n\nWhat would you like to practice?');
 }
 
-function initChatForLesson(lesson){
+function initChatLesson(lesson,words){
   var name=LANGS[S.lang]&&LANGS[S.lang].name||'Spanish';
-  var firstWord=lesson.words[0];
-  addBubble('ai','Great choice! Let\'s work on Lesson '+lesson.id+': '+lesson.title+'.\n\nI\'ll teach you '+lesson.words.length+' words in this lesson and help you use them naturally.\n\nLet\'s start — try saying "'+firstWord.w+'" in a sentence. It means "'+firstWord.m+'".');
+  var fw=words&&words[0];
+  addBubble('ai','Great! Let\'s practice Lesson '+lesson.id+': '+lesson.title+'.\n\nI have all '+words.length+' vocabulary words loaded.\n'+(fw?'\nLet\'s start with "'+fw.word+'" which means "'+fw.meaning+'". Try using it in a sentence!':'What would you like to practice?'));
 }
 
+var chatBusy=false;
 async function sendMsg(){
-  var inp=document.getElementById('cin');
-  var txt=inp.value.trim();
+  var inp=el('cin');var txt=inp.value.trim();
   if(!txt||chatBusy)return;
-  inp.value='';inp.style.height='auto';
-  stopListen();
-  addBubble('user',txt);
-  chatBusy=true;
-
-  var td=document.createElement('div');
-  td.className='msg ma';td.id='typing';
+  inp.value='';inp.style.height='auto';stopListen();addBubble('user',txt);chatBusy=true;
+  var td=document.createElement('div');td.className='msg ma';td.id='typing';
   td.innerHTML='<div class="dots"><span></span><span></span><span></span></div>';
-  var cb=document.getElementById('cbody');
-  cb.appendChild(td);cb.scrollTop=cb.scrollHeight;
+  var cb=el('cbody');cb.appendChild(td);cb.scrollTop=cb.scrollHeight;
   chatHistory.push({role:'user',content:txt});
-
   try{
-    // Always re-read key from storage in case it was set after init
-    var key=ANTHROPIC_KEY||localStorage.getItem('langai_apikey')||'';
-    if(!key){var typingEl0=document.getElementById('typing');if(typingEl0)typingEl0.remove();chatBusy=false;document.getElementById('api-setup').style.display='flex';return;}
-    var res=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',
-      headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
-      body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:1000,system:buildSystem(),messages:chatHistory.slice(-14)})
-    });
-    if(!res.ok){
-      var errData=await res.json().catch(function(){return{}});
-      var errMsg=errData.error&&errData.error.message||'HTTP '+res.status;
-      if(res.status===401){errMsg='Invalid API key. Tap Settings to update it.';ANTHROPIC_KEY='';try{localStorage.removeItem('langai_apikey')}catch(e){}}
-      else if(res.status===429){errMsg='Rate limit reached. Wait a moment and try again.'}
-      else if(res.status===529){errMsg='Anthropic servers are busy. Try again in a moment.'}
-      throw new Error(errMsg);
-    }
-    var data=await res.json();
-    if(!data.content){throw new Error('Unexpected response from AI. Try again.')}
-    var reply=data.content.map(function(b){return b.text||''}).join('');
+    var reply=await apiCall(buildSystem(),chatHistory.slice(-14),1000);
     chatHistory.push({role:'assistant',content:reply});
-    var typingEl=document.getElementById('typing');
-    if(typingEl)typingEl.remove();
+    var t=el('typing');if(t)t.remove();
     addBubble('ai',reply);
     var rm=reply.match(/Response:\s*(.+?)(?:\n|$)/);
     if(rm)speak(rm[1].trim());
-    else{var fl=reply.split('\n').find(function(l){return l.trim()&&!l.startsWith('Correction')&&!l.startsWith('Note')});if(fl)speak(fl.slice(0,120))}
     addXP(5);S.todayPrac=true;S.totalMsgs++;save();
   }catch(e){
-    var typingEl2=document.getElementById('typing');
-    if(typingEl2)typingEl2.remove();
-    var errTxt=e&&e.message||'Unknown error';
-    if(errTxt.toLowerCase().includes('failed to fetch')||errTxt.toLowerCase().includes('networkerror')){
-      errTxt='Network error — check your connection. If on Netlify, make sure your API key is correct.';
-    }
-    addBubble('ai','Error: '+errTxt);
-    if(errTxt.includes('API key')){setTimeout(function(){document.getElementById('api-setup').style.display='flex'},1500)}
+    var t2=el('typing');if(t2)t2.remove();
+    addBubble('ai','Error: '+e.message);
   }
   chatBusy=false;
 }
 
-function clearChat(){chatHistory=[];document.getElementById('cbody').innerHTML='';initChat()}
+function getAllVocab(){
+  var all=[];
+  Object.keys(VOCAB_CACHE).forEach(function(key){
+    if(key.startsWith(S.lang+'_'))VOCAB_CACHE[key].forEach(function(w){all.push(w);});
+  });
+  return all;
+}
 
-// ── FLASHCARDS ────────────────────────────────────────────────
-var currentDeck=[],cardIdx=0,flipped=false,curCard=null;
-function initCards(){
-  var all=buildVocab(S.lang);
-  currentDeck=all.sort(function(a,b){return(!S.known[a.id]?-1:1)-(!S.known[b.id]?-1:1)});
-  cardIdx=0;showCard();
+var deck=[],cardIdx=0,flipped=false,curCard=null;
+function renderCards(){
+  var all=getAllVocab();
+  var body=el('card-body');
+  if(!all.length){
+    body.innerHTML='<div style="text-align:center;padding:40px 20px;color:var(--tx2);font-size:14px">Complete a lesson first to unlock flashcards.</div>';
+    var btn=document.createElement('button');btn.className='bp';btn.style.margin='0 16px 16px';btn.textContent='Go to Lessons';
+    btn.addEventListener('click',function(){go('lessons');});body.appendChild(btn);
+    return;
+  }
+  deck=all.sort(function(a,b){return(!S.known[a.id]?-1:1)-(!S.known[b.id]?-1:1);});
+  cardIdx=0;body.innerHTML='';buildCardUI(body);showCard();
 }
+
+function buildCardUI(body){
+  var pb=mk('div','xbt');var pf=mk('div','xbf');pf.id='c-pf';pf.style.width='0%';pb.appendChild(pf);body.appendChild(pb);
+  var pl=mk('div','');pl.style.cssText='font-size:12px;color:var(--tx2);text-align:center';pl.id='c-pl';body.appendChild(pl);
+  var scene=mk('div','fscene');
+  scene.innerHTML='<div class="fcard" id="fcard"><div class="fface"><div style="font-size:10px;letter-spacing:.12em;color:var(--tx3);margin-bottom:14px;text-transform:uppercase;background:var(--purll);padding:4px 10px;border-radius:999px;border:1.5px solid var(--bdr)" id="fc-c">Category</div><div style="font-size:36px;font-weight:700;color:var(--tx);line-height:1.15" id="fc-w">word</div><div style="font-size:13px;color:var(--tx2);margin-top:8px;font-style:italic" id="fc-p">pronunciation</div><button class="spkbtn" id="fc-spk1" style="margin-top:18px"><svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/></svg>Pronounce</button><div style="font-size:11px;color:var(--tx3);margin-top:14px">Tap card to reveal</div></div><div class="fface fback"><div style="font-size:10px;font-weight:600;color:var(--pur);margin-bottom:6px;text-transform:uppercase;letter-spacing:.12em">Meaning</div><div style="font-size:28px;font-weight:700;color:var(--tx)" id="fc-m">meaning</div><div style="width:36px;height:3px;background:var(--pur);margin:14px auto;border-radius:2px"></div><div style="font-size:10px;color:var(--pur);font-weight:600;margin-bottom:7px;text-transform:uppercase;letter-spacing:.12em">Example</div><div style="font-size:13px;color:var(--tx2);line-height:1.6;font-style:italic" id="fc-e">example</div><button class="spkbtn" id="fc-spk2" style="margin-top:14px"><svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/></svg>Hear it</button></div></div>';
+  scene.addEventListener('click',function(e){if(!e.target.closest('.spkbtn'))flipCard();});
+  body.appendChild(scene);
+  var btns=mk('div','');btns.style.cssText='display:grid;grid-template-columns:1fr 1fr;gap:12px';
+  var bn=mk('button','bs');bn.id='btn-n';bn.style.cssText='color:var(--redd);border-color:var(--red);box-shadow:0 5px 0 var(--redb)';bn.textContent="Don't know";bn.disabled=true;bn.style.opacity='.4';
+  var by=mk('button','');by.id='btn-y';by.style.cssText='background:var(--grn);color:#fff;border:2.5px solid var(--grnd);border-radius:18px;padding:13px;font-size:15px;font-weight:600;font-family:inherit;cursor:pointer;box-shadow:0 5px 0 var(--grnb);transition:all .1s;width:100%;opacity:.4';by.textContent='Know it';by.disabled=true;
+  bn.addEventListener('click',function(){rateCard('no');});by.addEventListener('click',function(){rateCard('yes');});
+  btns.appendChild(bn);btns.appendChild(by);body.appendChild(btns);
+  var stats=mk('div','');stats.style.cssText='display:flex;justify-content:space-between;padding:0 4px';
+  stats.innerHTML='<span style="font-size:13px;color:var(--tx2)">Known: <span style="color:var(--grn);font-weight:600" id="c-kn">0</span></span><span style="font-size:13px;color:var(--tx2)">To review: <span style="font-weight:600" id="c-rv">0</span></span>';
+  body.appendChild(stats);
+  el('fc-spk1').addEventListener('click',function(e){e.stopPropagation();if(curCard)speak(curCard.word);});
+  el('fc-spk2').addEventListener('click',function(e){e.stopPropagation();if(curCard)speak(curCard.word);});
+}
+
+function mk(tag,cls){var e=document.createElement(tag);if(cls)e.className=cls;return e;}
+
 function showCard(){
-  if(!currentDeck.length)return;
-  curCard=currentDeck[cardIdx%currentDeck.length];
-  flipped=false;
-  document.getElementById('fcard').classList.remove('flipped');
-  document.getElementById('fc-w').textContent=curCard.w;
-  document.getElementById('fc-c').textContent=curCard.c;
-  document.getElementById('fc-p').textContent=curCard.p;
-  document.getElementById('fc-m').textContent=curCard.m;
-  document.getElementById('fc-e').textContent=curCard.ex;
-  var total=currentDeck.length,cur=(cardIdx%total)+1;
-  document.getElementById('c-pl').textContent='Card '+cur+' of '+total;
-  document.getElementById('c-pf').style.width=((cur/total)*100)+'%';
-  var known=Object.keys(S.known).filter(function(id){return id.startsWith(S.lang)}).length;
-  document.getElementById('c-kn').textContent=known;
-  document.getElementById('c-rv').textContent=total-known;
-  setCBtns(false);
+  if(!deck.length)return;
+  curCard=deck[cardIdx%deck.length];flipped=false;
+  var fc=el('fcard');if(fc)fc.classList.remove('flipped');
+  si('fc-w',curCard.word);si('fc-c',curCard.category);si('fc-p',curCard.pronunciation);
+  si('fc-m',curCard.meaning);si('fc-e',curCard.example);
+  var total=deck.length,cur=(cardIdx%total)+1;
+  si('c-pl','Card '+cur+' of '+total);
+  var pf=el('c-pf');if(pf)pf.style.width=((cur/total)*100)+'%';
+  var known=Object.keys(S.known).filter(function(id){return id.startsWith(S.lang);}).length;
+  si('c-kn',known);si('c-rv',total-known);setCBtns(false);
 }
+
+function si(id,val){var e=el(id);if(e)e.textContent=val;}
 function setCBtns(en){
-  var yn=document.getElementById('btn-y'),nn=document.getElementById('btn-n');
-  yn.disabled=!en;nn.disabled=!en;yn.style.opacity=en?'1':'.4';nn.style.opacity=en?'1':'.4';
+  var yn=el('btn-y'),nn=el('btn-n');
+  if(yn){yn.disabled=!en;yn.style.opacity=en?'1':'.4';}
+  if(nn){nn.disabled=!en;nn.style.opacity=en?'1':'.4';}
 }
-function flipCard(){sfxFlip();flipped=!flipped;document.getElementById('fcard').classList.toggle('flipped',flipped);setCBtns(flipped)}
-function speakCard(){if(curCard)speak(curCard.w)}
+function flipCard(){sfxFlip();flipped=!flipped;var fc=el('fcard');if(fc)fc.classList.toggle('flipped',flipped);setCBtns(flipped);}
 function rateCard(r){
   if(!curCard)return;
-  if(r==='yes'){S.known[curCard.id]=1;addXP(5);sfxOk()}else{sfxNo();delete S.known[curCard.id]}
+  if(r==='yes'){S.known[curCard.id]=1;addXP(5);sfxOk();}else{sfxNo();delete S.known[curCard.id];}
   S.todayCards++;save();cardIdx++;
-  if(cardIdx%currentDeck.length===0)currentDeck=currentDeck.sort(function(a,b){return(!S.known[a.id]?-1:1)-(!S.known[b.id]?-1:1)});
+  if(cardIdx%deck.length===0)deck=deck.sort(function(a,b){return(!S.known[a.id]?-1:1)-(!S.known[b.id]?-1:1);});
   showCard();
 }
-function shuffleCards(){currentDeck=currentDeck.sort(function(){return Math.random()-.5});cardIdx=0;showCard()}
 
-// ── QUIZ ──────────────────────────────────────────────────────
 var qList=[],qIdx=0,qScore=0,qHearts=HM,qAnswered=false;
-
-function getQuizWords(){
-  var lessons=LESSONS[S.lang]||LESSONS.es;
-  // Only quiz on unlocked lessons
-  var unlockedWords=[];
-  lessons.forEach(function(l){if(S.xp>=l.xpRequired)l.words.forEach(function(w){unlockedWords.push(w)})});
-  return unlockedWords.length?unlockedWords:lessons[0].words;
-}
-
-function makeFill(word){
-  try{
-    var esc=word.w.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
-    var bl=word.ex.replace(new RegExp(esc,'i'),'___');
-    if(bl===word.ex)bl=word.ex.replace(word.w,'___');
-    if(bl!==word.ex&&bl.includes('___'))return{qtype:'fill',prompt:'Complete the sentence:',sentence:bl,answer:word.w.toLowerCase(),display:word.w,full:word.w+' = '+word.m};
-  }catch(e){}
-  return null;
-}
-
-function initQuiz(){
-  var v=getQuizWords();
+function renderQuiz(){
+  var all=getAllVocab();var body=el('quiz-body');
+  if(all.length<4){
+    body.innerHTML='<div style="text-align:center;padding:40px 20px;color:var(--tx2);font-size:14px">Complete a lesson first to unlock quizzes.</div>';
+    var btn=mk('button','bp');btn.style.margin='0 16px 16px';btn.textContent='Go to Lessons';
+    btn.addEventListener('click',function(){go('lessons');});body.appendChild(btn);
+    return;
+  }
   qList=[];qIdx=0;qScore=0;qHearts=HM;qAnswered=false;
-  var sh=v.sort(function(){return Math.random()-.5}).slice(0,Math.min(10,v.length));
+  var sh=all.sort(function(){return Math.random()-.5;}).slice(0,Math.min(10,all.length));
   sh.forEach(function(word){
     var q=null;
-    if(Math.random()<.38)q=makeFill(word);
+    if(Math.random()<.38){
+      try{
+        var esc=word.word.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+        var bl=word.example.replace(new RegExp(esc,'i'),'___');
+        if(bl!==word.example&&bl.includes('___'))
+          q={qtype:'fill',prompt:'Complete the sentence:',sentence:bl,answer:word.word.toLowerCase(),display:word.word,full:word.word+' = '+word.meaning};
+      }catch(e){}
+    }
     if(!q){
-      var byM=Math.random()>.5,all=v.map(function(x){return byM?x.m:x.w}),correct=byM?word.m:word.w;
-      var wrongs=all.filter(function(a){return a!==correct}).sort(function(){return Math.random()-.5}).slice(0,3);
-      var opts=wrongs.concat([correct]).sort(function(){return Math.random()-.5});
-      q={qtype:'mc',prompt:byM?'What does this mean?':'How do you say this?',question:byM?word.w:word.m,answer:correct,opts:opts,full:word.w+' = '+word.m};
+      var byM=Math.random()>.5,opts2=all.map(function(x){return byM?x.meaning:x.word;}),correct=byM?word.meaning:word.word;
+      var wrongs=opts2.filter(function(a){return a!==correct;}).sort(function(){return Math.random()-.5;}).slice(0,3);
+      var opts=wrongs.concat([correct]).sort(function(){return Math.random()-.5;});
+      q={qtype:'mc',prompt:byM?'What does this mean?':'How do you say this?',question:byM?word.word:word.meaning,answer:correct,opts:opts,full:word.word+' = '+word.meaning};
     }
     qList.push(q);
   });
   renderHearts();renderQ();
 }
 
-function hrtSVG(on){return '<svg width="18" height="18" viewBox="0 0 24 24" fill="'+(on?'var(--red)':'none')+'" stroke="var(--red)" stroke-width="2" stroke-linecap="round" style="opacity:'+(on?1:.25)+'"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>'}
-function renderHearts(){var hd=document.getElementById('q-hearts');hd.innerHTML='';for(var i=0;i<HM;i++){var s=document.createElement('span');s.innerHTML=hrtSVG(i<qHearts);hd.appendChild(s)}}
+function hrtSVG(on){return'<svg width="18" height="18" viewBox="0 0 24 24" fill="'+(on?'var(--red)':'none')+'" stroke="var(--red)" stroke-width="2" stroke-linecap="round" style="opacity:'+(on?1:.25)+'"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>';}
+function renderHearts(){var hd=el('q-hearts');if(!hd)return;hd.innerHTML='';for(var i=0;i<HM;i++){var s=mk('span','');s.innerHTML=hrtSVG(i<qHearts);hd.appendChild(s);}}
 
 function renderQ(){
-  qAnswered=false;
-  var q=qList[qIdx];if(!q)return;
-  document.getElementById('q-sc').textContent='Score: '+qScore;
-  document.getElementById('q-nm').textContent='Question '+(qIdx+1)+' of '+qList.length;
-  document.getElementById('q-fb').style.display='none';
-  var dots=document.getElementById('q-dt');dots.innerHTML='';
-  qList.forEach(function(_,i){var d=document.createElement('div');d.style.cssText='width:7px;height:7px;border-radius:50%;background:'+(i<qIdx?'var(--pur)':i===qIdx?'var(--yel)':'var(--bdr)')+';transition:all .3s';dots.appendChild(d)});
-  var main=document.getElementById('q-main'),ty=document.getElementById('q-ty'),ans=document.getElementById('q-ans');
-  ans.innerHTML='';ans.style.cssText='display:flex;flex-direction:column;gap:9px';
+  qAnswered=false;var q=qList[qIdx];if(!q)return;
+  si('q-sc','Score: '+qScore);
+  var body=el('quiz-body');body.innerHTML='';
+  var dr=mk('div','');dr.style.cssText='display:flex;justify-content:space-between;align-items:center;flex-shrink:0';
+  var nm=mk('span','');nm.style.cssText='font-size:13px;color:var(--tx2)';nm.textContent='Question '+(qIdx+1)+' of '+qList.length;
+  var dots=mk('div','');dots.style.cssText='display:flex;gap:4px';
+  qList.forEach(function(_,i){var d=mk('div','');d.style.cssText='width:7px;height:7px;border-radius:50%;background:'+(i<qIdx?'var(--pur)':i===qIdx?'var(--yel)':'var(--bdr)')+';transition:all .3s';dots.appendChild(d);});
+  dr.appendChild(nm);dr.appendChild(dots);body.appendChild(dr);
+  var qc=mk('div','card');
+  var ty=mk('div','');ty.style.cssText='font-size:10px;font-weight:600;color:var(--pur);text-transform:uppercase;letter-spacing:.12em;margin-bottom:8px';ty.textContent=q.prompt;
+  var qm=mk('div','');
   if(q.qtype==='fill'){
-    ty.textContent=q.prompt;
-    main.innerHTML='<div style="font-size:16px;color:var(--tx);line-height:1.8;padding:4px 0">'+q.sentence.replace('___','<span style="color:var(--pur);border-bottom:2.5px solid var(--pur);padding:0 8px;font-weight:600">___</span>')+'</div>';
-    var inp=document.createElement('input');
-    inp.className='fillin';inp.placeholder='Type the missing word...';inp.id='fli';
-    inp.onkeydown=function(e){if(e.key==='Enter')submitFill()};
-    ans.appendChild(inp);
-    var sb=document.createElement('button');sb.className='bp';sb.textContent='Check answer';sb.onclick=submitFill;
-    ans.appendChild(sb);
-    setTimeout(function(){inp.focus()},100);
+    qm.innerHTML='<div style="font-size:16px;color:var(--tx);line-height:1.8;padding:4px 0">'+q.sentence.replace('___','<span style="color:var(--pur);border-bottom:2.5px solid var(--pur);padding:0 8px;font-weight:600">___</span>')+'</div>';
   }else{
-    ty.textContent=q.prompt;
-    main.innerHTML='<div style="font-size:26px;font-weight:700;color:var(--tx);line-height:1.3;padding:4px 0">'+q.question+'</div>';
+    qm.innerHTML='<div style="font-size:26px;font-weight:700;color:var(--tx);line-height:1.3;padding:4px 0">'+q.question+'</div>';
+  }
+  qc.appendChild(ty);qc.appendChild(qm);body.appendChild(qc);
+  var ad=mk('div','');ad.style.cssText='display:flex;flex-direction:column;gap:9px';
+  if(q.qtype==='fill'){
+    var inp=mk('input','fillin');inp.placeholder='Type the missing word...';inp.id='fli';
+    inp.addEventListener('keydown',function(e){if(e.key==='Enter')submitFill(q);});
+    ad.appendChild(inp);
+    var sb=mk('button','bp');sb.textContent='Check answer';sb.addEventListener('click',function(){submitFill(q);});ad.appendChild(sb);
+    setTimeout(function(){inp.focus();},100);
+  }else{
     var labels=['A','B','C','D'];
     q.opts.forEach(function(opt,i){
-      var b=document.createElement('button');b.className='qopt';
-      b.innerHTML='<span class="qlbl">'+labels[i]+'</span>'+opt;
-      b.onclick=function(){answerMC(opt,b,q)};
-      ans.appendChild(b);
+      var b=mk('button','qopt');b.innerHTML='<span class="qlbl">'+labels[i]+'</span>'+opt;
+      b.addEventListener('click',function(){answerMC(opt,b,q);});ad.appendChild(b);
     });
   }
+  body.appendChild(ad);
+  var fb=mk('div','');fb.id='q-fb';fb.style.cssText='display:none;flex-direction:column;gap:10px';body.appendChild(fb);
 }
 
-function submitFill(){
-  if(qAnswered)return;
-  var inp=document.getElementById('fli');if(!inp)return;
-  var ua=inp.value.trim().toLowerCase(),q=qList[qIdx];
+function submitFill(q){
+  if(qAnswered)return;var inp=el('fli');if(!inp)return;
+  var ua=inp.value.trim().toLowerCase();
   var ok=ua===q.answer||(q.display&&ua===q.display.toLowerCase());
   qAnswered=true;inp.disabled=true;
-  if(ok){inp.classList.add('ok');sfxOk();qScore++;addXP(10);inp.classList.add('pop')}
-  else{inp.value=q.display;inp.classList.add('no');inp.classList.add('shk');sfxNo();qHearts--;renderHearts()}
+  if(ok){inp.classList.add('ok');sfxOk();qScore++;addXP(10);inp.classList.add('pop');}
+  else{inp.value=q.display;inp.classList.add('no','shk');sfxNo();qHearts--;renderHearts();}
   S.todayQuiz++;save();showFB(q,ok);
 }
 
 function answerMC(ans,btn,q){
-  if(qAnswered)return;qAnswered=true;
-  var ok=ans===q.answer;
+  if(qAnswered)return;qAnswered=true;var ok=ans===q.answer;
   document.querySelectorAll('.qopt').forEach(function(b){
     var bt=b.textContent.replace(/^[ABCD]/,'').trim();
     if(bt===q.answer)b.classList.add('ok');
     else if(b===btn&&!ok)b.classList.add('no');
-    b.onclick=null;
+    b.style.pointerEvents='none';
   });
-  if(ok){sfxOk();qScore++;addXP(10);btn.classList.add('pop')}
-  else{sfxNo();qHearts--;renderHearts();btn.classList.add('shk')}
-  document.getElementById('q-sc').textContent='Score: '+qScore;
-  S.todayQuiz++;save();showFB(q,ok);
+  if(ok){sfxOk();qScore++;addXP(10);btn.classList.add('pop');}
+  else{sfxNo();qHearts--;renderHearts();btn.classList.add('shk');}
+  si('q-sc','Score: '+qScore);S.todayQuiz++;save();showFB(q,ok);
 }
 
 function showFB(q,ok){
-  var fb=document.getElementById('q-fb');
+  var fb=el('q-fb');if(!fb)return;
   fb.style.display='flex';fb.style.flexDirection='column';fb.style.gap='10px';
   if(qHearts<=0){
-    fb.innerHTML='<div style="padding:14px;border-radius:16px;border:2px solid var(--red);background:var(--redl);text-align:center;box-shadow:0 4px 0 var(--redb)"><div style="font-size:15px;font-weight:600;color:var(--redd)">Out of lives!</div><div style="font-size:13px;color:var(--redd);margin-top:4px;opacity:.8">'+q.full+'</div></div><button class="bp" onclick="newQuiz()">Try again</button>';
+    fb.innerHTML='<div style="padding:14px;border-radius:16px;border:2px solid var(--red);background:var(--redl);text-align:center"><div style="font-size:15px;font-weight:600;color:var(--redd)">Out of lives!</div><div style="font-size:13px;color:var(--redd);margin-top:4px">'+q.full+'</div></div>';
+    var rb=mk('button','bp');rb.textContent='Try again';rb.addEventListener('click',function(){renderQuiz();});fb.appendChild(rb);
     return;
   }
   var isLast=qIdx>=qList.length-1;
-  var okColor=ok?'var(--grn)':'var(--red)';
-  var okBg=ok?'var(--grnl)':'var(--redl)';
-  var okShd=ok?'var(--grnb)':'var(--redb)';
-  var okTx=ok?'var(--grnd)':'var(--redd)';
-  fb.innerHTML='<div style="padding:13px 15px;border-radius:16px;border:2px solid '+okColor+';background:'+okBg+';box-shadow:0 4px 0 '+okShd+'"><div style="font-size:14px;font-weight:600;color:'+okTx+'">'+(ok?'Correct! +10 XP':'Not quite')+'</div><div style="font-size:13px;color:'+okTx+';margin-top:4px;opacity:.85">'+q.full+'</div></div><button class="bp" onclick="nextQ()">'+(isLast?'See results':'Next question')+'</button>';
+  var oc=ok?'var(--grn)':'var(--red)',ob=ok?'var(--grnl)':'var(--redl)',os=ok?'var(--grnb)':'var(--redb)',ot=ok?'var(--grnd)':'var(--redd)';
+  fb.innerHTML='<div style="padding:13px 15px;border-radius:16px;border:2px solid '+oc+';background:'+ob+';box-shadow:0 4px 0 '+os+'"><div style="font-size:14px;font-weight:600;color:'+ot+'">'+(ok?'Correct! +10 XP':'Not quite')+'</div><div style="font-size:13px;color:'+ot+';margin-top:4px;opacity:.85">'+q.full+'</div></div>';
+  var nb=mk('button','bp');nb.textContent=isLast?'See results':'Next question';
+  nb.addEventListener('click',function(){qIdx++;if(qIdx>=qList.length)showResults();else renderQ();});fb.appendChild(nb);
 }
-
-function nextQ(){if(qHearts<=0){newQuiz();return}qIdx++;if(qIdx>=qList.length)showResults();else renderQ()}
-function newQuiz(){initQuiz()}
 
 function showResults(){
   var pct=Math.round((qScore/qList.length)*100),bonus=qScore>=8?30:qScore>=5?15:5;
   addXP(bonus);
-  document.getElementById('q-nm').textContent='Complete!';
-  document.getElementById('q-sc').textContent=qScore+'/'+qList.length;
-  document.getElementById('q-ty').textContent='Final score';
-  document.getElementById('q-main').innerHTML='<div style="text-align:center;padding:10px 0"><div style="font-size:58px;font-weight:700;color:var(--pur)">'+pct+'%</div><div style="font-size:13px;color:var(--tx2);margin-top:6px">'+qScore+' of '+qList.length+' correct · +'+bonus+' bonus XP</div></div>';
-  document.getElementById('q-ans').innerHTML='';
-  var fb=document.getElementById('q-fb');
-  fb.style.display='flex';fb.style.flexDirection='column';fb.style.gap='10px';
-  fb.innerHTML='<button class="bp" onclick="newQuiz()">Play again</button>';
+  var body=el('quiz-body');
+  body.innerHTML='<div class="card" style="text-align:center;padding:28px"><div style="font-size:58px;font-weight:700;color:var(--pur)">'+pct+'%</div><div style="font-size:14px;color:var(--tx2);margin-top:8px">'+qScore+' of '+qList.length+' correct &middot; +'+bonus+' bonus XP</div></div>';
+  var rb=mk('button','bp');rb.textContent='Play again';rb.addEventListener('click',function(){renderQuiz();});body.appendChild(rb);
 }
 
-// ── PROFILE ───────────────────────────────────────────────────
 function renderMe(){
-  var known=Object.keys(S.known).filter(function(id){return id.startsWith(S.lang)}).length;
+  var known=Object.keys(S.known).filter(function(id){return id.startsWith(S.lang);}).length;
   var ln=LANGS[S.lang]&&LANGS[S.lang].name||'Spanish';
-  document.getElementById('me-ll').textContent='Learning '+ln;
-  document.getElementById('me-xp').textContent=S.xp;
-  document.getElementById('me-st').textContent=S.streak;
-  document.getElementById('me-kn').textContent=known;
-  document.getElementById('me-ms').textContent=S.totalMsgs;
-  var grid=document.getElementById('lgrid');grid.innerHTML='';
+  si('me-ll','Learning '+ln);si('me-xp',S.xp);si('me-st',S.streak);si('me-kn',known);si('me-ms',S.totalMsgs);
+  var grid=el('lgrid');grid.innerHTML='';
   Object.entries(LANGS).forEach(function(entry){
     var code=entry[0],lang=entry[1];
-    var b=document.createElement('button');
-    b.className='lb'+(code===S.lang?' sel':'');
+    var b=mk('button','lb'+(code===S.lang?' sel':''));
     b.innerHTML='<div class="ln">'+lang.name+'</div><div class="lv">'+lang.native+'</div>';
-    b.onclick=function(){selectLang(code)};
-    grid.appendChild(b);
+    b.addEventListener('click',function(){selectLang(code);});grid.appendChild(b);
   });
 }
 
 function selectLang(code){
-  S.lang=code;S.currentLesson=1;chatHistory=[];
-  document.getElementById('cbody').innerHTML='';
-  document.getElementById('p-ll').textContent=(LANGS[code]&&LANGS[code].name||'Spanish')+' · Voice ready';
-  save();renderMe();renderHome();initCards();initQuiz();
-  if(recog)recog.lang=LC[code]||'en-US';
+  S.lang=code;S.currentLesson=1;chatHistory=[];el('cbody').innerHTML='';
+  el('p-ll').textContent=(LANGS[code]&&LANGS[code].name||'Spanish')+' \u00b7 Voice ready';
+  save();renderAll();if(recog)recog.lang=LC[code]||'en-US';
 }
 
-function resetAll(){
-  S={lang:S.lang,xp:0,streak:0,lastDate:new Date().toDateString(),known:{},totalMsgs:0,todayPrac:false,todayCards:0,todayQuiz:0,currentLesson:1};
-  chatHistory=[];document.getElementById('cbody').innerHTML='';
-  save();renderHome();renderMe();initCards();initQuiz();go('home');
-}
+function renderAll(){renderHome();renderLessons();renderCards();renderQuiz();renderMe();}
 
-// ── BOOT ──────────────────────────────────────────────────────
-
-// ── API KEY ────────────────────────────────────────────────────
-var ANTHROPIC_KEY = '';
-function loadApiKey(){
-  try{ANTHROPIC_KEY=localStorage.getItem('langai_apikey')||''}catch(e){}
-  if(!ANTHROPIC_KEY){
-    document.getElementById('api-setup').style.display='flex';
-  }else{
-    document.getElementById('api-setup').style.display='none';
+function downloadApp(){
+  var html=document.documentElement.outerHTML;
+  // base64 data URI works in all contexts including iframes
+  try{
+    var b64=btoa(unescape(encodeURIComponent(html)));
+    var uri='data:text/html;base64,'+b64;
+    var a=document.createElement('a');
+    a.href=uri;a.download='LangAI.html';
+    document.body.appendChild(a);a.click();document.body.removeChild(a);
+    // Show instructions overlay after triggering download
+    setTimeout(function(){showDlOverlay(uri);},300);
+  }catch(e){
+    // fallback: copy to clipboard
+    if(navigator.clipboard){
+      navigator.clipboard.writeText(html).then(function(){
+        alert('HTML copied to clipboard! Paste it into a file called LangAI.html');
+      });
+    }
   }
 }
-function saveApiKey(){
-  var k=document.getElementById('api-key-input').value.trim();
-  if(!k||!k.startsWith('sk-')){
-    document.getElementById('api-key-input').style.borderColor='#E53935';
-    document.getElementById('api-key-input').placeholder='Must start with sk-ant-...';
-    return;
-  }
-  ANTHROPIC_KEY=k;
-  try{localStorage.setItem('langai_apikey',k)}catch(e){}
-  document.getElementById('api-setup').style.display='none';
+function showDlOverlay(uri){
+  var ov=document.createElement('div');
+  ov.style.cssText='position:fixed;inset:0;background:rgba(26,5,51,.85);z-index:9999;display:flex;align-items:flex-end;justify-content:center;padding:24px';
+  var box=document.createElement('div');
+  box.style.cssText='background:var(--card);border-radius:22px;border:2px solid var(--bdr);padding:24px;max-width:360px;width:100%';
+  var title=document.createElement('div');
+  title.style.cssText='font-size:17px;font-weight:700;color:var(--tx);margin-bottom:8px';
+  title.textContent='Save LangAI to iPhone';
+  var info=document.createElement('div');
+  info.style.cssText='font-size:14px;color:var(--tx2);line-height:1.7;margin-bottom:16px';
+  info.innerHTML='If the file did not download automatically, tap <strong style="color:var(--pur)">Download Again</strong> below, then tap Share &rarr; Save to Files in Safari.';
+  var row=document.createElement('div');
+  row.style.cssText='display:flex;gap:10px';
+  var openBtn=document.createElement('a');
+  openBtn.href=uri;openBtn.download='LangAI.html';
+  openBtn.style.cssText='flex:1;display:flex;align-items:center;justify-content:center;background:var(--pur);color:#fff;border:2.5px solid var(--purd);border-radius:14px;padding:13px;font-size:15px;font-weight:600;text-decoration:none;box-shadow:0 5px 0 var(--purd)';
+  openBtn.textContent='Download Again';
+  var closeBtn=document.createElement('button');
+  closeBtn.style.cssText='flex:1;background:var(--card);color:var(--tx);border:2px solid var(--bdr);border-radius:14px;padding:13px;font-size:15px;font-weight:600;font-family:inherit;cursor:pointer;box-shadow:0 5px 0 var(--shd)';
+  closeBtn.textContent='Done';
+  closeBtn.addEventListener('click',function(){ov.remove();});
+  row.appendChild(openBtn);row.appendChild(closeBtn);
+  box.appendChild(title);box.appendChild(info);box.appendChild(row);
+  ov.appendChild(box);document.body.appendChild(ov);
 }
 
-function init(){
-  load();checkStreak();save();
-  loadApiKey();
-  initSTT();
-  renderHome();
-  initCards();
-  initQuiz();
-  var ln=LANGS[S.lang]&&LANGS[S.lang].name||'Spanish';
-  document.getElementById('p-ll').textContent=ln+' · Voice ready';
-  document.getElementById('h-ll').textContent='Learning '+ln;
-  updateCurrentLesson();
-}
-init();
+window.addEventListener('DOMContentLoaded',function(){
+  load();checkStreak();
+  var k=S.apiKey||'';
+  if(k){KEY=k;el('api-setup').classList.add('done');}
+  el('btn-key-save').addEventListener('click',function(){
+    var k2=el('key-inp').value.trim();
+    if(!k2||!k2.startsWith('sk-')){el('key-inp').style.borderColor='var(--red)';return;}
+    saveKey(k2);el('api-setup').classList.add('done');renderAll();
+  });
+  el('btn-save-key-me').addEventListener('click',function(){
+    var k3=el('me-key-inp').value.trim();
+    if(!k3){alert('Please paste your API key first.');return;}
+    saveKey(k3);
+    el('me-key-inp').value='';
+    el('me-key-inp').placeholder='Key saved!';
+    el('btn-save-key-me').textContent='Saved!';
+    el('btn-save-key-me').style.color='var(--grnd)';
+    el('btn-save-key-me').style.borderColor='var(--grn)';
+    setTimeout(function(){
+      el('btn-save-key-me').textContent='Save Key';
+      el('btn-save-key-me').style.color='';
+      el('btn-save-key-me').style.borderColor='';
+      el('me-key-inp').placeholder='sk-ant-api03-...';
+    },2500);
+  });
+  TABS.forEach(function(t){el('tab-'+t).addEventListener('click',function(){go(t);});});
+  el('h-btn-talk').addEventListener('click',function(){go('talk');});
+  el('h-btn-lessons').addEventListener('click',function(){go('lessons');});
+  el('h-btn-cards').addEventListener('click',function(){go('cards');});
+  el('cmic').addEventListener('click',toggleMic);
+  el('csnd').addEventListener('click',sendMsg);
+  el('btn-clr-chat').addEventListener('click',function(){chatHistory=[];el('cbody').innerHTML='';initChat();});
+  el('cin').addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();}});
+  el('cin').addEventListener('input',function(){ar(this);});
+  el('btn-new-quiz').addEventListener('click',function(){renderQuiz();});
+  el('btn-shuffle').addEventListener('click',function(){if(deck.length){deck=deck.sort(function(){return Math.random()-.5;});cardIdx=0;showCard();}});
+  el('btn-download').addEventListener('click',downloadApp);
+  el('btn-reset').addEventListener('click',function(){if(confirm('Reset all progress?')){S={lang:S.lang,xp:0,streak:0,lastDate:new Date().toDateString(),known:{},totalMsgs:0,todayPrac:false,todayCards:0,todayQuiz:0,currentLesson:1,apiKey:S.apiKey};chatHistory=[];el('cbody').innerHTML='';save();renderAll();go('home');}});
+  initSTT();save();renderAll();
+  el('p-ll').textContent=(LANGS[S.lang]&&LANGS[S.lang].name||'Spanish')+' \u00b7 Voice ready';
+});
+
 </script>
-</body>
-</html>
+
+</body></html>
