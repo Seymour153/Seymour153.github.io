@@ -246,9 +246,19 @@ html,body{height:100%;background:#E0D9F7;font-family:-apple-system,BlinkMacSyste
       <div class="lgrid" id="lgrid"></div>
     </div>
     <div class="card">
-      <div style="font-size:13px;font-weight:600;color:var(--tx);margin-bottom:12px">API Key</div>
+      <div style="font-size:13px;font-weight:600;color:var(--tx);margin-bottom:12px">Anthropic API Key</div>
       <input class="inp" id="me-key-inp" type="password" placeholder="sk-ant-api03-..." style="margin-bottom:10px">
-      <button class="bs" id="btn-save-key-me" style="font-size:13px;padding:10px">Save Key</button>
+      <button class="bs" id="btn-save-key-me" style="font-size:13px;padding:10px">Save Anthropic Key</button>
+    </div>
+    <div class="card">
+      <div style="font-size:13px;font-weight:600;color:var(--tx);margin-bottom:4px">ElevenLabs Key <span style="font-size:11px;color:var(--grn);font-weight:500">(free tier at elevenlabs.io)</span></div>
+      <div style="font-size:12px;color:var(--tx2);margin-bottom:10px;line-height:1.5">Adds studio-quality voice pronunciation. Free tier = 10k chars/month. Get key at elevenlabs.io &rarr; Profile &rarr; API Key.</div>
+      <input class="inp" id="me-el-inp" type="password" placeholder="Paste ElevenLabs API key..." style="margin-bottom:10px">
+      <div style="display:flex;gap:8px">
+        <button class="bs" id="btn-save-el" style="font-size:13px;padding:10px;flex:1">Save EL Key</button>
+        <button class="bs" id="btn-test-el" style="font-size:13px;padding:10px;flex:1;color:var(--pur);border-color:var(--pur)">Test Voice</button>
+      </div>
+      <div id="el-status" style="font-size:12px;margin-top:8px;display:none"></div>
     </div>
     <button class="bs" id="btn-download" style="color:var(--ind);border-color:var(--ind);box-shadow:0 5px 0 var(--indb)">
   <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
@@ -281,7 +291,7 @@ var LANGS={es:{name:'Spanish',native:'Español'},de:{name:'German',native:'Deuts
 var LC={es:'es-ES',de:'de-DE',fr:'fr-FR',it:'it-IT',pt:'pt-BR',ja:'ja-JP',zh:'zh-CN'};
 var XPL=[0,100,250,450,700,1000,1350,1750,2200,2700,3250,3850,4500,5200,5950];
 var HM=5;
-var S={lang:'es',xp:0,streak:0,lastDate:null,known:{},totalMsgs:0,todayPrac:false,todayCards:0,todayQuiz:0,currentLesson:1,apiKey:''};
+var S={lang:'es',xp:0,streak:0,lastDate:null,known:{},totalMsgs:0,todayPrac:false,todayCards:0,todayQuiz:0,currentLesson:1,apiKey:'',elKey:''};
 
 function save(){try{localStorage.setItem('langai_v7',JSON.stringify(S));localStorage.setItem('langai_vocab',JSON.stringify(VOCAB_CACHE));}catch(e){}}
 function load(){try{var r=localStorage.getItem('langai_v7');if(r)Object.assign(S,JSON.parse(r));var v=localStorage.getItem('langai_vocab');if(v)VOCAB_CACHE=JSON.parse(v);}catch(e){}}
@@ -330,6 +340,53 @@ function sfxNo(){tone(180,.25,'sawtooth');}
 function sfxFlip(){tone(440,.06);}
 function sfxXP(){tone(800,.04);setTimeout(function(){tone(1050,.07);},55);setTimeout(function(){tone(1300,.1);},120);}
 
+// ── ELEVENLABS VOICE IDS (multilingual v2 model) ─────────────
+var EL_VOICES={
+  female:{id:'EXAVITQu4vr4xnSDxMaL',name:'Bella'},
+  male:{id:'ErXwobaYiN019PkySvjV',name:'Antoni'}
+};
+var EL_MODEL='eleven_multilingual_v2';
+var currentAudio=null;
+
+function getELKey(){return S.elKey||'';}
+
+async function speakElevenLabs(text){
+  var key=getELKey();
+  if(!key||!text||!text.trim())return false;
+  try{
+    if(currentAudio){currentAudio.pause();currentAudio=null;}
+    var voiceId=EL_VOICES.female.id;
+    var r=await fetch('https://api.elevenlabs.io/v1/text-to-speech/'+voiceId,{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'xi-api-key':key
+      },
+      body:JSON.stringify({
+        text:text.trim(),
+        model_id:EL_MODEL,
+        voice_settings:{
+          stability:0.45,
+          similarity_boost:0.80,
+          style:0.35,
+          use_speaker_boost:true
+        }
+      })
+    });
+    if(!r.ok){
+      if(r.status===401){S.elKey='';save();return false;}
+      return false;
+    }
+    var blob=await r.blob();
+    var url=URL.createObjectURL(blob);
+    currentAudio=new Audio(url);
+    currentAudio.playbackRate=1.0;
+    currentAudio.onended=function(){URL.revokeObjectURL(url);currentAudio=null;};
+    currentAudio.play();
+    return true;
+  }catch(e){return false;}
+}
+
 var bestVoiceCache={};
 function getBestVoice(lang){
   if(bestVoiceCache[lang])return bestVoiceCache[lang];
@@ -337,7 +394,6 @@ function getBestVoice(lang){
   if(!vs.length)return null;
   var lc=LC[lang]||'en-US';
   var lp=lc.split('-')[0];
-  // Priority: Enhanced local > local > any matching lang code > fallback
   var v=vs.find(function(v){return v.lang===lc&&v.localService&&v.name.toLowerCase().includes('enhanced');})
     ||vs.find(function(v){return v.lang===lc&&v.localService&&!v.name.toLowerCase().includes('compact');})
     ||vs.find(function(v){return v.lang===lc&&v.localService;})
@@ -347,68 +403,150 @@ function getBestVoice(lang){
   if(v)bestVoiceCache[lang]=v;
   return v||null;
 }
-function speak(text){
+
+function speakFallback(text){
   if(!('speechSynthesis' in window)||!text||!text.trim())return;
-  // Cancel any ongoing speech immediately
   window.speechSynthesis.cancel();
   function doSpeak(){
     var u=new SpeechSynthesisUtterance(text.trim());
     u.lang=LC[S.lang]||'en-US';
-    u.rate=1.0;
-    u.pitch=1.0;
-    u.volume=1.0;
+    u.rate=1.05;u.pitch=1.0;u.volume=1.0;
     var v=getBestVoice(S.lang);
     if(v)u.voice=v;
-    // iOS: must call speak() from within a user gesture context or after a tiny delay
     window.speechSynthesis.speak(u);
-    // iOS stall fix: if paused after 200ms, resume
-    setTimeout(function(){
-      if(window.speechSynthesis.paused){window.speechSynthesis.resume();}
-    },200);
-    // iOS sometimes just stops - watchdog
-    var watchdog=setInterval(function(){
-      if(!window.speechSynthesis.speaking){clearInterval(watchdog);return;}
-      if(window.speechSynthesis.paused){window.speechSynthesis.resume();}
+    var wd=setInterval(function(){
+      if(!window.speechSynthesis.speaking){clearInterval(wd);return;}
+      if(window.speechSynthesis.paused)window.speechSynthesis.resume();
     },500);
-    u.onend=function(){clearInterval(watchdog);};
-    u.onerror=function(){clearInterval(watchdog);};
+    u.onend=function(){clearInterval(wd);};
+    u.onerror=function(){clearInterval(wd);};
   }
-  // Small delay lets cancel() fully clear before new utterance
-  setTimeout(doSpeak,50);
+  setTimeout(doSpeak,40);
 }
+
+function speak(text){
+  if(!text||!text.trim())return;
+  if(getELKey()){
+    speakElevenLabs(text).then(function(ok){if(!ok)speakFallback(text);});
+  }else{
+    speakFallback(text);
+  }
+}
+
 function initVoices(){
   if('speechSynthesis' in window){
     window.speechSynthesis.getVoices();
     window.speechSynthesis.onvoiceschanged=function(){
-      bestVoiceCache={};// clear cache so voices are re-evaluated
+      bestVoiceCache={};
       window.speechSynthesis.getVoices();
     };
   }
 }
 initVoices();
 
-var recog=null,isListen=false;
+var recog=null,isListen=false,sttFinal='',sttTimer=null;
 function initSTT(){
   var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
   if(!SR)return;
-  recog=new SR();recog.continuous=true;recog.interimResults=true;
-  recog.onstart=function(){isListen=true;el('cmic').classList.add('on');el('mic-hint').classList.add('on');el('cin').classList.add('listening');el('cin').placeholder='Listening...';};
-  recog.onresult=function(e){var fi='',int='';for(var i=0;i<e.results.length;i++){if(e.results[i].isFinal)fi+=e.results[i][0].transcript;else int+=e.results[i][0].transcript;}el('cin').value=fi||int;ar(el('cin'));};
-  recog.onspeechend=function(){setTimeout(function(){if(isListen&&el('cin').value.trim()){stopListen();sendMsg();}else stopListen();},700);};
-  recog.onerror=function(e){stopListen();if(e.error==='not-allowed')addBubble('ai','Microphone access denied. Allow it in browser settings.');};
-  recog.onend=function(){if(isListen&&!el('cin').value.trim())stopListen();};
+  recog=new SR();
+  recog.continuous=false;// false = more reliable on iOS, auto-stops cleanly
+  recog.interimResults=true;
+  recog.maxAlternatives=3;// get top 3 alternatives for better accuracy
+  recog.onstart=function(){
+    isListen=true;sttFinal='';
+    el('cmic').classList.add('on');
+    el('mic-hint').classList.add('on');
+    el('cin').classList.add('listening');
+    el('cin').placeholder='Listening...';
+    el('cin').value='';
+  };
+  recog.onresult=function(e){
+    clearTimeout(sttTimer);
+    var interim='';
+    sttFinal='';
+    for(var i=e.resultIndex;i<e.results.length;i++){
+      if(e.results[i].isFinal){
+        // Pick highest confidence alternative
+        var best=e.results[i][0];
+        for(var j=1;j<e.results[i].length;j++){
+          if(e.results[i][j].confidence>best.confidence)best=e.results[i][j];
+        }
+        sttFinal+=best.transcript;
+      }else{
+        interim+=e.results[i][0].transcript;
+      }
+    }
+    el('cin').value=sttFinal||interim;
+    ar(el('cin'));
+    // Auto-send after pause in speech
+    if(sttFinal){
+      sttTimer=setTimeout(function(){
+        if(isListen&&sttFinal.trim()){stopListen();sendMsg();}
+      },900);
+    }
+  };
+  recog.onspeechend=function(){
+    clearTimeout(sttTimer);
+    sttTimer=setTimeout(function(){
+      if(isListen){
+        var txt=el('cin').value.trim();
+        if(txt){stopListen();sendMsg();}else{stopListen();}
+      }
+    },600);
+  };
+  recog.onerror=function(e){
+    stopListen();
+    if(e.error==='not-allowed')addBubble('ai','Microphone blocked. Go to Settings > Safari > Microphone and allow access.');
+    else if(e.error==='no-speech')el('cin').placeholder='No speech detected. Try again.';
+    else if(e.error==='network')addBubble('ai','Network error with speech recognition. Check your connection.');
+  };
+  recog.onend=function(){
+    if(isListen&&!el('cin').value.trim())stopListen();
+  };
 }
-function toggleMic(){if(isListen){stopListen();return;}if(!recog){addBubble('ai','Voice works in Safari on iPhone. Allow microphone access.');return;}try{el('cin').value='';recog.lang=LC[S.lang]||'en-US';recog.start();}catch(e){stopListen();}}
-function stopListen(){isListen=false;try{if(recog)recog.stop();}catch(e){}var m=el('cmic'),h=el('mic-hint'),c=el('cin');if(m)m.classList.remove('on');if(h)h.classList.remove('on');if(c){c.classList.remove('listening');c.placeholder='Type or tap mic to speak...';}}
+function toggleMic(){
+  if(isListen){stopListen();return;}
+  if(!recog){
+    addBubble('ai','Voice input requires Safari on iPhone. Make sure microphone access is allowed in Settings > Safari.');
+    return;
+  }
+  try{
+    el('cin').value='';
+    sttFinal='';
+    // Recreate recognizer each time - fixes iOS stale state bug
+    var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+    recog=new SR();
+    recog.continuous=false;
+    recog.interimResults=true;
+    recog.maxAlternatives=3;
+    recog.lang=LC[S.lang]||'en-US';
+    // Re-wire events
+    initSTT();
+    recog.lang=LC[S.lang]||'en-US';
+    recog.start();
+  }catch(e){
+    stopListen();
+    addBubble('ai','Could not start microphone: '+e.message);
+  }
+}
+function stopListen(){
+  isListen=false;
+  clearTimeout(sttTimer);
+  try{if(recog)recog.stop();}catch(e){}
+  var m=el('cmic'),h=el('mic-hint'),c=el('cin');
+  if(m)m.classList.remove('on');
+  if(h)h.classList.remove('on');
+  if(c){c.classList.remove('listening');c.placeholder='Type or tap mic to speak...';}
+}
 function ar(el2){el2.style.height='auto';el2.style.height=Math.min(el2.scrollHeight,100)+'px';}
 function el(id){return document.getElementById(id);}
 
 function getLvl(x){for(var i=XPL.length-1;i>=0;i--)if(x>=XPL[i])return i+1;return 1;}
 function getBase(l){return XPL[Math.min(l-1,XPL.length-1)]||0;}
 function getTop(l){return XPL[Math.min(l,XPL.length-1)]||XPL[XPL.length-1];}
-function addXP(n,advLesson){S.xp+=n;if(advLesson)updateLesson();sfxXP();save();}
+function addXP(n){S.xp+=n;sfxXP();save();}
 function getCur(){return S.lang==='de'?CURRICULUM_DE:CURRICULUM_ES;}
-function updateLesson(){var c=getCur();for(var i=c.length-1;i>=0;i--){if(S.xp>=c[i].xpRequired){if(c[i].id>S.currentLesson)S.currentLesson=c[i].id;break;}}}
+function updateLesson(lessonId){if(lessonId&&lessonId>S.currentLesson)S.currentLesson=lessonId;}
 function checkStreak(){var t=new Date().toDateString();if(!S.lastDate){S.streak=1;S.lastDate=t;return;}if(S.lastDate===t)return;var d=Math.round((new Date()-new Date(S.lastDate))/864e5);S.streak=d===1?S.streak+1:1;S.lastDate=t;S.todayPrac=false;S.todayCards=0;S.todayQuiz=0;}
 
 var TABS=['home','talk','lessons','cards','quiz','me'];
@@ -430,7 +568,7 @@ function renderHome(){
   var lvl=getLvl(S.xp),base=getBase(lvl),top=getTop(lvl);
   var pct=Math.min(100,Math.round(((S.xp-base)/(top-base))*100));
   var known=Object.keys(S.known).filter(function(id){return id.startsWith(S.lang);}).length;
-  var done=c.filter(function(l){return S.currentLesson>l.id;}).length;
+  var done=Math.max(0,S.currentLesson-1);
   var h=new Date().getHours();
   var days=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
   var months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
@@ -469,9 +607,9 @@ function renderLessons(){
   el('ls-sub').textContent=ln+' · 100 lessons · AI generates vocabulary as you learn';
   var container=el('lesson-list');container.innerHTML='';
   c.forEach(function(lesson){
-    var unlocked=S.xp>=lesson.xpRequired;
-    var done=S.currentLesson>lesson.id;
-    var isCurrent=lesson.id===S.currentLesson;
+    var unlocked=lesson.id<=S.currentLesson||lesson.id===S.currentLesson+1;
+    var done=lesson.id<S.currentLesson;
+    var isCurrent=lesson.id===S.currentLesson||lesson.id===S.currentLesson+1;
     var cached=!!VOCAB_CACHE[S.lang+'_'+lesson.id];
     var card=document.createElement('div');
     card.className='lcard'+(isCurrent?' current':done?' done':unlocked?'':' locked');
@@ -479,7 +617,7 @@ function renderLessons(){
     var tag=done?'<span class="ltag ltag-done">Done</span>':
              cached?'<span class="ltag ltag-gen">Ready</span>':
              unlocked?'<span class="ltag ltag-new">Start</span>':
-             '<span class="ltag ltag-lock">'+lesson.xpRequired+' XP</span>';
+             '<span class="ltag ltag-lock">Finish lesson '+S.currentLesson+' first</span>';
     card.innerHTML='<div class="'+nc+'">'+(done?'&#10003;':lesson.id)+'</div>'+
       '<div style="flex:1"><div style="font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px">'+
       lesson.title+' '+lvlBadge(lesson.id)+'</div>'+
@@ -499,7 +637,8 @@ async function openLesson(lesson){
   try{
     var words=await generateLessonVocab(S.lang,lesson);
     showLessonDetail(lesson,words);
-    addXP(5,true);
+    updateLesson(lesson.id);
+    addXP(5);
   }catch(e){
     container.innerHTML='<div style="padding:20px;text-align:center;color:var(--redd);font-size:13px">Error: '+e.message+'</div>';
     var btn=document.createElement('button');btn.className='bp';btn.style.margin='0 16px 16px';btn.textContent='Back to Lessons';
@@ -590,7 +729,7 @@ async function sendMsg(){
     addBubble('ai',reply);
     var rm=reply.match(/Response:\s*(.+?)(?:\n|$)/);
     if(rm)speak(rm[1].trim());
-    addXP(5,true);S.todayPrac=true;S.totalMsgs++;save();
+    addXP(5);S.todayPrac=true;S.totalMsgs++;save();
   }catch(e){
     var t2=el('typing');if(t2)t2.remove();
     addBubble('ai','Error: '+e.message);
@@ -868,6 +1007,23 @@ window.addEventListener('DOMContentLoaded',function(){
     var k2=el('key-inp').value.trim();
     if(!k2||!k2.startsWith('sk-')){el('key-inp').style.borderColor='var(--red)';return;}
     saveKey(k2);el('api-setup').classList.add('done');renderAll();
+  });
+  el('btn-save-el').addEventListener('click',function(){
+    var k=el('me-el-inp').value.trim();
+    if(!k){alert('Paste your ElevenLabs API key first.');return;}
+    S.elKey=k;save();
+    el('me-el-inp').value='';
+    el('me-el-inp').placeholder='Key saved!';
+    el('btn-save-el').textContent='Saved!';
+    el('btn-save-el').style.color='var(--grnd)';
+    setTimeout(function(){el('btn-save-el').textContent='Save EL Key';el('btn-save-el').style.color='';el('me-el-inp').placeholder='Paste ElevenLabs API key...';},2500);
+  });
+  el('btn-test-el').addEventListener('click',function(){
+    var st=el('el-status');
+    if(!getELKey()){st.style.display='block';st.style.color='var(--redd)';st.textContent='No ElevenLabs key saved yet.';return;}
+    st.style.display='block';st.style.color='var(--tx2)';st.textContent='Testing...';
+    speak('Hola! Estoy listo para ayudarte a aprender.');
+    setTimeout(function(){st.textContent='If you heard audio — ElevenLabs is working!';st.style.color='var(--grnd)';},1200);
   });
   el('btn-save-key-me').addEventListener('click',function(){
     var k3=el('me-key-inp').value.trim();
