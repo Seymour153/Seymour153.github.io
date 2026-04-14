@@ -332,9 +332,47 @@ async function generateLessonVocab(lang,lesson){
   return words;
 }
 
-var audioCtx;
-function getAC(){if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();return audioCtx;}
-function tone(f,d,t){t=t||'sine';try{var c=getAC();if(c.state==='suspended')c.resume();var o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);o.frequency.value=f;o.type=t;g.gain.setValueAtTime(.08,c.currentTime);g.gain.exponentialRampToValueAtTime(.001,c.currentTime+d);o.start(c.currentTime);o.stop(c.currentTime+d);}catch(e){}}
+var audioCtx=null;
+function getAC(){
+  if(!audioCtx){
+    try{audioCtx=new(window.AudioContext||window.webkitAudioContext)();}catch(e){return null;}
+  }
+  return audioCtx;
+}
+function warmAC(){
+  // Call this on every user tap to keep AudioContext alive on iOS
+  var c=getAC();
+  if(!c)return;
+  if(c.state==='suspended'){
+    c.resume().catch(function(){});
+  }
+  // Play silent buffer to unlock audio on iOS
+  try{
+    var buf=c.createBuffer(1,1,22050);
+    var src=c.createBufferSource();
+    src.buffer=buf;src.connect(c.destination);src.start(0);
+  }catch(e){}
+}
+function tone(f,d,t){
+  t=t||'sine';
+  var c=getAC();
+  if(!c)return;
+  function play(){
+    try{
+      var o=c.createOscillator(),g=c.createGain();
+      o.connect(g);g.connect(c.destination);
+      o.frequency.value=f;o.type=t;
+      g.gain.setValueAtTime(.1,c.currentTime);
+      g.gain.exponentialRampToValueAtTime(.001,c.currentTime+d);
+      o.start(c.currentTime);o.stop(c.currentTime+d);
+    }catch(e){}
+  }
+  if(c.state==='suspended'){
+    c.resume().then(play).catch(function(){});
+  }else{
+    play();
+  }
+}
 function sfxOk(){tone(600,.07);setTimeout(function(){tone(900,.12);},85);}
 function sfxNo(){tone(180,.25,'sawtooth');}
 function sfxFlip(){tone(440,.06);}
@@ -776,7 +814,7 @@ function buildCardUI(body){
   var btns=mk('div','');btns.style.cssText='display:grid;grid-template-columns:1fr 1fr;gap:12px';
   var bn=mk('button','bs');bn.id='btn-n';bn.style.cssText='color:var(--redd);border-color:var(--red);box-shadow:0 5px 0 var(--redb)';bn.textContent="Don't know";bn.disabled=true;bn.style.opacity='.4';
   var by=mk('button','');by.id='btn-y';by.style.cssText='background:var(--grn);color:#fff;border:2.5px solid var(--grnd);border-radius:18px;padding:13px;font-size:15px;font-weight:600;font-family:inherit;cursor:pointer;box-shadow:0 5px 0 var(--grnb);transition:all .1s;width:100%;opacity:.4';by.textContent='Know it';by.disabled=true;
-  bn.addEventListener('click',function(){rateCard('no');});by.addEventListener('click',function(){rateCard('yes');});
+  bn.addEventListener('click',function(){warmAC();rateCard('no');});by.addEventListener('click',function(){warmAC();rateCard('yes');});
   btns.appendChild(bn);btns.appendChild(by);body.appendChild(btns);
   var stats=mk('div','');stats.style.cssText='display:flex;justify-content:space-between;padding:0 4px';
   stats.innerHTML='<span style="font-size:13px;color:var(--tx2)">Known: <span style="color:var(--grn);font-weight:600" id="c-kn">0</span></span><span style="font-size:13px;color:var(--tx2)">To review: <span style="font-weight:600" id="c-rv">0</span></span>';
@@ -871,15 +909,15 @@ function renderQ(){
   var ad=mk('div','');ad.style.cssText='display:flex;flex-direction:column;gap:9px';
   if(q.qtype==='fill'){
     var inp=mk('input','fillin');inp.placeholder='Type the missing word...';inp.id='fli';
-    inp.addEventListener('keydown',function(e){if(e.key==='Enter')submitFill(q);});
+    inp.addEventListener('keydown',function(e){if(e.key==='Enter'){warmAC();submitFill(q);}});
     ad.appendChild(inp);
-    var sb=mk('button','bp');sb.textContent='Check answer';sb.addEventListener('click',function(){submitFill(q);});ad.appendChild(sb);
+    var sb=mk('button','bp');sb.textContent='Check answer';sb.addEventListener('click',function(){warmAC();submitFill(q);});ad.appendChild(sb);
     setTimeout(function(){inp.focus();},100);
   }else{
     var labels=['A','B','C','D'];
     q.opts.forEach(function(opt,i){
       var b=mk('button','qopt');b.innerHTML='<span class="qlbl">'+labels[i]+'</span>'+opt;
-      b.addEventListener('click',function(){answerMC(opt,b,q);});ad.appendChild(b);
+      b.addEventListener('click',function(){warmAC();answerMC(opt,b,q);});ad.appendChild(b);
     });
   }
   body.appendChild(ad);
@@ -1000,6 +1038,11 @@ function showDlOverlay(uri){
 }
 
 window.addEventListener('DOMContentLoaded',function(){
+  // Warm AudioContext on ANY user interaction - required for iOS
+  document.addEventListener('touchstart', warmAC, {once:false, passive:true});
+  document.addEventListener('mousedown', warmAC, {once:false, passive:true});
+  // Also init AudioContext immediately on load attempt
+  getAC();
   load();checkStreak();
   var k=S.apiKey||'';
   if(k){KEY=k;el('api-setup').classList.add('done');}
